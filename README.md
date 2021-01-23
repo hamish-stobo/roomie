@@ -6,7 +6,7 @@
 - I want to be able to login to an account that I have created
 - I want to be able to see a list of available rooms for rent
 Register interest
-
+---
 - As a Lister
 - I want to be able to list an advert
 - I want to be able to see users interested in advert
