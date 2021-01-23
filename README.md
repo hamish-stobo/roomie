@@ -7,3 +7,8 @@
 - I want to be able to see a list of available rooms for rent
 Register interest
 
+- As a Lister
+- I want to be able to list an advert
+- I want to be able to see users interested in advert
+- I want to be able to remove an advert
+- i want to be able to contact users
