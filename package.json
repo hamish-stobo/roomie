@@ -1,0 +1,43 @@
+{
+  "name": "roomie",
+  "version": "1.0.0",
+  "description": "## User stories # As a user(Renter): - I want to be able to create an account - I want to be able to login to an account that I have created - I want to be able to see a list of available rooms for rent - I want to be able to show i am interested in a listing Register interest --- # As a Lister - I want to be able to list an advert - I want to be able to see users interested in advert - I want to be able to remove an advert - i want to be able to contact users",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "start": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jared-James/roomie.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jared-James/roomie/issues"
+  },
+  "homepage": "https://github.com/Jared-James/roomie#readme",
+  "dependencies": {
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "style-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@webpack-cli/serve": "^1.2.2",
+    "html-webpack-plugin": "^5.0.0-alpha.9",
+    "sass": "^1.32.5",
+    "sass-loader": "^10.1.1",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
