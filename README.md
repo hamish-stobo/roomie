@@ -1,4 +1,5 @@
 # roomie
+## Taking the stress out of flatting
 
 ## User stories
 # As a user(Renter):
