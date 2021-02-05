@@ -38,6 +38,7 @@
     "@webpack-cli/serve": "^1.2.2",
     "html-webpack-plugin": "^5.0.0-alpha.9",
     "knex": "^0.21.17",
+    "nodemon": "^2.0.7",
     "pg": "^8.5.1",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
