@@ -14,11 +14,22 @@ const mockResponse = {
 };
 app.use(express.static(DIST_DIR));
 
-app.get('/getUsers', (req, res) => {
-  db.getUsers()
-    .then(users => {
-      res.send(JSON.stringify(users))
-    })
+app.get('/getUsers', async (req, res) => {
+  try {
+    const users = await db.getUsers()
+    res.send(JSON.stringify(users))
+  } catch (e) {
+    console.error(e)
+  }
+})
+
+app.get('/testAdsSeed', async (req, res) => {
+  try {
+    const adsRes = await db.manualAdvertisementsSeed()
+    res.send(JSON.stringify(adsRes))
+  } catch (e) {
+    console.error(e)
+  }
 })
 
 app.get('/api', (req, res) => {
