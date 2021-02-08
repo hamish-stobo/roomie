@@ -36,6 +36,7 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@webpack-cli/serve": "^1.2.2",
+    "dotenv": "^8.2.0",
     "html-webpack-plugin": "^5.0.0-alpha.9",
     "knex": "^0.21.17",
     "nodemon": "^2.0.7",
