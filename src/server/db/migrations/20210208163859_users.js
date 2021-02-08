@@ -1,14 +1,14 @@
 
-exports.up = function(knex) {
-    knex.schema.createTable('users', function (table) {
-        table.uuid('id').unique();
-        table.string('email').unique();
-        table.string('first_name');
-        table.string('last_name');
+exports.up = knex => {
+    return knex.schema.createTable('users', table => {
+        table.uuid('id').unique().notNullable();
+        table.string('email').unique().notNullable();
+        table.string('first_name').notNullable();
+        table.string('last_name').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now());
       })
 };
 
-exports.down = function(knex) {
-    return knex.schema.dropTable('users')
+exports.down = knex => {
+    return knex.schema.dropTableIfExists('users')
 };

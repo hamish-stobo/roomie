@@ -1,13 +1,14 @@
 
-exports.up = function(knex) {
-    knex.schema.createTable('advertisements', function (table) {
-        table.uuid('id').unique();
+exports.up = knex => {
+    return knex.schema.createTable('advertisements', table => {
+        table.uuid('id').unique().notNullable();
+        table.uuid('user_id').notNullable();
         table.foreign('user_id').references('id').inTable('users');
-        table.float('rent', { precision: 2 })
+        table.float('rent', { precision: 2 }).notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now());
       })
 };
 
-exports.down = function(knex) {
-    return knex.schema.dropTable('advertisements');
+exports.down = knex => {
+    return knex.schema.dropTableIfExists('advertisements');
 };
