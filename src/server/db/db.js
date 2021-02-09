@@ -1,7 +1,7 @@
 const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../knexfile')[environment]
 const connection = require('knex')(config)
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
 
 const getUsers = async (db = connection) => {
     try {
@@ -15,13 +15,16 @@ const getUsers = async (db = connection) => {
 const manualAdvertisementsSeed = async (db = connection) => {
     try {
         const userResponse = await db('users').select()
-        const whoKnows = await userResponse.map(user => {
-                const adsRes = db('advertisements')
+        const whoKnows = userResponse.forEach( async user => {
+            try {
+                await db('advertisements')
                     .insert({id: uuidv4(), user_id: user.id, rent: Math.round(Math.random() * 100)})
-                    .catch(e => console.log(e))
+            } catch (e) {
+                console.error(e)
+            }
         })
-        console.log(whoKnows)
-        return await db('advertisements').select()
+        const allAds = db('advertisements').select()
+        return allAds
     } catch (e) {
         console.error(e)
     }
