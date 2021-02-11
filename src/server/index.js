@@ -19,16 +19,16 @@ app.get('/getUsers', async (req, res) => {
     const users = await db.getUsers()
     res.send(JSON.stringify(users))
   } catch (e) {
-    console.error(e)
+    console.error({msg: 'Error from /getUsers'},e)
   }
 })
 
-app.get('/testAdsSeed', async (req, res) => {
+app.get('/selectAllAds', async (req, res) => {
   try {
-    const adsRes = await db.manualAdvertisementsSeed()
+    const adsRes = await db.selectAllAds()
     res.send(JSON.stringify(adsRes))
   } catch (e) {
-    console.error(e)
+    console.error({msg: 'Error from /selectAllAds'}, e)
   }
 })
 
