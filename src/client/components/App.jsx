@@ -4,14 +4,20 @@ import GetListings from './GetListings'
 import ListersProfile from './ListersProfile'
 import NavBar from './NavBar'
 import UserProfile from './UserProfile'
+import Header from './Header'
+import Footer from './Footer'
 
 const App = () => {
   return (
     <>
-    <NavBar />
-    <GetListings />
-    <ListersProfile />
-    <UserProfile />
+      <div class="grid-container">
+        <Header />
+        <NavBar />
+        <GetListings />
+        {/* <ListersProfile /> */}
+        {/* <UserProfile /> */}
+        <Footer />
+      </div>
     </>
   )
 }

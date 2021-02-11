@@ -3,12 +3,14 @@ import '../../../styles/styles'
 import DisplayListings from './DisplayListings'
 
 const GetListings = () => {
-  return (
-    <>
-    <h3>GetListings</h3>
-    <DisplayListings />
-    </>
-  )
+    return (
+        <>
+            <div class="GetListings">
+                <h3>GetListings</h3>
+                <DisplayListings />
+            </div>
+        </>
+    )
 }
 
 export default GetListings

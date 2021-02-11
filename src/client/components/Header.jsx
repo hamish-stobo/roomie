@@ -1,14 +1,15 @@
 import React from 'react'
 import '../../../styles/styles'
 
-const NavBar = () => {
+const Header = () => {
     return (
         <>
-            <div class="NavBar">
-                <h3>NavBar</h3>
+            <div class="Header">
+                <h3>Roomie</h3>
             </div>
+
         </>
     )
 }
 
-export default NavBar
+export default Header
