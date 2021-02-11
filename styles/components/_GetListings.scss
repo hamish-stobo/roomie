@@ -1,4 +1,13 @@
 .GetListings {
     outline: 1px solid grey;
-    grid-gap: 5cm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.GetListings {
+    > h3 {
+        color: red;
+    }
 }

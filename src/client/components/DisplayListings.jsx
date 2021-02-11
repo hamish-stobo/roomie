@@ -1,11 +1,19 @@
 import React from 'react'
 import '../../../styles/styles'
 
-const DisplayListings = () => {
+const DisplayListings = (props) => {
+  console.log('props', props)
+  let user = props.users
+
   return (
     <>
-    <h3>DisplayListings</h3>
-    <h4>This is inside getListings</h4>
+      <div class="display-listings">
+        <ul>
+          <li>{user.first_name}</li>
+          <li>{user.last_name}</li>
+          <li>{user.email}</li>
+        </ul>
+      </div>
     </>
   )
 }
