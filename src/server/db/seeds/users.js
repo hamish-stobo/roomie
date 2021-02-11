@@ -18,9 +18,9 @@ exports.seed = async knex => {
     await knex('advertisements').del()
     await knex('users').del()
     await knex('users').insert([
-          {id: uuidv4(), email: 'hello@test1.com', first_name: 'John', last_name: 'Smith'},
-          {id: uuidv4(), email: 'testemail@test2.com', first_name: 'Jane', last_name: 'Kelly'},
-          {id: uuidv4(), email: 'myemail@test1.com', first_name: 'Jeremy', last_name: 'Brown'}
+          {id: uuidv4(), email: 'hello@test1.com', first_name: 'John', last_name: 'Smith', password: 'test1'},
+          {id: uuidv4(), email: 'testemail@test2.com', first_name: 'Jane', last_name: 'Kelly', password: 'test2'},
+          {id: uuidv4(), email: 'myemail@test1.com', first_name: 'Jeremy', last_name: 'Brown', password: 'test3'}
       ])
     const usersArray = await knex.select('id').from('users')
     const usersIdsArray = pullIds(usersArray)
@@ -43,8 +43,19 @@ exports.seed = async knex => {
       {id: uuidv4(), suburb: 'Remuera', postcode: 1050, user_id: usersIdsArray[2]},
       {id: uuidv4(), suburb: 'Ellerslie', postcode: 1051, advertisement_id: advertisementsIdsArray[2]}
     ])
+    await knex('interest').insert([
+      {id: uuidv4(), user_id: usersIdsArray[0], advertisement_id: advertisementsIdsArray[0]},
+      {id: uuidv4(), user_id: usersIdsArray[1], advertisement_id: advertisementsIdsArray[0]},
+      {id: uuidv4(), user_id: usersIdsArray[2], advertisement_id: advertisementsIdsArray[0]},
+      {id: uuidv4(), user_id: usersIdsArray[0], advertisement_id: advertisementsIdsArray[1]},
+      {id: uuidv4(), user_id: usersIdsArray[1], advertisement_id: advertisementsIdsArray[1]},
+      {id: uuidv4(), user_id: usersIdsArray[2], advertisement_id: advertisementsIdsArray[1]},
+      {id: uuidv4(), user_id: usersIdsArray[0], advertisement_id: advertisementsIdsArray[2]},
+      {id: uuidv4(), user_id: usersIdsArray[1], advertisement_id: advertisementsIdsArray[2]},
+      {id: uuidv4(), user_id: usersIdsArray[2], advertisement_id: advertisementsIdsArray[2]},
+    ])
   } catch (e) {
-    console.error(`error from seed file :( ${e}`)
+    console.error({msg: 'error from seeds file'}, e)
   }
   }
 
