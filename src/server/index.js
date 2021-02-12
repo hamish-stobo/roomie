@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 6969;
 const DIST_DIR = path.join(__dirname, '../', '../dist'); 
 const HTML_FILE = path.join(DIST_DIR, 'index.html'); 
 const mockResponse = {
@@ -30,12 +30,21 @@ app.get('/getUsers', async (req, res) => {
   }
 })
 
-app.get('/selectAllAds', async (req, res) => {
+app.get('/selectAllads', async (req, res) => {
   try {
-    const adsRes = await db.selectAllAds()
+    const adsRes = await db.selectAllads()
     res.send(JSON.stringify(adsRes))
   } catch (e) {
-    console.error({msg: 'Error from /selectAllAds'}, e)
+    console.error({msg: 'Error from /selectAllads'}, e)
+  }
+})
+
+app.get('/selectAllAdsJoinLocationInterest', async (req, res) => {
+  try {
+    const adsRes = await db.selectAllAdsJoinLocationInterest()
+    res.send(JSON.stringify(adsRes))
+  } catch (e) {
+    console.error({msg: 'Error from /selectAllAdsJoinLocationInterest'}, e)
   }
 })
 
