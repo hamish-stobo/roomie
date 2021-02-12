@@ -2,7 +2,6 @@ import React from 'react'
 import '../../../styles/styles'
 
 const DisplayListings = (props) => {
-  console.log('props', props)
   let user = props.users
 
   return (

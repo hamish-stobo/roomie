@@ -11,22 +11,24 @@ const SignUpForm = () => {
     const submit = (e) => {
         e.preventDefault()
 
-        // alert(`here is ur data: {
-        //     firstname: ${firstName}
-        //     lastname: ${lastName}
-        //     email: ${email}
-        // }`)
+        alert(`here is ur data: {
+            firstname: ${firstName}
+            lastname: ${lastName}
+            email: ${email}
+        }`)
+        
+        /* This should work once we get /register up and running */
 
-          axios.post('/register ', {
-            data: {
-                first_name: firstName,
-                last_name: lastName,
-                email: email,
-                password: password,
-            },
-        }).then(res => {
-            console.log('res worked',res)
-        })
+        //   axios.post('/register ', {
+        //     data: {
+        //         first_name: firstName,
+        //         last_name: lastName,
+        //         email: email,
+        //         password: password,
+        //     },
+        // }).then(res => {
+        //     console.log('res worked',res)
+        // })
 
     }
 
