@@ -6,6 +6,7 @@ import NavBar from './NavBar'
 import UserProfile from './UserProfile'
 import Header from './Header'
 import Footer from './Footer'
+import SignUpForm from './SignUpForm'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <GetListings />
         {/* <ListersProfile /> */}
         {/* <UserProfile /> */}
+        <SignUpForm />
         <Footer />
       </div>
     </>
