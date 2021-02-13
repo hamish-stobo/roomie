@@ -39,12 +39,12 @@ app.get('/selectAllads', async (req, res) => {
   }
 })
 
-app.get('/selectAllAdsJoinLocationInterest', async (req, res) => {
+app.get('/getInterestsForAds', async (req, res) => {
   try {
-    const adsRes = await db.selectAllAdsJoinLocationInterest()
+    const adsRes = await db.getInterestsForAds()
     res.send(JSON.stringify(adsRes))
   } catch (e) {
-    console.error({msg: 'Error from /selectAllAdsJoinLocationInterest'}, e)
+    console.error({msg: 'Error from /getInterestsForAds'}, e)
   }
 })
 

@@ -13,51 +13,61 @@ const getUsers = async (db = conn) => {
 }
 
 const selectAllads = async (db = conn) => {
-    const ads = await db('advertisements')
-        .select()
+    const ads = await db
+        .select('location.advertisement_id','rent')
+        .from('advertisements')
+        .join('location', 'advertisement_id', '=', 'advertisements.id')
+        .whereNull('location.user_id')
     return ads
 }
 
-const selectAllAdsJoinLocationInterest = async (db = conn) => {
+const getInterestsForAds = async (db = conn) => {
     try {
-        //this will return an array of ads, joining the location table where
-        //advertisements.id equals location.advertisement_id and where
-        //location.user_id is null
-        const ads = await db
-            .select('rent', 'suburb', 'postcode', 'interest.user_id', 'interest.advertisement_id')
-            .from('advertisements')
-            .join('location', 'advertisement_id', '=', 'advertisements.id')
-            .whereNull('location.user_id')
-            .join('interest', 'interest.advertisement_id', '=', 'advertisements.id')
-        // console.log(`A fine selection of ads my dear sir: \n${JSON.stringify(ads)}`)
+        //get the ads and their locations
+        const adsArr = await selectAllads()
 
-        console.log(ads.length)
-        const structuredArr = []
-        // let interestArr = []
-        if(ads.length == 0) return []
-        ads.map((ad, idx) => {
-            console.log(`ad.user_id: ${ad.user_id}`)
-            // interestArr.push({user_id: ad.user_id})
-            // console.log(`interestArr: ${JSON.stringify(interestArr)}`)
-            if(structuredArr.length == 0 || structuredArr.find(el => el.advertisement_id !== ad.advertisement_id)) {
-                console.log(`ads[idx].advertisement_id: ${ads[idx].advertisement_id}`)
-                console.log(`ad.advertisement_id: ${ad.advertisement_id}`)
-                structuredArr.push(
-                    {
-                        advertisement_id: ad.advertisement_id,
-                        rent:  ad.rent,
-                        postcode: ad.postcode,
-                        interestArr: [ad.user_id]
-                    }
-                )
+        //if no ads, don't query the interest table
+        if(adsArr.length == 0) {
+            console.log('no ads yo')
+            return []
+        }
+
+        //get all the users interest records
+        const interests = await db
+            .select('interest.user_id', 'interest.advertisement_id')
+            .from('advertisements')
+            .join('interest', 'interest.advertisement_id', '=', 'advertisements.id')
+        
+        //we add this return before trying to loop over the interest array, so we account for
+        //if there are no interest found in the interest table.
+        if(interests.length == 0) {
+            console.log('no likes yo')
+            return adsArr
+        }
+        //if there are ads found, do some crazy shiet
+        console.log(JSON.stringify(adsArr))
+        console.log(JSON.stringify(interests))
+        //loop over interest array
+        interests.map(interest => {
+            //find the position in the ads array to insert the array of interested users for that ad
+            console.log(`interest: ${JSON.stringify(interest)}`)
+            let indexToChange = adsArr.findIndex(ad => ad.advertisement_id == interest.advertisement_id)
+            console.log(`indexToChange: ${JSON.stringify(indexToChange)}`)
+
+            let ad = adsArr[indexToChange]
+            console.log(`ad: ${JSON.stringify(ad)}`)
+            
+            //if the current ad doesn't have any interests, and there are some to add, add them
+            if(!ad.hasOwnProperty('interestArr')) {
+                    ad.interestArr = interest.user_id && [{user_id: interest.user_id}]
             } else {
-                if(structuredArr[structuredArr.length-1].hasOwnProperty('interestArr')) {
-                    structuredArr[structuredArr.length-1].interestArr.push(ad.user_id)
+                //otherwise, if the current ad DOES have interestArr, and there are some to add, add them
+                if(ad.hasOwnProperty('interestArr')){
+                    interest.user_id && ad.interestArr.push({user_id: interest.user_id})
                 }
             }
         })
-        console.log(JSON.stringify(structuredArr))
-        console.log(`Structured array length: ${structuredArr.length}`)
+        return adsArr
     } catch (e) {
         console.error({msg: 'Error from selectAllAds db function'}, e)
     }
@@ -66,5 +76,5 @@ const selectAllAdsJoinLocationInterest = async (db = conn) => {
 module.exports = {
     getUsers,
     selectAllads,
-    selectAllAdsJoinLocationInterest
+    getInterestsForAds
 }
