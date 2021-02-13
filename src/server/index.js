@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db/db')
+const usersFunctions = require('./db/dbfunctions/users')
+const adsFuntions = require('./db/dbfunctions/advertisements')
 let cors = require('cors')
 
 require('dotenv').config();
@@ -23,7 +25,7 @@ app.use(express.static(DIST_DIR));
 
 app.get('/getUsers', async (req, res) => {
   try {
-    const users = await db.getUsers()
+    const users = await usersFunctions.getUsers()
     res.send(JSON.stringify(users))
   } catch (e) {
     console.error({msg: 'Error from /getUsers'},e)
@@ -32,19 +34,10 @@ app.get('/getUsers', async (req, res) => {
 
 app.get('/selectAllads', async (req, res) => {
   try {
-    const adsRes = await db.selectAllads()
+    const adsRes = await adsFuntions.selectAllads()
     res.send(JSON.stringify(adsRes))
   } catch (e) {
     console.error({msg: 'Error from /selectAllads'}, e)
-  }
-})
-
-app.get('/getInterestsForAds', async (req, res) => {
-  try {
-    const adsRes = await db.getInterestsForAds()
-    res.send(JSON.stringify(adsRes))
-  } catch (e) {
-    console.error({msg: 'Error from /getInterestsForAds'}, e)
   }
 })
 

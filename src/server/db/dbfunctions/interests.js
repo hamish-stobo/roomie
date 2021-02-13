@@ -1,37 +1,9 @@
 const environment = process.env.NODE_ENV || 'development'
-const config = require('../../../knexfile')[environment]
+const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
-const { v4: uuidv4 } = require('uuid')
 
-const getUsers = async (db = conn) => {
+const getInterestsForAds = async (adsArr, db = conn) => {
     try {
-        const response = await db('users').select()
-        return response
-    } catch (e) {
-        console.error({msg: 'Error from getUsers db function'}, e)
-    }
-}
-
-const selectAllads = async (db = conn) => {
-    const ads = await db
-        .select('location.advertisement_id','rent')
-        .from('advertisements')
-        .join('location', 'advertisement_id', '=', 'advertisements.id')
-        .whereNull('location.user_id')
-    return ads
-}
-
-const getInterestsForAds = async (db = conn) => {
-    try {
-        //get the ads and their locations
-        const adsArr = await selectAllads()
-
-        //if no ads, don't query the interest table
-        if(adsArr.length == 0) {
-            console.log('no ads yo')
-            return []
-        }
-
         //get all the users interest records
         const interests = await db
             .select('interest.user_id', 'interest.advertisement_id')
@@ -74,7 +46,5 @@ const getInterestsForAds = async (db = conn) => {
 }
 
 module.exports = {
-    getUsers,
-    selectAllads,
     getInterestsForAds
 }
