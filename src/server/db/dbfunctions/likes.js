@@ -4,7 +4,12 @@ const conn = require('knex')(config)
 
 const getAllLikesForOneUser = async (userId, db = conn) => {
     try {
-
+        const likes = await db
+            .select('listing_id')
+            .from('likes')
+            .where('user_id', userId)
+        console.log(likes)
+        return likes
     } catch (e) {
         console.error({msg: 'Error from getAllLikesForOneUser'}, e)
     }
