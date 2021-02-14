@@ -2,6 +2,14 @@ const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
 
+const getAllLikesForOneUser = async (userId, db = conn) => {
+    try {
+
+    } catch (e) {
+        console.error({msg: 'Error from getAllLikesForOneUser'}, e)
+    }
+}
+
 const getAllLikesPerListing = async (listingsArr, db = conn) => {
     try {
         //get all the users likes
@@ -47,5 +55,6 @@ const getAllLikesPerListing = async (listingsArr, db = conn) => {
 }
 
 module.exports = {
-    getAllLikesPerListing
+    getAllLikesPerListing,
+    getAllLikesForOneUser
 }

@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const usersFunctions = require('./db/dbfunctions/users')
-const adsFuntions = require('./db/dbfunctions/listings')
-let cors = require('cors')
+const listingsFunctions = require('./db/dbfunctions/listings')
+const cors = require('cors')
 
 require('dotenv').config();
 
@@ -22,21 +22,23 @@ app.use(cors())
 
 app.use(express.static(DIST_DIR));
 
-app.get('/getUsers', async (req, res) => {
+app.get('/profile/:first_name', async (req, res) => {
   try {
-    const users = await usersFunctions.getUsers()
-    res.send(JSON.stringify(users))
+    const userFirstName = req.params.first_name
+    const profile = await usersFunctions.getUser(userFirstName)
+    res.send(JSON.stringify(profile))
   } catch (e) {
-    console.error({msg: 'Error from /getUsers'},e)
+    console.error({msg: 'Error from /getUsers'}, e)
+    res.send
   }
 })
 
-app.get('/selectAllListings', async (req, res) => {
+app.get('/home', async (req, res) => {
   try {
-    const adsRes = await adsFuntions.selectAllListings()
-    res.send(JSON.stringify(adsRes))
+    const listingsAndLikes = await listingsFunctions.selectAllListings()
+    res.send(JSON.stringify(listingsAndLikes))
   } catch (e) {
-    console.error({msg: 'Error from /selectAllListings'}, e)
+    console.error({msg: 'Error from /home'}, e)
   }
 })
 
@@ -47,6 +49,18 @@ app.get('/api', (req, res) => {
 app.get('/', (req, res) => {
  res.sendFile(HTML_FILE);
 });
+
+app.get('/teapot', async (req, res) => {
+  try {
+    res.status(418).send(JSON.stringify({
+      isTeapot: 'true',
+      teaType: 'Earl Grey',
+      message: 'I\'m a little teapot, short and stout. You found the easter egg! Celebrate! Shout!'
+    }))
+  } catch (e) {
+    console.error({msg: 'Error from the teapot route hahaha'}, e)
+  }
+})
 
 app.listen(port, function () {
  console.log('App listening on port: ' + port);
