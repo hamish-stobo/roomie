@@ -2,16 +2,33 @@ const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
 
-const getAllLikesForOneUser = async (userId, db = conn) => {
+const getAllLikesForOne = async (id, type, db = conn) => {
     try {
-        const likes = await db
+        const returningLikes = []
+        switch (type) {
+        case 'user':
+            //get all the listings where a user has left likes
+            const userLikes = await db
             .select('listing_id')
             .from('likes')
-            .where('user_id', userId)
-        console.log(likes)
-        return likes
+            .where('user_id', id)
+            
+            returningLikes.push(...userLikes)
+            break
+        case 'listing':
+            //get all user_ids of likes left for a particular listing
+            const listingLikes = await db
+            .select('user_id')
+            .from('likes')
+            .where('listing_id', id)
+            returningLikes.push(...listingLikes)
+            break
+        default:
+            throw 'Invalid type argument provided to getAllLikesForOne'
+        }
+        return returningLikes
     } catch (e) {
-        console.error({msg: 'Error from getAllLikesForOneUser'}, e)
+        console.error({msg: 'Error from getAllLikesForOne'}, e)
     }
 }
 
@@ -61,5 +78,5 @@ const getAllLikesPerListing = async (listingsArr, db = conn) => {
 
 module.exports = {
     getAllLikesPerListing,
-    getAllLikesForOneUser
+    getAllLikesForOne
 }

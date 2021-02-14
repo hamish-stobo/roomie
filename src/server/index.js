@@ -22,6 +22,26 @@ app.use(cors())
 
 app.use(express.static(DIST_DIR));
 
+app.get('/home', async (req, res) => {
+  try {
+    const listingsAndLikes = await listingsFunctions.selectAllListings()
+    res.send(JSON.stringify(listingsAndLikes))
+  } catch (e) {
+    console.error({msg: 'Error from /home'}, e)
+  }
+})
+
+app.get('/listing/:listing_id', async (req, res) => {
+  try {
+    const listingId = req.params.listing_id
+    const listing = await listingsFunctions.getListing(listingId)
+    res.send(JSON.stringify(listing))
+  } catch (e) {
+    console.error({msg: 'Error from /listing'}, e)
+    res.send
+  }
+})
+
 app.get('/profile/:first_name', async (req, res) => {
   try {
     const userFirstName = req.params.first_name
@@ -30,15 +50,6 @@ app.get('/profile/:first_name', async (req, res) => {
   } catch (e) {
     console.error({msg: 'Error from /getUsers'}, e)
     res.send
-  }
-})
-
-app.get('/home', async (req, res) => {
-  try {
-    const listingsAndLikes = await listingsFunctions.selectAllListings()
-    res.send(JSON.stringify(listingsAndLikes))
-  } catch (e) {
-    console.error({msg: 'Error from /home'}, e)
   }
 })
 
