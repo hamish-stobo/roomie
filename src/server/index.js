@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
-const db = require('./db/db')
 const usersFunctions = require('./db/dbfunctions/users')
-const adsFuntions = require('./db/dbfunctions/advertisements')
+const adsFuntions = require('./db/dbfunctions/listings')
 let cors = require('cors')
 
 require('dotenv').config();
@@ -32,12 +31,12 @@ app.get('/getUsers', async (req, res) => {
   }
 })
 
-app.get('/selectAllads', async (req, res) => {
+app.get('/selectAllListings', async (req, res) => {
   try {
-    const adsRes = await adsFuntions.selectAllads()
+    const adsRes = await adsFuntions.selectAllListings()
     res.send(JSON.stringify(adsRes))
   } catch (e) {
-    console.error({msg: 'Error from /selectAllads'}, e)
+    console.error({msg: 'Error from /selectAllListings'}, e)
   }
 })
 
