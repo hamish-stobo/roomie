@@ -1,29 +1,32 @@
 require('dotenv').config();
 
+
 const express = require('express');
 const path = require('path');
 const cors = require('cors')
 const app = express();
 app.use(cors())
+const DIST_DIR = path.join(__dirname, '../', '../dist');
+app.use(express.static(DIST_DIR));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 //route modules
 const listing = require('./routes/listing')
 const profile = require('./routes/profile')
+//routes
+app.use('/api/v1/listing', listing)
+app.use('/api/v1/profile', profile)
 
-const DIST_DIR = path.join(__dirname, '../', '../dist'); 
 const HTML_FILE = path.join(DIST_DIR, 'index.html'); 
 const mockResponse = {
   foo: 'bar',
   bar: 'foo'
 };
 
-app.use(express.static(DIST_DIR));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 
-//routes
-app.use('/api/v1/listing', listing)
-app.use('/api/v1/profile', profile)
+
+
 
 app.get('/', (req, res) => {
  res.sendFile(HTML_FILE);
