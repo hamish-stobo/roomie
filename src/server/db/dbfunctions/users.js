@@ -28,7 +28,8 @@ const updateUser = async (first_name, user, db = conn) => {
     try {
         const updateUser = await db('users')
             .where('first_name', first_name)
-            .update({...user}, ['email', 'first_name'])
+            .update({...user}, ['email', 'first_name', 'last_name', 'bio'])
+        console.log(`updateUser ${updateUser}`)
         return updateUser
     } catch (e) {
         console.error({msg: 'Error from updateUser db function'}, e)

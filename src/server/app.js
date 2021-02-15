@@ -18,6 +18,8 @@ const mockResponse = {
 };
 
 app.use(express.static(DIST_DIR));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 //routes
 app.use('/api/v1/listing', listing)

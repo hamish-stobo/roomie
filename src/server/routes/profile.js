@@ -20,11 +20,10 @@ router.get('/:first_name', async (req, res) => {
 router.put('/:first_name', async (req, res) => {
     try {
         const userFirstName = req.params.first_name
-        console.log(`typeof body: ${typeof req.body}`)
-        const body = JSON.stringify(req.body)
+        const body = req.body
         console.log(`first_name: ${userFirstName}, req.body: ${body} `)
-        // const profile = await usersFunctions.updateUser(userFirstName.length, body)
-        // res.send(JSON.stringify(profile))
+        const profile = await usersFunctions.updateUser(userFirstName, body)
+        res.send(JSON.stringify(profile))
       } catch (e) {
         console.error({msg: 'Error from /getUsers'}, e)
         res.status(500).send('Could not update at /profile')
