@@ -6,11 +6,17 @@ const usersFunctions = require('../db/dbfunctions/users')
 //left likes on.
 
 //if no profile found, an empty object will be returned
-router.get('/:first_name', async (req, res) => {
+router.get('/:user_id', async (req, res) => {
     try {
-      const userFirstName = req.params.first_name
-      const profile = await usersFunctions.getUser(userFirstName)
-      res.status(200).send(JSON.stringify(profile))
+      const { user_id } = req.params
+      const profile = await usersFunctions.getUser(user_id)
+      if(!profile || profile === {}) {
+        res.status(404).send('Profile not found :(')
+        // res.status(500).send('Update to profile failed')
+    } else {
+        //if update is successful
+        res.status(200).send(JSON.stringify(profile))
+    }
     } catch (e) {
       console.error({msg: 'Error from /GET /profile'}, e)
       res.status(500).send('Could not GET /profile')
@@ -18,9 +24,9 @@ router.get('/:first_name', async (req, res) => {
   })
 
 //
-router.put('/:first_name', async (req, res) => {
+router.put('/:user_id', async (req, res) => {
     try {
-        const userFirstName = req.params.first_name
+        const user_id = req.params.user_id
         const body = req.body
         //check that request body keys are named correctly
         let checkBody = false
@@ -37,14 +43,14 @@ router.put('/:first_name', async (req, res) => {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
-            const profile = await usersFunctions.updateUser(userFirstName, body)
+            const profile = await usersFunctions.updateUser(user_id, body)
             //if no profile found to update, throw error to the catch block
             if(!profile || profile === {}) {
                 throw Error('Update to profile failed')
                 // res.status(500).send('Update to profile failed')
             } else {
                 //if update is successful
-                res.send(JSON.stringify(profile))
+                res.status(200).send(JSON.stringify(profile))
             }
         }
       } catch (e) {

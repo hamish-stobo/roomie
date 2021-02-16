@@ -29,6 +29,7 @@ const getAllLikesForOne = async (id, type, db = conn) => {
         return returningLikes
     } catch (e) {
         console.error({msg: 'Error from getAllLikesForOne'}, e)
+        return Error('Error from getAllLikesForOne')
     }
 }
 
@@ -43,22 +44,15 @@ const getAllLikesPerListing = async (listingsArr, db = conn) => {
         //we add this return before trying to loop over the likes array, so we account for
         //if there are no likes found in the likes table.
         if(likes.length == 0) {
-            console.log('no likes yo')
             return listingsArr
         }
-        //if there are listings found, do some crazy shiet
-        console.log(JSON.stringify(listingsArr))
-        console.log(JSON.stringify(likes))
+        //if there are listings found, do some crazy shiet:
+        
         //loop over likes array
         likes.map(like => {
             //find the position in the listings array to insert the array of likesed users for that listing
-            console.log(`likes: ${JSON.stringify(like)}`)
             let indexToChange = listingsArr.findIndex(listing => listing.listing_id == like.listing_id)
-            console.log(`indexToChange: ${JSON.stringify(indexToChange)}`)
-
-            let listing = listingsArr[indexToChange]
-            console.log(`listing: ${JSON.stringify(listing)}`)
-            
+            let listing = listingsArr[indexToChange]            
             //if the current listing doesn't have any likes, and there are some to add, add them
             if(!listing.hasOwnProperty('likesArr')) {
                     listing.likesArr = like.user_id && [{user_id: like.user_id}]

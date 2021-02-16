@@ -24,10 +24,6 @@ const mockResponse = {
   bar: 'foo'
 };
 
-
-
-
-
 app.get('/', (req, res) => {
  res.sendFile(HTML_FILE);
 });
@@ -36,6 +32,7 @@ app.get('/api', (req, res) => {
   res.send(mockResponse);
 });
 
+//easter egg route for the lols
 app.get('/teapot', async (req, res) => {
   try {
     res.status(418).send(JSON.stringify({
@@ -45,6 +42,7 @@ app.get('/teapot', async (req, res) => {
     }))
   } catch (e) {
     console.error({msg: 'Error from the teapot route hahaha'}, e)
+    res.status(404).send('You tried to find the teapot. You failed.')
   }
 })
 

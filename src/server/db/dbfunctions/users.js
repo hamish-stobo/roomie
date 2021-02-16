@@ -3,12 +3,12 @@ const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
 const getAllLikesForOne = require('./likes').getAllLikesForOne
 
-const getUser = async (first_name, db = conn) => {
+const getUser = async (userID, db = conn) => {
     try {
         const profileArr = await db
             .select('user_id', 'email', 'first_name', 'last_name', 'bio')
             .from('users')
-            .where('first_name', first_name)
+            .where('users.id', userID)
             .join('location', 'user_id', '=', 'users.id')
             .whereNull('location.listing_id')
             .select('suburb', 'postcode')
@@ -24,9 +24,9 @@ const getUser = async (first_name, db = conn) => {
     }
 }
 
-const updateUser = async (first_name, user, db = conn) => {
+const updateUser = async (userID, user, db = conn) => {
     const updateUser = await db('users')
-        .where('first_name', first_name)
+        .where('id', userID)
         .update({...user}, ['email', 'first_name', 'last_name', 'bio'])
     console.log(`updateUser ${updateUser}`)
     return updateUser[0]

@@ -20,6 +20,7 @@ const getListing = async (listingId, db = conn) => {
         return listing
     } catch (e) {
         console.error({msg: 'Error from getListing DB function'}, e)
+        return Error('Error from getAllLikesForOne')
     }
 }
 

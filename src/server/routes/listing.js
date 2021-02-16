@@ -6,10 +6,14 @@ const listingsFunctions = require('../db/dbfunctions/listings')
 router.get('/', async (req, res) => {
     try {
       const listingsAndLikes = await listingsFunctions.getAllListings()
-      res.send(JSON.stringify(listingsAndLikes))
+      if(listingsAndLikes.length == 0) {
+        res.status(404).send('Our database is an empty desert. No listings were found.')
+      } else {
+        res.status(200).send(JSON.stringify(listingsAndLikes))
+      }
     } catch (e) {
       console.error({msg: 'Error from /'}, e)
-      res.status(500).send('Whoops from api/v1/listing/')
+      res.status(500).send('Error from GET all listings')
     }
   })
 
@@ -18,12 +22,16 @@ router.get('/', async (req, res) => {
 //who have left likes on that listing.
 router.get('/:listing_id', async (req, res) => {
 try {
-    const listingId = req.params.listing_id
-    const listing = await listingsFunctions.getListing(listingId)
-    res.send(JSON.stringify(listing))
+    const { listing_id } = req.params
+    const listing = await listingsFunctions.getListing(listing_id)
+    if(!listing || listing == {}) {
+      res.status(404).send('There\'s no listing by that name around these parts. Now, be on your way.')
+    } else {
+      res.status(200).send(JSON.stringify(listing))
+    }
 } catch (e) {
     console.error({msg: 'Error from /listing'}, e)
-    res.send
+    res.status(500).send('Error from GET listing route.')
 }
 })
 
