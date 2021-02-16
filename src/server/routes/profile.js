@@ -1,5 +1,39 @@
 const router = require('express').Router()
-const usersFunctions = require('../db/dbfunctions/users')
+const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
+
+//insert a new user
+router.post('/', async (req, res) => {
+        const body = req.body
+        //check that request body keys are named correctly
+        let checkBody = false
+        const keys = ['first_name', 'last_name', 'email', 'bio']
+        keys.forEach(key => {
+            //check that request body contains valid keys
+            //values of those keys can be empty, but request body must contain the keys
+            if(!body.hasOwnProperty(key)) {
+                checkBody = true
+            }
+        })
+        //if client data is bad, tell them that they're bad and they should feel bad
+        if(body == {} || checkBody === true) {
+            res.status(400).send('Request data malformed')
+        } else {
+            //do the DB stuff
+            const profile = await createUser(body)
+            //if no profile found to update, throw error to the catch block
+            if(!profile) {
+                throw Error('Create profile failed')
+                // res.status(500).send('Update to profile failed')
+            } else {
+                //if update is successful
+                res.status(200).send(JSON.stringify(profile))
+            }
+        }
+      } catch (e) {
+        console.error({msg: 'Error from /createUser'}, e)
+        res.status(500).send('Could not create profile')
+      }
+})
 
 //given a user's first name, will return that
 //users profile and the listings which they have 
@@ -9,7 +43,7 @@ const usersFunctions = require('../db/dbfunctions/users')
 router.get('/:user_id', async (req, res) => {
     try {
       const { user_id } = req.params
-      const profile = await usersFunctions.getUser(user_id)
+      const profile = await getUser(user_id)
       if(!profile || profile === {}) {
         res.status(404).send('Profile not found :(')
         // res.status(500).send('Update to profile failed')
@@ -43,7 +77,7 @@ router.put('/:user_id', async (req, res) => {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
-            const profile = await usersFunctions.updateUser(user_id, body)
+            const profile = await updateUser(user_id, body)
             //if no profile found to update, throw error to the catch block
             if(!profile || profile === {}) {
                 throw Error('Update to profile failed')

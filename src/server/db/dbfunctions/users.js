@@ -2,6 +2,26 @@ const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
 const getAllLikesForOne = require('./likes').getAllLikesForOne
+const { v4: uuidv4 } = require('uuid')
+
+const createUser = async (userToInsert, db = conn) => {
+    try {
+    const { email, first_name, last_name, password, bio } = userToInsert
+    const DBres = await knex('users').insert({
+        id: uuidv4(), 
+        email, 
+        first_name, 
+        last_name, 
+        password, 
+        bio
+    }, ['id'])
+    if(!DBres) throw Error('insert of user failed')
+    return DBres
+    } catch (e) {
+        console.error({msg: 'Error from createUser db function'}, e)
+    }
+    
+}
 
 const getUser = async (userID, db = conn) => {
     try {
@@ -33,6 +53,7 @@ const updateUser = async (userID, user, db = conn) => {
 }
 
 module.exports = {
+    createUser,
     getUser,
     updateUser
 }
