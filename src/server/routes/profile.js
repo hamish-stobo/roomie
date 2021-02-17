@@ -3,19 +3,22 @@ const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
 
 //insert a new user
 router.post('/', async (req, res) => {
+    try {
         const body = req.body
         //check that request body keys are named correctly
         let checkBody = false
-        const keys = ['first_name', 'last_name', 'email', 'bio']
+        const keys = ['first_name', 'last_name', 'email', 'bio', 'suburb', 'postcode']
         keys.forEach(key => {
             //check that request body contains valid keys
             //values of those keys can be empty, but request body must contain the keys
             if(!body.hasOwnProperty(key)) {
                 checkBody = true
             }
+            //check that all data attempting to be inserted is of type string
+            if(typeof body[key] !== 'string') checkBody = true
         })
         //if client data is bad, tell them that they're bad and they should feel bad
-        if(body == {} || checkBody === true) {
+        if(Object.keys(body).length == 0 || checkBody === true) {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
@@ -29,10 +32,11 @@ router.post('/', async (req, res) => {
                 res.status(200).send(JSON.stringify(profile))
             }
         }
-      } catch (e) {
-        console.error({msg: 'Error from /createUser'}, e)
-        res.status(500).send('Could not create profile')
-      }
+    }
+        catch (e) {
+            console.error({msg: 'Error from /createUser'}, e)
+            res.status(500).send('Could not create profile')
+        }
 })
 
 //given a user's first name, will return that
@@ -42,15 +46,16 @@ router.post('/', async (req, res) => {
 //if no profile found, an empty object will be returned
 router.get('/:user_id', async (req, res) => {
     try {
-      const { user_id } = req.params
-      const profile = await getUser(user_id)
-      if(!profile || profile === {}) {
+    const { user_id } = req.params
+    const profile = await getUser(user_id)
+    if(!profile) {
         res.status(404).send('Profile not found :(')
-        // res.status(500).send('Update to profile failed')
+    // res.status(500).send('Update to profile failed')
     } else {
-        //if update is successful
+    //if update is successful
         res.status(200).send(JSON.stringify(profile))
     }
+    
     } catch (e) {
       console.error({msg: 'Error from /GET /profile'}, e)
       res.status(500).send('Could not GET /profile')

@@ -6,8 +6,9 @@ const { v4: uuidv4 } = require('uuid')
 
 const createUser = async (userToInsert, db = conn) => {
     try {
-    const { email, first_name, last_name, password, bio } = userToInsert
-    const DBres = await knex('users').insert({
+    const { email, first_name, last_name, password, bio, suburb } = userToInsert
+    const postcode = parseInt(userToInsert.postcode)
+    const userInsert = await db('users').insert({
         id: uuidv4(), 
         email, 
         first_name, 
@@ -15,10 +16,15 @@ const createUser = async (userToInsert, db = conn) => {
         password, 
         bio
     }, ['id'])
-    if(!DBres) throw Error('insert of user failed')
-    return DBres
+    const locationInsert = await db('location').insert([
+        {id: uuidv4(), suburb, postcode, user_id: userInsert[0].id}
+      ], ['id'])
+    if(!userInsert) throw Error('insert of user failed')
+    if(!locationInsert) throw Error('insert of user location failed')
+    return userInsert[0]
     } catch (e) {
         console.error({msg: 'Error from createUser db function'}, e)
+        return false
     }
     
 }
@@ -41,6 +47,7 @@ const getUser = async (userID, db = conn) => {
         return profile
     } catch (e) {
         console.error({msg: 'Error from getUser db function'}, e)
+        return false
     }
 }
 
