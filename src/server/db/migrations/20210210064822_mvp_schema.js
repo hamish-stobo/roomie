@@ -1,7 +1,6 @@
-
-exports.up = knex => {
+exports.up = async knex => {
   try {
-    return knex.schema.createTable('users', table => {
+    const tablesCreated = await knex.schema.createTable('users', table => {
         table.uuid('id').unique().notNullable()
         table.string('email').unique().notNullable()
         table.string('password').notNullable()
@@ -42,6 +41,16 @@ exports.up = knex => {
         table.foreign('listing_id').references('listings.id')
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
+    
+    //populate the ENV variables with the names of the fields, so that
+    //when requests come from client, we can validate that the data
+    //is formed correctly.
+    //userskeys
+    //listingskeys
+    //locationskeys
+    //likeskeys
+
+    return tablesCreated
     } catch (e) {
       console.error({msg: 'error from migrations file'}, e)
     }
