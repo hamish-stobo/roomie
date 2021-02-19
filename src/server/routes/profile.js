@@ -7,12 +7,6 @@ router.post('/', async (req, res) => {
     try {
         const body = req.body
         //check that request body keys are named correctly
-        let checkBody = false
-        const keys = usersTableInfo.map(item => {
-            let fieldInfo = {...item}
-            return fieldInfo
-        })
-        console.log('keys: ' + keys)
         keys.forEach(key => {
             //check that request body contains valid keys
             //values of those keys can be empty, but request body must contain the keys
