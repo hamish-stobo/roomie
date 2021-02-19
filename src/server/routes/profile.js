@@ -1,13 +1,18 @@
+require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
-
+const usersTableInfo = async () => await JSON.parse(process.env.USERS_FIELDS)
 //insert a new user
 router.post('/', async (req, res) => {
     try {
         const body = req.body
         //check that request body keys are named correctly
         let checkBody = false
-        const keys = ['first_name', 'last_name', 'email', 'bio', 'suburb', 'postcode']
+        const keys = usersTableInfo.map(item => {
+            let fieldInfo = {...item}
+            return fieldInfo
+        })
+        console.log('keys: ' + keys)
         keys.forEach(key => {
             //check that request body contains valid keys
             //values of those keys can be empty, but request body must contain the keys
@@ -77,6 +82,12 @@ router.put('/:user_id', async (req, res) => {
                 checkBody = true
             }
         })
+        const usersFields = await usersTableInfo();
+        const newKeys = usersFields.map(item => {
+            let fieldInfo = {...item}
+            return fieldInfo
+        })
+        console.log('keys: ' + JSON.stringify(newKeys))
         //if client data is bad, tell them that they're bad and they should feel bad
         if(body == {} || checkBody === true) {
             res.status(400).send('Request data malformed')
@@ -93,7 +104,7 @@ router.put('/:user_id', async (req, res) => {
             }
         }
       } catch (e) {
-        console.error({msg: 'Error from /getUsers'}, e)
+        console.error({msg: 'Error from update profile'}, e)
         res.status(500).send('Could not update at /profile')
       }
 })

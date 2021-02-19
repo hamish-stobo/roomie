@@ -52,11 +52,24 @@ const getUser = async (userID, db = conn) => {
 }
 
 const updateUser = async (userID, user, db = conn) => {
+    const { 
+        email,
+        first_name,
+        last_name,
+        password,
+        bio,
+        suburb,
+        postcode
+     } = user
     const updateUser = await db('users')
         .where('id', userID)
-        .update({...user}, ['email', 'first_name', 'last_name', 'bio'])
+        .update({email, first_name, last_name, bio}, ['email', 'first_name', 'last_name', 'bio'])
+    const updateLocation = await db('location')
+        .where('user_id', userID)
+        .update({suburb, postcode}, ['user_id', 'suburb', 'postcode'])
     console.log(`updateUser ${updateUser}`)
-    return updateUser[0]
+    console.log(`updateLocation  ${updateLocation}`)
+    return { ...updateUser[0], ...updateLocation[0]}
 }
 
 module.exports = {
