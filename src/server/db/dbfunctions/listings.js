@@ -6,7 +6,7 @@ const likesFunctions = require('./likes')
 const getListing = async (listingId, db = conn) => {
     try {
         const listingArr = await db
-            .select('listing_id', 'rent', 'description')
+            .select('listing_id', 'user_id', 'rent', 'description')
             .from('listings')
             .where('listing_id', listingId)
             .join('location', 'listing_id', '=', 'listings.id')
@@ -20,11 +20,12 @@ const getListing = async (listingId, db = conn) => {
         return listing
     } catch (e) {
         console.error({msg: 'Error from getListing DB function'}, e)
-        return Error('Error from getAllLikesForOne')
+        return false
     }
 }
 
 const getAllListings = async (db = conn) => {
+    try {
     const ads = await db
         .select('location.listing_id','rent', 'description')
         .from('listings')
@@ -33,6 +34,10 @@ const getAllListings = async (db = conn) => {
         .select('suburb', 'postcode')
     if(ads.length == 0) return ads
     return likesFunctions.getAllLikesPerListing(ads)
+    } catch (e) {
+        console.error({msg: 'Error from get all listings DB function'}, e)
+        return false
+    }
 }
 
 module.exports = {

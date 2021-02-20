@@ -67,6 +67,7 @@ const getAllLikesPerListing = async (listingsArr, db = conn) => {
         return listingsArr
     } catch (e) {
         console.error({msg: 'Error from selectAlllistings db function'}, e)
+        return false
     }
 }
 
