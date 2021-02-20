@@ -13,15 +13,15 @@ const createUser = async (userToInsert, db = conn) => {
         email, 
         first_name, 
         last_name, 
-        password, 
+        password,
         bio
-    }, ['id'])
+    }, ['id', 'email', 'first_name', 'last_name', 'bio'])
     const locationInsert = await db('location').insert([
         {id: uuidv4(), suburb, postcode, user_id: userInsert[0].id}
-      ], ['id'])
+      ], ['suburb', 'postcode'])
     if(!userInsert) throw Error('insert of user failed')
     if(!locationInsert) throw Error('insert of user location failed')
-    return userInsert[0]
+    return { ...userInsert[0], ...locationInsert[0] }
     } catch (e) {
         console.error({msg: 'Error from createUser db function'}, e)
         return false
@@ -52,24 +52,28 @@ const getUser = async (userID, db = conn) => {
 }
 
 const updateUser = async (userID, user, db = conn) => {
-    const { 
-        email,
-        first_name,
-        last_name,
-        password,
-        bio,
-        suburb,
-        postcode
-     } = user
-    const updateUser = await db('users')
-        .where('id', userID)
-        .update({email, first_name, last_name, bio}, ['email', 'first_name', 'last_name', 'bio'])
-    const updateLocation = await db('location')
-        .where('user_id', userID)
-        .update({suburb, postcode}, ['user_id', 'suburb', 'postcode'])
-    console.log(`updateUser ${updateUser}`)
-    console.log(`updateLocation  ${updateLocation}`)
-    return { ...updateUser[0], ...updateLocation[0]}
+    try {
+        const { 
+            email,
+            first_name,
+            last_name,
+            bio,
+            suburb,
+            postcode
+        } = user
+        const updateUser = await db('users')
+            .where('id', userID)
+            .update({email, first_name, last_name, bio}, ['email', 'first_name', 'last_name', 'bio'])
+        const updateLocation = await db('location')
+            .where('user_id', userID)
+            .update({suburb, postcode}, ['user_id', 'suburb', 'postcode'])
+        console.log(`updateUser ${updateUser}`)
+        console.log(`updateLocation  ${updateLocation}`)
+        return { ...updateUser[0], ...updateLocation[0]}
+    } catch (e) {
+        console.error({msg: "error in updateUser"}, e)
+        return false
+    }
 }
 
 module.exports = {

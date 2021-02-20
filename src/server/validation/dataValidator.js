@@ -1,8 +1,7 @@
 require('dotenv').config()
 const env = process.env
 
-
-//pretty self explanatory, just validates UUID.
+//pretty self explanatory, just validates that a string is type UUID.
 const validateUUID = uuid => {
     const uuidRegex = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)
     return uuid.match(uuidRegex)
@@ -16,24 +15,29 @@ const validateUUID = uuid => {
 
 const convertEnvTypes = envVal => {
     let type = ""
-        switch(envVal) {
-            case "integer":
-                type += "number"
-                break
-            case "real":
-                type += "number"
-                break
-            case "text":
-                type += "string"
-                break
-            case "character varying":
-                type += "string"
-                break
-            default:
-                type += envVal
-                break
-        }
-        return type
+    envVal === "integer" || envVal == "real" ? type += "number"
+        : envVal === "text" || envVal === "character varying" ? type += "string"
+        : type += envVal
+    return type
+        
+        // switch(envVal) {
+        //     case "integer":
+        //         type += "number"
+        //         break
+        //     case "real":
+        //         type += "number"
+        //         break
+        //     case "text":
+        //         type += "string"
+        //         break
+        //     case "character varying":
+        //         type += "string"
+        //         break
+        //     default:
+        //         type += envVal
+        //         break
+        // }
+        // return type
 }
 
 //this function compares field names in ENV variables to key names in the 
@@ -62,6 +66,9 @@ const validateRequestKeysVals = (ENVobject, requestObject) => {
     }
 }
 
+//if validation fails, errors will throw the execution to the catch block,
+//which returns false to the API.
+//if validation is successful, true will be returned.
 const validateRequestBody = requestBody => {
    //choose env var to compare against
     try {
@@ -81,6 +88,7 @@ const validateRequestBody = requestBody => {
                     break
             }
         }
+        return true
        
     } catch (e) {
         console.error({msg: 'Error from validateKeys'}, e)

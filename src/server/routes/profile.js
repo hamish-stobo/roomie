@@ -5,16 +5,17 @@ const { validateUUID, validateRequestBody } = require('../validation/dataValidat
 //insert a new user
 router.post('/', async (req, res) => {
     try {
-        const body = req.body
-        //check that request body keys are named correctly
-        const isValid = validateRequestBody(body)
+        const { users, location } = req.body
+        const isValid = validateRequestBody(req.body)
+        //we check the keys and data types are correct,
+        //and check that the request body is not empty
+
         //if client data is bad, tell them that they're bad and they should feel bad
-        if(!isValid) {
+        if(!isValid || !JSON.stringify(req.body)) {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
-            // const profile = await createUser(body)
-            const profile = false
+            const profile = await createUser({ ...users, ...location })
             //if no profile found to update, throw error to the catch block
             if(!profile) {
                 throw Error('Create profile failed')
@@ -62,30 +63,17 @@ router.put('/:user_id', async (req, res) => {
     try {
         const user_id = req.params.user_id
         const body = req.body
-        //check that request body keys are named correctly
-        let checkBody = false
-        const keys = ['first_name', 'last_name', 'email', 'bio']
-        keys.forEach(key => {
-            //check that request body contains valid keys
-            //values of those keys can be empty, but request body must contain the keys
-            if(!body.hasOwnProperty(key)) {
-                checkBody = true
-            }
-        })
-        const usersFields = await usersTableInfo();
-        const newKeys = usersFields.map(item => {
-            let fieldInfo = {...item}
-            return fieldInfo
-        })
-        console.log('keys: ' + JSON.stringify(newKeys))
-        //if client data is bad, tell them that they're bad and they should feel bad
-        if(body == {} || checkBody === true) {
+        const { users, location } = req.body
+        //validate client data, and if client data is bad, 
+        //tell them that they're bad and they should feel bad
+        if(!validateUUID(user_id) || !JSON.stringify(body) || !validateRequestBody(body)) {
             res.status(400).send('Request data malformed')
-        } else {
+        }
+        else {
             //do the DB stuff
-            const profile = await updateUser(user_id, body)
+            const profile = await updateUser(user_id, {...users, ...location})
             //if no profile found to update, throw error to the catch block
-            if(!profile || profile === {}) {
+            if(!JSON.stringify(profile)) {
                 throw Error('Update to profile failed')
                 // res.status(500).send('Update to profile failed')
             } else {
@@ -94,8 +82,8 @@ router.put('/:user_id', async (req, res) => {
             }
         }
       } catch (e) {
-        console.error({msg: 'Error from update profile'}, e)
-        res.status(500).send('Could not update at /profile')
+            console.error({msg: 'Error from update profile'}, e)
+            res.status(500).send('Could not update at /profile')
       }
 })
 
