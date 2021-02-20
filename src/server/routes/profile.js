@@ -66,19 +66,14 @@ router.put('/:user_id', async (req, res) => {
         console.log(`user_id: ${JSON.stringify(user_id)}, body: ${JSON.stringify(body)}`)
         //an update may have empty/null valudes, in which case we don't run the validation
         //for that field
-        if(body.users) {
-            const { users } = body
-            for(const prop in users) {
-                if(!users[prop]) {
-                    delete body.users[prop]
-                }
-            }
-        }
-        if(body.location) {
-            const { location } = body
-            for(const prop in location) {
-                if(!location[prop]) {
-                    delete body.location[prop]
+        for (const prop in body) {
+            if(!body[prop]) {
+                delete body[prop]
+            } else if (typeof body[prop] === "object") {
+                for(const subProp in body[prop]) {
+                    if(!body[prop][subProp]) {
+                        delete body[prop][subProp]
+                    }
                 }
             }
         }
