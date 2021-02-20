@@ -72,7 +72,7 @@ router.put('/:user_id', async (req, res) => {
         const delRecursive = object => {
             const propsArr = Object.keys(object)
             propsArr.forEach(prop => {
-                if(!object[prop]) {
+                if(!object[prop] || JSON.stringify(object[prop]) === "{}") {
                     delete object[prop]
                  } else if(typeof object[prop] === "object") {
                         delRecursive(object[prop])
