@@ -2,6 +2,8 @@ require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
 const { validateUUID, validateRequestBody } = require('../validation/dataValidator')
+
+ 
 //insert a new user
 router.post('/', async (req, res) => {
     try {
@@ -11,7 +13,7 @@ router.post('/', async (req, res) => {
         //and check that the request body is not empty
 
         //if client data is bad, tell them that they're bad and they should feel bad
-        if(!isValid || !JSON.stringify(body)) {
+        if(!isValid || JSON.stringify(body) === "{}") {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
@@ -44,7 +46,7 @@ router.get('/:user_id', async (req, res) => {
         res.status(400).send('Incorrect URL parameters')
     } else {
         const profile = await getUser(user_id)
-        if(!profile || !JSON.stringify(profile)) {
+        if(!profile || JSON.stringify(profile) === "") {
             res.status(404).send('Profile not found :(')
         // res.status(500).send('Update to profile failed')
         } else {
@@ -62,24 +64,41 @@ router.get('/:user_id', async (req, res) => {
 router.put('/:user_id', async (req, res) => {
     try {
         const { user_id } = req.params
-        const { body } = req
+        let { body } = req
         console.log(`user_id: ${JSON.stringify(user_id)}, body: ${JSON.stringify(body)}`)
         //an update may have empty/null valudes, in which case we don't run the validation
         //for that field
-        for (const prop in body) {
-            if(!body[prop]) {
-                delete body[prop]
-            } else if (typeof body[prop] === "object") {
-                for(const subProp in body[prop]) {
-                    if(!body[prop][subProp]) {
-                        delete body[prop][subProp]
+        //exit condition is where the object's property is not of type object.
+        const delRecursive = object => {
+            const propsArr = Object.keys(object)
+            propsArr.forEach(prop => {
+                if(!object[prop]) {
+                    delete object[prop]
+                 } else if(typeof object[prop] === "object") {
+                        delRecursive(object[prop])
                     }
-                }
+                })
+                return object
             }
-        }
+        body = delRecursive(body)
+        // for (const prop in body) {
+        //     if(!body[prop]) {
+        //         delete body[prop]
+        //     } else if (typeof body[prop] === "object") {
+        //         const subObjArr = Object.keys(body[prop])
+        //         subObjArr.forEach(subProp => {
+
+        //         })
+        //         for(const subProp in body[prop]) {
+        //             if(!body[prop][subProp]) {
+        //                 delete body[prop][subProp]
+        //             }
+        //         }
+        //     }
+        // }
         //validate client data, and if client data is bad,
         //tell them that they're bad and they should feel bad
-        if(!validateUUID(user_id) || !JSON.stringify(body) || !validateRequestBody(body)) {
+        if(!validateUUID(user_id) || JSON.stringify(body) === "{}" || !validateRequestBody(body)) {
             res.status(400).send('Request data malformed')
         }
         else {

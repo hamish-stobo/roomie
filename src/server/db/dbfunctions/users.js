@@ -17,7 +17,7 @@ const createUser = async (userToInsert, db = conn) => {
       ], ['suburb', 'postcode'])
     if(!userInsert) throw Error('insert of user failed')
     if(!locationInsert) throw Error('insert of user location failed')
-    return { ...userInsert[0], ...locationInsert[0] }
+    return { user: {...userInsert[0]}, location: {...locationInsert[0]} }
     } catch (e) {
         console.error({msg: 'Error from createUser db function'}, e)
         return false
@@ -55,15 +55,27 @@ const updateUser = async (userID, user, db = conn) => {
         const updateUser = await db('users')
             .where('id', userID)
             .update({...users}, ['email', 'first_name', 'last_name', 'bio'])
-        let updateLocation
-        if(!!location) {
-        const { suburb, postcode } = location
-        
-        updateLocation = await db('location')
-            .where('user_id', userID)
-            .update({suburb}, ['user_id', 'suburb', 'postcode'])
+        if(JSON.stringify(location) !== "{}") {
+            //accounts for null fields in location object
+            const getFieldsToAdd = prop => {
+                for(const key in prop) {
+                    if(!key) {
+                        delete prop[key]
+                    }
+                    if(key === "postcode") {
+                        prop[key] = parseInt(prop[key])
+                    }
+                }
+                return prop
+            }
+            const updateLocation = await db('location')
+                .where('user_id', userID)
+                .update({...getFieldsToAdd(location)}, ['suburb', 'postcode'])
+            
+            return { user: {...updateUser[0]}, location: {...updateLocation[0]}}
+        } else {
+            return {user: {...updateUser[0]}}
         }
-        return { ...updateUser[0], ...updateLocation[0]}
     } catch (e) {
         console.error({msg: "error in updateUser"}, e)
         return false
