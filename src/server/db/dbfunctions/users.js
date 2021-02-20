@@ -6,18 +6,14 @@ const { v4: uuidv4 } = require('uuid')
 
 const createUser = async (userToInsert, db = conn) => {
     try {
-    const { email, first_name, last_name, password, bio, suburb } = userToInsert
-    const postcode = parseInt(userToInsert.postcode)
+    const { users, location } = userToInsert
+    const { suburb, postcode } = location
     const userInsert = await db('users').insert({
-        id: uuidv4(), 
-        email, 
-        first_name, 
-        last_name, 
-        password,
-        bio
+        ...users,
+        id: uuidv4(),
     }, ['id', 'email', 'first_name', 'last_name', 'bio'])
     const locationInsert = await db('location').insert([
-        {id: uuidv4(), suburb, postcode, user_id: userInsert[0].id}
+        {suburb, postcode: parseInt(postcode), id: uuidv4(), user_id: userInsert[0].id}
       ], ['suburb', 'postcode'])
     if(!userInsert) throw Error('insert of user failed')
     if(!locationInsert) throw Error('insert of user location failed')
@@ -54,21 +50,15 @@ const getUser = async (userID, db = conn) => {
 const updateUser = async (userID, user, db = conn) => {
     try {
         const { 
-            email,
-            first_name,
-            last_name,
-            bio,
-            suburb,
-            postcode
+            users, location
         } = user
+        const { suburb, postcode } = location
         const updateUser = await db('users')
             .where('id', userID)
-            .update({email, first_name, last_name, bio}, ['email', 'first_name', 'last_name', 'bio'])
+            .update({...users}, ['email', 'first_name', 'last_name', 'bio'])
         const updateLocation = await db('location')
             .where('user_id', userID)
-            .update({suburb, postcode}, ['user_id', 'suburb', 'postcode'])
-        console.log(`updateUser ${updateUser}`)
-        console.log(`updateLocation  ${updateLocation}`)
+            .update({suburb, postcode: parseInt(postcode)}, ['user_id', 'suburb', 'postcode'])
         return { ...updateUser[0], ...updateLocation[0]}
     } catch (e) {
         console.error({msg: "error in updateUser"}, e)

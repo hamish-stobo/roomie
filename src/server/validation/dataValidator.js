@@ -89,30 +89,11 @@ const validateRequestBody = requestBody => {
             }
         }
         return true
-       
     } catch (e) {
         console.error({msg: 'Error from validateKeys'}, e)
         return false
     }
 }
-
-
-
-//here we want to compare that that names of the fields
-//of the request body are the same of the names of the fields
-//in the database,
-
-//and also that the data types of each field coming from the client
-//are the same as the data types of the fields which they
-//are being inserted into.
-
-//data types:
-//uuid, character varying, integer, text, real (2dp), 
-//postcode is type integer
-//rent is type real(2dp)
-
-
-
 
 module.exports = {
     validateRequestBody,
