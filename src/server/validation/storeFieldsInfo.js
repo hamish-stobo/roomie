@@ -7,34 +7,35 @@ const conn = require('knex')(config)
 //it pulls the column names and data types of those columns,
 //and stores them in .env variables.
 
-const storeFieldsInfo = async (table, db = conn) => {
-    const getFieldsInfo = await db.select('column_name', 'data_type')
+const storeFieldsInfo = async (tables, db = conn) => {
+    tables.forEach( async table => {
+        const getFieldsInfo = await db.select('column_name', 'data_type')
         .from('information_schema.columns')
         .whereRaw(`table_name = \'${table}\'`)
-    const storageObject = {}
-    const forENVvarStorage = getFieldsInfo.map(item => {
+        const storageObject = {}
+        getFieldsInfo.map(item => {
         const { column_name, data_type } = item
         storageObject[column_name] = data_type
+        })
+        switch (table) {
+            case 'users':
+                process.env.USERS_FIELDS = JSON.stringify(storageObject)
+                console.log(`${table} fieldsInfo: ${process.env.USERS_FIELDS}`)
+                break;
+            case 'listings':
+                process.env.LISTINGS_FIELDS = JSON.stringify(storageObject)
+                console.log(`${table} fieldsInfo: ${process.env.LISTINGS_FIELDS}`)
+                break;
+            case 'location':
+                process.env.LOCATIONS_FIELDS = JSON.stringify(storageObject)
+                console.log(`${table} fieldsInfo: ${process.env.LOCATIONS_FIELDS}`)
+                break;
+            case 'likes':
+                process.env.LIKES_FIELDS = JSON.stringify(storageObject)
+                console.log(`${table} fieldsInfo: ${process.env.LIKES_FIELDS}`)
+                break;
+        }
     })
-
-    switch (table) {
-        case 'users':
-            process.env.USERS_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${process.env.USERS_FIELDS}`)
-            break;
-        case 'listings':
-            process.env.LISTINGS_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${process.env.LISTINGS_FIELDS}`)
-            break;
-        case 'location':
-            process.env.LOCATIONS_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${process.env.LOCATIONS_FIELDS}`)
-            break;
-        case 'likes':
-            process.env.LIKES_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${process.env.LIKES_FIELDS}`)
-            break;
-    }
 }
 
 module.exports = storeFieldsInfo

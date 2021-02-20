@@ -64,6 +64,24 @@ router.put('/:user_id', async (req, res) => {
         const { user_id } = req.params
         const { body } = req
         console.log(`user_id: ${JSON.stringify(user_id)}, body: ${JSON.stringify(body)}`)
+        //an update may have empty/null valudes, in which case we don't run the validation
+        //for that field
+        if(body.users) {
+            const { users } = body
+            for(const prop in users) {
+                if(!users[prop]) {
+                    delete body.users[prop]
+                }
+            }
+        }
+        if(body.location) {
+            const { location } = body
+            for(const prop in location) {
+                if(!location[prop]) {
+                    delete body.location[prop]
+                }
+            }
+        }
         //validate client data, and if client data is bad,
         //tell them that they're bad and they should feel bad
         if(!validateUUID(user_id) || !JSON.stringify(body) || !validateRequestBody(body)) {

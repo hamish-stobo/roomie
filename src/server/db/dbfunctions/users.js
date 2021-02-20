@@ -52,13 +52,17 @@ const updateUser = async (userID, user, db = conn) => {
         const { 
             users, location
         } = user
-        const { suburb, postcode } = location
         const updateUser = await db('users')
             .where('id', userID)
             .update({...users}, ['email', 'first_name', 'last_name', 'bio'])
-        const updateLocation = await db('location')
+        let updateLocation
+        if(!!location) {
+        const { suburb, postcode } = location
+        
+        updateLocation = await db('location')
             .where('user_id', userID)
-            .update({suburb, postcode: parseInt(postcode)}, ['user_id', 'suburb', 'postcode'])
+            .update({suburb}, ['user_id', 'suburb', 'postcode'])
+        }
         return { ...updateUser[0], ...updateLocation[0]}
     } catch (e) {
         console.error({msg: "error in updateUser"}, e)
