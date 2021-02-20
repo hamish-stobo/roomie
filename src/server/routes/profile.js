@@ -1,7 +1,7 @@
 require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
-const { validateUUID, validateRequestBody } = require('../validation/dataValidator')
+const { validateUUID, validateRequestBody, formatObject } = require('../validation/dataValidator')
 
  
 //insert a new user
@@ -60,42 +60,14 @@ router.get('/:user_id', async (req, res) => {
     }
   })
 
-//
+
 router.put('/:user_id', async (req, res) => {
     try {
         const { user_id } = req.params
-        let { body } = req
-        console.log(`user_id: ${JSON.stringify(user_id)}, body: ${JSON.stringify(body)}`)
-        //an update may have empty/null valudes, in which case we don't run the validation
-        //for that field
-        //exit condition is where the object's property is not of type object.
-        const delRecursive = object => {
-            const propsArr = Object.keys(object)
-            propsArr.forEach(prop => {
-                if(!object[prop] || JSON.stringify(object[prop]) === "{}") {
-                    delete object[prop]
-                 } else if(typeof object[prop] === "object") {
-                        delRecursive(object[prop])
-                    }
-                })
-                return object
-            }
-        body = delRecursive(body)
-        // for (const prop in body) {
-        //     if(!body[prop]) {
-        //         delete body[prop]
-        //     } else if (typeof body[prop] === "object") {
-        //         const subObjArr = Object.keys(body[prop])
-        //         subObjArr.forEach(subProp => {
-
-        //         })
-        //         for(const subProp in body[prop]) {
-        //             if(!body[prop][subProp]) {
-        //                 delete body[prop][subProp]
-        //             }
-        //         }
-        //     }
-        // }
+        const body = formatObject(req.body)
+        console.log(`formatted body: ${JSON.stringify(body)}`)
+        // console.log(`user_id: ${JSON.stringify(user_id)}, body: ${JSON.stringify(body)}`)
+       
         //validate client data, and if client data is bad,
         //tell them that they're bad and they should feel bad
         if(!validateUUID(user_id) || JSON.stringify(body) === "{}" || !validateRequestBody(body)) {
@@ -105,7 +77,7 @@ router.put('/:user_id', async (req, res) => {
             //do the DB stuff
             const profile = await updateUser(user_id, body)
             //if no profile found to update, throw error to the catch block
-            if(!JSON.stringify(profile) || !profile) {
+            if(JSON.stringify(profile) == "{}" || !profile) {
                 throw Error('Update to profile failed')
                 // res.status(500).send('Update to profile failed')
             } else {

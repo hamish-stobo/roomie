@@ -3,6 +3,7 @@ const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
 const getAllLikesForOne = require('./likes').getAllLikesForOne
 const { v4: uuidv4 } = require('uuid')
+const { formatObject } = require('../../validation/dataValidator')
 
 const createUser = async (userToInsert, db = conn) => {
     try {
@@ -52,30 +53,26 @@ const updateUser = async (userID, user, db = conn) => {
         const { 
             users, location
         } = user
-        const updateUser = await db('users')
-            .where('id', userID)
-            .update({...users}, ['email', 'first_name', 'last_name', 'bio'])
-        if(JSON.stringify(location) !== "{}") {
-            //accounts for null fields in location object
-            const getFieldsToAdd = prop => {
-                for(const key in prop) {
-                    if(!key) {
-                        delete prop[key]
-                    }
-                    if(key === "postcode") {
-                        prop[key] = parseInt(prop[key])
-                    }
-                }
-                return prop
+        let returnObj = {}
+        //we only update users table if it is provided to us:
+        if(!!users) {
+            const updateUser = await db('users')
+                .where('id', userID)
+                .update({...users}, ['email', 'first_name', 'last_name', 'bio'])
+            returnObj = {...returnObj,user: {...updateUser[0]}}
+        }
+        //we only update location table if it is provided to us:
+        if(!!location) {
+            if(!!location.postcode) {
+                location.postcode = parseInt(location.postcode)
             }
             const updateLocation = await db('location')
                 .where('user_id', userID)
-                .update({...getFieldsToAdd(location)}, ['suburb', 'postcode'])
+                .update({...location}, ['suburb', 'postcode'])
             
-            return { user: {...updateUser[0]}, location: {...updateLocation[0]}}
-        } else {
-            return {user: {...updateUser[0]}}
-        }
+            returnObj = {...returnObj, location: {...updateLocation[0]}}
+            } 
+        return returnObj
     } catch (e) {
         console.error({msg: "error in updateUser"}, e)
         return false

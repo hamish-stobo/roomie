@@ -95,7 +95,53 @@ const validateRequestBody = requestBody => {
     }
 }
 
+//this function checks the values of an object's keys for null/empty values.
+//if they are found to contain null or empty values, we remove those properties
+//from the object so that the validation runs correctly.
+//This is because the above validation does not account for null/empty/falsey values, it assumes
+//that the values of the key-value pairs are populated with data (truthy),
+//and just validates their type.
+
+const formatObject = object => {
+    const formattedObject = object
+    let flag = false
+    //loop over the object
+    //if the property is an object
+    //loop over the object
+    //if the property is true
+    //add it to parent
+    const childFunction = obj => {
+        for(const prop in obj) {
+            if(typeof obj[prop] === "object" && !Array.isArray(obj[prop])) {
+                childFunction(obj[prop])
+            } else if(!obj[prop] || JSON.stringify(obj[prop]) === "{}") {
+                delete formattedObject[prop]
+                childFunction(formattedObject)
+            }
+        }
+        flag = true
+    }
+    if(flag === false) {
+        childFunction(formattedObject)
+    }
+    console.log(`object to return: ${JSON.stringify(formattedObject)}`)
+    return formattedObject
+    }
+    // for(let i = 0; i < propsArr.length; i++) {
+    //     let key = propsArr[i]
+    //     //if the property is truthy
+    //     if(!!object[key] && JSON.stringify(object[key]) !== "{}") {
+    //         formattedObject[key] = object[key]
+    //     //if the property is an object, we run this whole function again
+    //     } else if(typeof object[key] === "object" && !Array.isArray(object[key])) {
+    //         console.log(`object[key] is non-empty object: ${object[key]}`)
+    //         formatObject(formattedObject)
+    //     }
+    // }
+    
+
 module.exports = {
+    formatObject,
     validateRequestBody,
     validateUUID
 }
