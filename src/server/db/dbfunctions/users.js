@@ -63,6 +63,7 @@ const updateUser = async (userID, user, db = conn) => {
         }
         //we only update location table if it is provided to us:
         if(!!location) {
+            //if property "postcode" is not null, run type conversion on it
             if(!!location.postcode) {
                 location.postcode = parseInt(location.postcode)
             }

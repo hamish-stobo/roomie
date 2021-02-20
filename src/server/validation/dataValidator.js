@@ -102,42 +102,23 @@ const validateRequestBody = requestBody => {
 //that the values of the key-value pairs are populated with data (truthy),
 //and just validates their type.
 
-const formatObject = object => {
-    const formattedObject = object
-    let flag = false
-    //loop over the object
-    //if the property is an object
-    //loop over the object
-    //if the property is true
-    //add it to parent
-    const childFunction = obj => {
-        for(const prop in obj) {
-            if(typeof obj[prop] === "object" && !Array.isArray(obj[prop])) {
-                childFunction(obj[prop])
-            } else if(!obj[prop] || JSON.stringify(obj[prop]) === "{}") {
-                delete formattedObject[prop]
-                childFunction(formattedObject)
-            }
+const formatObject = (object) => {
+    const objectCopy = object
+    for(const prop in objectCopy) {
+        //if the property is an object
+        if(typeof objectCopy[prop] === "object" && !Array.isArray(objectCopy[prop])) {
+            //if it is an empty object, delete it
+            console.log(`prop: ${prop}: ${JSON.stringify(objectCopy[prop])}`)
+            formatObject(objectCopy[prop])
         }
-        flag = true
+        if(!objectCopy[prop] || JSON.stringify(objectCopy[prop]) === "{}") {
+            console.log(`prop to delete: ${prop}: ${JSON.stringify(objectCopy)}`)
+            delete objectCopy[`${prop}`]
+            formatObject(objectCopy)
+        }
     }
-    if(flag === false) {
-        childFunction(formattedObject)
-    }
-    console.log(`object to return: ${JSON.stringify(formattedObject)}`)
-    return formattedObject
-    }
-    // for(let i = 0; i < propsArr.length; i++) {
-    //     let key = propsArr[i]
-    //     //if the property is truthy
-    //     if(!!object[key] && JSON.stringify(object[key]) !== "{}") {
-    //         formattedObject[key] = object[key]
-    //     //if the property is an object, we run this whole function again
-    //     } else if(typeof object[key] === "object" && !Array.isArray(object[key])) {
-    //         console.log(`object[key] is non-empty object: ${object[key]}`)
-    //         formatObject(formattedObject)
-    //     }
-    // }
+    return objectCopy
+}
     
 
 module.exports = {
