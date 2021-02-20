@@ -8,12 +8,6 @@ const conn = require('knex')(config)
 //and stores them in .env variables.
 
 const storeFieldsInfo = async (table, db = conn) => {
-    let {
-        USERS_FIELDS,
-        LISTINGS_FIELDS,
-        LOCATIONS_FIELDS,
-        LIKES_FIELDS
-    } = process.env
     const getFieldsInfo = await db.select('column_name', 'data_type')
         .from('information_schema.columns')
         .whereRaw(`table_name = \'${table}\'`)
