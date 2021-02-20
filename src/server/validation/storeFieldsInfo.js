@@ -21,7 +21,6 @@ const storeFieldsInfo = async (table, db = conn) => {
     const forENVvarStorage = getFieldsInfo.map(item => {
         const { column_name, data_type } = item
         storageObject[column_name] = data_type
-        
     })
 
     switch (table) {

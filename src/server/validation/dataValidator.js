@@ -8,12 +8,13 @@ const {
     LIKES_FIELDS
 } = process.env
 
-const compareKeys = body => {
+const compareUserKeys = (table, body) => {
     //compare the keys of the incoming object with the object in the 
     //env variable.
     //if the incoming object has a key that is NOT 
     //in the table where a record is being put/posted/deleted,
     //throw an error unhappy face and don't let them continue.
+
 }
 
 //here we want to compare that that names of the fields

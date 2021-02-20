@@ -2,6 +2,7 @@ require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
 const usersTableInfo = async () => await JSON.parse(process.env.USERS_FIELDS)
+const uuidRegex = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
 //insert a new user
 router.post('/', async (req, res) => {
     try {
@@ -46,15 +47,19 @@ router.post('/', async (req, res) => {
 router.get('/:user_id', async (req, res) => {
     try {
     const { user_id } = req.params
-    const profile = await getUser(user_id)
-    if(!profile) {
-        res.status(404).send('Profile not found :(')
-    // res.status(500).send('Update to profile failed')
+    const validateParam = user_id.match(uuidRegex)
+    if(!validateParam) {
+        res.status(400).send('Incorrect URL parameters')
     } else {
-    //if update is successful
-        res.status(200).send(JSON.stringify(profile))
+        const profile = await getUser(user_id)
+        if(!profile) {
+            res.status(404).send('Profile not found :(')
+        // res.status(500).send('Update to profile failed')
+        } else {
+        //if update is successful
+            res.status(200).send(JSON.stringify(profile))
+        }
     }
-    
     } catch (e) {
       console.error({msg: 'Error from /GET /profile'}, e)
       res.status(500).send('Could not GET /profile')
