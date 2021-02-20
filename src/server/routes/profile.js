@@ -1,28 +1,20 @@
 require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
-const usersTableInfo = async () => await JSON.parse(process.env.USERS_FIELDS)
-const uuidRegex = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
+const { validateUUID, validateRequestBody } = require('../validation/dataValidator')
 //insert a new user
 router.post('/', async (req, res) => {
     try {
         const body = req.body
         //check that request body keys are named correctly
-        keys.forEach(key => {
-            //check that request body contains valid keys
-            //values of those keys can be empty, but request body must contain the keys
-            if(!body.hasOwnProperty(key)) {
-                checkBody = true
-            }
-            //check that all data attempting to be inserted is of type string
-            if(typeof body[key] !== 'string') checkBody = true
-        })
+        const isValid = validateRequestBody(body)
         //if client data is bad, tell them that they're bad and they should feel bad
-        if(Object.keys(body).length == 0 || checkBody === true) {
+        if(!isValid) {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
-            const profile = await createUser(body)
+            // const profile = await createUser(body)
+            const profile = false
             //if no profile found to update, throw error to the catch block
             if(!profile) {
                 throw Error('Create profile failed')
@@ -47,7 +39,6 @@ router.post('/', async (req, res) => {
 router.get('/:user_id', async (req, res) => {
     try {
     const { user_id } = req.params
-    const validateParam = user_id.match(uuidRegex)
     if(!validateParam) {
         res.status(400).send('Incorrect URL parameters')
     } else {

@@ -25,20 +25,20 @@ const storeFieldsInfo = async (table, db = conn) => {
 
     switch (table) {
         case 'users':
-            USERS_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${USERS_FIELDS}`)
+            process.env.USERS_FIELDS = JSON.stringify(storageObject)
+            console.log(`${table} fieldsInfo: ${process.env.USERS_FIELDS}`)
             break;
         case 'listings':
-            LISTINGS_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${LISTINGS_FIELDS}`)
+            process.env.LISTINGS_FIELDS = JSON.stringify(storageObject)
+            console.log(`${table} fieldsInfo: ${process.env.LISTINGS_FIELDS}`)
             break;
         case 'location':
-            LOCATIONS_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${LOCATIONS_FIELDS}`)
+            process.env.LOCATIONS_FIELDS = JSON.stringify(storageObject)
+            console.log(`${table} fieldsInfo: ${process.env.LOCATIONS_FIELDS}`)
             break;
         case 'likes':
-            LIKES_FIELDS = JSON.stringify(storageObject)
-            console.log(`${table} fieldsInfo: ${LIKES_FIELDS}`)
+            process.env.LIKES_FIELDS = JSON.stringify(storageObject)
+            console.log(`${table} fieldsInfo: ${process.env.LIKES_FIELDS}`)
             break;
     }
 }
