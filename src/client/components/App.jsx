@@ -11,7 +11,7 @@ import SignUpForm from './SignUpForm'
 const App = () => {
   return (
     <>
-      <div class="grid-container">
+      <div className="grid-container">
         <Header />
         <NavBar />
         <GetListings />

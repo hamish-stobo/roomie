@@ -32,6 +32,10 @@ const getAllListings = async (db = conn) => {
         .join('location', 'listing_id', '=', 'listings.id')
         .whereNull('location.user_id')
         .select('suburb', 'postcode')
+        .join('likes', 'likes.listing_id', '=', 'listings.id')
+        .select('likes.user_id')
+    console.log(ads)
+    return ads
     if(ads.length == 0) return ads
     return likesFunctions.getAllLikesPerListing(ads)
     } catch (e) {

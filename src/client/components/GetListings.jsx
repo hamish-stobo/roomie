@@ -20,11 +20,12 @@ const GetListings = () => {
  
     return (
         <>
-            <div class="GetListings">
+            <div className="GetListings">
                 <h3>GetListings Container</h3>
-                {listings.length > 0 ? listings.map(listing => {
-                    const { listing_id } = listing
-                    return <DisplayListing key={listing_id} listing={listing} />
+                {listings.length > 0 ? listings.map((listing, idx) => {
+                    // let { listing_id } = listing
+                    // let uniqueKey = listing_id + idx.toString()
+                    return <DisplayListing key={idx} listing={listing} />
                 }) : <Loading />}
             </div>
         </>

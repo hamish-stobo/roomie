@@ -4,7 +4,7 @@ import '../../../styles/styles'
 const Header = () => {
     return (
         <>
-            <div class="Header">
+            <div className="Header">
                 <h3>Roomie</h3>
             </div>
 

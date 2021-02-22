@@ -4,7 +4,7 @@ import '../../../styles/styles'
 const NavBar = () => {
     return (
         <>
-            <div class="NavBar">
+            <div className="NavBar">
                 <h3>NavBar</h3>
             </div>
         </>

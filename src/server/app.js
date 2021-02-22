@@ -1,14 +1,14 @@
-require('dotenv').config();
+require('dotenv').config()
 
-const express = require('express');
-const path = require('path');
+const express = require('express')
+const path = require('path')
 const cors = require('cors')
-const app = express();
+const app = express()
 app.use(cors())
-const DIST_DIR = path.join(__dirname, '../', '../dist');
-app.use(express.static(DIST_DIR));
+const DIST_DIR = path.join(__dirname, '../', '../dist')
+app.use(express.static(DIST_DIR))
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}))
 
 //route modules
 const listing = require('./routes/listing')
@@ -17,18 +17,19 @@ const profile = require('./routes/profile')
 app.use('/api/v1/listing', listing)
 app.use('/api/v1/profile', profile)
 
-const HTML_FILE = path.join(DIST_DIR, 'index.html'); 
+const HTML_FILE = path.join(DIST_DIR, 'index.html');
 const mockResponse = {
   foo: 'bar',
   bar: 'foo'
 };
 
 app.get('/', (req, res) => {
- res.sendFile(HTML_FILE);
+  res.send('hello')
+//  res.sendFile(HTML_FILE)
 });
 
 app.get('/api', (req, res) => {
-  res.send(mockResponse);
+  res.send(mockResponse)
 });
 
 //easter egg route for the lols
