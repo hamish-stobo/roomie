@@ -27,13 +27,14 @@ const getListing = async (listingId, db = conn) => {
 const getAllListings = async (db = conn) => {
     try {
     const ads = await db
-        .select('location.listing_id','rent', 'description')
+        .select('rent', 'description')
         .from('listings')
         .join('location', 'listing_id', '=', 'listings.id')
         .whereNull('location.user_id')
         .select('suburb', 'postcode')
         .join('likes', 'likes.listing_id', '=', 'listings.id')
         .select('likes.user_id')
+        .groupBy("likes.listing_id")
     console.log(ads)
     return ads
     if(ads.length == 0) return ads
