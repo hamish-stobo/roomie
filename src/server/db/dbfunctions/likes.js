@@ -2,6 +2,32 @@ const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
 
+const getAllLikes = async (type, db = conn) => {
+    try {
+        const formattedLikes = {}
+        const userLikes = await db.select('likes_listing_id', 'likes_user_id').from('likes')
+        userLikes.map(record => {
+            const {likes_user_id, likes_listing_id} = record
+            if(type === 'listings') {
+                if(!formattedLikes.hasOwnProperty(likes_listing_id)) {
+                    formattedLikes[likes_listing_id] = [likes_user_id]
+                } else {
+                    formattedLikes[likes_listing_id].push(likes_user_id)
+                }
+            } else if(type === 'users') {
+                if(!formattedLikes.hasOwnProperty(likes_user_id)) {
+                    formattedLikes[likes_user_id] = [likes_listing_id]
+                } else {
+                    formattedLikes[likes_user_id].push(likes_listing_id)
+                }
+            }
+        })
+        return formattedLikes
+    } catch(e) {
+        return Error(`Error from getAllLikes: ${e}`)
+    }
+}
+
 const getAllLikesForOne = async (id, type, db = conn) => {
     try {
         const returningLikes = []
@@ -73,5 +99,6 @@ const getAllLikesPerListing = async (listingsArr, db = conn) => {
 
 module.exports = {
     getAllLikesPerListing,
-    getAllLikesForOne
+    getAllLikesForOne,
+    getAllLikes
 }

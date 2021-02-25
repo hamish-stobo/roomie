@@ -26,7 +26,7 @@ const storeFieldsInfo = async (tables, db = conn) => {
                 process.env.LISTINGS_FIELDS = JSON.stringify(storageObject)
                 console.log(`${table} fieldsInfo: ${process.env.LISTINGS_FIELDS}`)
                 break;
-            case 'location':
+            case 'locations':
                 process.env.LOCATIONS_FIELDS = JSON.stringify(storageObject)
                 console.log(`${table} fieldsInfo: ${process.env.LOCATIONS_FIELDS}`)
                 break;

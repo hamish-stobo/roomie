@@ -1,7 +1,7 @@
 exports.up = async knex => {
   try {
     const tablesCreated = await knex.schema.createTable('users', table => {
-        table.uuid('id').unique().notNullable()
+        table.uuid('users_id').unique().notNullable()
         table.string('email').unique().notNullable()
         table.string('password').notNullable()
         table.string('first_name').notNullable()
@@ -10,21 +10,21 @@ exports.up = async knex => {
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
       .createTable('listings', table => {
-        table.uuid('id').unique().notNullable()
-        table.uuid('user_id').unique().notNullable()
-        table.foreign('user_id').references('id').inTable('users')
+        table.uuid('listings_id').unique().notNullable()
+        table.uuid('listings_user_id').unique().notNullable()
+        table.foreign('listings_user_id').references('users_id').inTable('users')
         table.float('rent', { precision: 2 }).notNullable()
         table.text('description') // optional field
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
-      .createTable('location', table => {
-        table.uuid('id').unique().notNullable()
+      .createTable('locations', table => {
+        table.uuid('locations_id').unique().notNullable()
         table.string('suburb').notNullable()
         table.integer('postcode').unsigned().notNullable()
-        table.uuid('user_id').unique()
-        table.foreign('user_id').references('id').inTable('users')
-        table.uuid('listing_id').unique()
-        table.foreign('listing_id').references('id').inTable('listings')
+        table.uuid('locations_user_id').unique()
+        table.foreign('locations_user_id').references('users_id').inTable('users')
+        table.uuid('locations_listing_id').unique()
+        table.foreign('locations_listing_id').references('listings_id').inTable('listings')
         table.timestamp('created_at').defaultTo(knex.fn.now())
     })
     //here we need to check that all likes per ad are unique,
@@ -34,11 +34,11 @@ exports.up = async knex => {
     //incoming advertisement ID, prevent insert as the user has already
     //registered likes on that ad. 
     .createTable('likes', table => {
-        table.uuid('id').unique().notNullable()
-        table.uuid('user_id').notNullable()
-        table.foreign('user_id').references('users.id')
-        table.uuid('listing_id').notNullable()
-        table.foreign('listing_id').references('listings.id')
+        table.uuid('likes_id').unique().notNullable()
+        table.uuid('likes_user_id').notNullable()
+        table.foreign('likes_user_id').references('users_id').inTable('users')
+        table.uuid('likes_listing_id').notNullable()
+        table.foreign('likes_listing_id').references('listings_id').inTable('listings')
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
     

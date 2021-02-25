@@ -11,11 +11,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
 //route modules
-const listing = require('./routes/listing')
-const profile = require('./routes/profile')
+const listings = require('./routes/listings')
+const users = require('./routes/users')
 //routes
-app.use('/api/v1/listing', listing)
-app.use('/api/v1/profile', profile)
+app.use('/api/v1/listings', listings)
+app.use('/api/v1/users', users)
 
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
 const mockResponse = {
@@ -24,8 +24,8 @@ const mockResponse = {
 };
 
 app.get('/', (req, res) => {
-  res.send('hello')
-//  res.sendFile(HTML_FILE)
+  // res.send('hello')
+  res.sendFile(HTML_FILE)
 });
 
 app.get('/api', (req, res) => {

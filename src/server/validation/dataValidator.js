@@ -77,7 +77,7 @@ const validateRequestBody = requestBody => {
                 case("users"):
                     validateRequestKeysVals(env.USERS_FIELDS, requestBody[table])
                     break
-                case("location"):
+                case("locations"):
                     validateRequestKeysVals(env.LOCATIONS_FIELDS, requestBody[table])
                     break
                 case("listings"):
