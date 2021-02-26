@@ -9,7 +9,7 @@ const GetListings = () => {
     const [listings, setListings] = useState([])
     // This will need to be changed to /getListings when it's ready
     const getListings = async () => {
-        const { data } = await axios.get('/api/v1/listing');
+        const { data } = await axios.get('/api/v1/listings/');
         setListings(data)
     }
     // on load || change in users.length getUser will make the axios call and return the users

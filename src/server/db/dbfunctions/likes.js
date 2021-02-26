@@ -35,7 +35,7 @@ const getAllLikesForOne = async (id, type, db = conn) => {
         case 'user':
             //get all the listings where a user has left likes
             const userLikes = await db
-            .select('listing_id')
+            .select('likes_listing_id')
             .from('likes')
             .where('user_id', id)
             
@@ -59,46 +59,48 @@ const getAllLikesForOne = async (id, type, db = conn) => {
     }
 }
 
-const getAllLikesPerListing = async (listingsArr, db = conn) => {
-    try {
-        //get all the users likes
-        const likes = await db
-            .select('likes.user_id', 'likes.listing_id')
-            .from('listings')
-            .join('likes', 'likes.listing_id', '=', 'listings.id')
+//not used - makes a query for each item in listingsArr, 
+//making for a too many connections error.
+
+// const getAllLikesPerListing = async (listingsArr, db = conn) => {
+//     try {
+//         //get all the users likes
+//         const likes = await db
+//             .select('likes.user_id', 'likes.listing_id')
+//             .from('listings')
+//             .join('likes', 'likes.listing_id', '=', 'listings.id')
         
-        //we add this return before trying to loop over the likes array, so we account for
-        //if there are no likes found in the likes table.
-        if(likes.length == 0) {
-            return listingsArr
-        }
-        //if there are listings found, do some crazy shiet:
+//         //we add this return before trying to loop over the likes array, so we account for
+//         //if there are no likes found in the likes table.
+//         if(likes.length == 0) {
+//             return listingsArr
+//         }
+//         //if there are listings found, do some crazy shiet:
         
-        //loop over likes array
-        likes.map(like => {
-            //find the position in the listings array to insert the array of likesed users for that listing
-            let indexToChange = listingsArr.findIndex(listing => listing.listing_id == like.listing_id)
-            let listing = listingsArr[indexToChange]            
-            //if the current listing doesn't have any likes, and there are some to add, add them
-            if(!listing.hasOwnProperty('likesArr')) {
-                    listing.likesArr = like.user_id && [{user_id: like.user_id}]
-            } 
-            //if the current listing DOES have likesArr, and there are some to add, add them
-            else {
-                if(listing.hasOwnProperty('likesArr')){
-                    like.user_id && listing.likesArr.push({user_id: like.user_id})
-                }
-            }
-        })
-        return listingsArr
-    } catch (e) {
-        console.error({msg: 'Error from selectAlllistings db function'}, e)
-        return false
-    }
-}
+//         //loop over likes array
+//         likes.map(like => {
+//             //find the position in the listings array to insert the array of likesed users for that listing
+//             let indexToChange = listingsArr.findIndex(listing => listing.listing_id == like.listing_id)
+//             let listing = listingsArr[indexToChange]            
+//             //if the current listing doesn't have any likes, and there are some to add, add them
+//             if(!listing.hasOwnProperty('likesArr')) {
+//                     listing.likesArr = like.user_id && [{user_id: like.user_id}]
+//             } 
+//             //if the current listing DOES have likesArr, and there are some to add, add them
+//             else {
+//                 if(listing.hasOwnProperty('likesArr')){
+//                     like.user_id && listing.likesArr.push({user_id: like.user_id})
+//                 }
+//             }
+//         })
+//         return listingsArr
+//     } catch (e) {
+//         console.error({msg: 'Error from selectAlllistings db function'}, e)
+//         return false
+//     }
+// }
 
 module.exports = {
-    getAllLikesPerListing,
     getAllLikesForOne,
     getAllLikes
 }

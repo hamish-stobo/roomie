@@ -6,10 +6,10 @@ const { getAllLikes } = require('./likes')
 const getListing = async (listingId, db = conn) => {
     try {
         const listingArr = await db
-            .select('listing_id', 'user_id', 'rent', 'description')
+            .select('listings_id', 'listings_user_id', 'rent', 'description')
             .from('listings')
-            .where('listing_id', listingId)
-            .join('location', 'listing_id', '=', 'listings.id')
+            .where('listings_id', listingId)
+            .join('location', 'listings_id', '=', 'listings.id')
             .whereNull('location.user_id')
             .select('suburb', 'postcode')
         if(listingArr == []) {
@@ -25,7 +25,7 @@ const getListing = async (listingId, db = conn) => {
 const getAllListings = async (db = conn) => {
     try {
     const listingsArr = await db
-        .select('listings_id', 'rent', 'description')
+        .select('listings_user_id', 'listings_id', 'rent', 'description')
         .from('listings')
         .join('locations', 'locations_listing_id', '=', 'listings_id')
         .whereNull('locations_user_id')
