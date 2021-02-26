@@ -28,19 +28,23 @@ const createUser = async (userToInsert, db = conn) => {
 
 const getUser = async (userID, db = conn) => {
     try {
-        const profileArr = await db
-            .select('user_id', 'email', 'first_name', 'last_name', 'bio')
+        const profile = await db
+            .select('users_id', 'email', 'first_name', 'last_name', 'bio')
+            .first()
             .from('users')
-            .where('users.id', userID)
-            .join('location', 'user_id', '=', 'users.id')
-            .whereNull('location.listing_id')
+            .where('users_id', userID)
+            .join('locations', 'locations_user_id', '=', 'users_id')
+            .whereNull('locations_listing_id')
             .select('suburb', 'postcode')
+            .first()
         
-        if(profileArr == []) {
-            return {}
+        if(JSON.stringify(profile) === '{}') {
+            throw Error('no profile found')
         }
-        const profile = profileArr[0]
-        profile.likedListings = await getAllLikesForOne(profile.user_id, 'user')
+        profile.likes = getAllLikesForOne(userID, 'user')
+        // JSON.stringify(likes) === '{}' || !likes
+        //     ? profile.likes = []
+        //     : profile.likes
         return profile
     } catch (e) {
         console.error({msg: 'Error from getUser db function'}, e)

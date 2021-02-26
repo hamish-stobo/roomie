@@ -37,8 +37,7 @@ const getAllLikesForOne = async (id, type, db = conn) => {
             const userLikes = await db
             .select('likes_listing_id')
             .from('likes')
-            .where('user_id', id)
-            
+            .where('likes_user_id', id)
             returningLikes.push(...userLikes)
             break
         case 'listing':
@@ -51,6 +50,15 @@ const getAllLikesForOne = async (id, type, db = conn) => {
             break
         default:
             throw 'Invalid type argument provided to getAllLikesForOne'
+        }
+        if(returningLikes.length > 0) {
+            returningLikes = returningLikes.map(likeObj => {
+                let like
+                for(const prop in likeObj) {
+                    like = likeObj[prop]
+                }
+                return like
+            })
         }
         return returningLikes
     } catch (e) {

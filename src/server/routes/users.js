@@ -8,7 +8,10 @@ const { validateUUID, validateRequestBody, formatObject } = require('../validati
 router.post('/', async (req, res) => {
     try {
         const { body } = req
-        const isValid = validateRequestBody(body)
+        //remove null/undefined properties before data validation
+        const formattedBody = formatObject(body)
+        //validate the request body - check data types
+        const isValid = validateRequestBody(formattedBody)
         //we check the keys and data types are correct,
         //and check that the request body is not empty
 
@@ -17,7 +20,8 @@ router.post('/', async (req, res) => {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
-            const profile = await createUser(body)
+            // const profile = await createUser(body)
+            const profile = false
             //if no profile found to update, throw error to the catch block
             if(!profile || !JSON.stringify(profile)) {
                 throw Error('Create profile failed')
@@ -42,7 +46,7 @@ router.post('/', async (req, res) => {
 router.get('/:user_id', async (req, res) => {
     try {
     const { user_id } = req.params
-    if(!validateParam) {
+    if(!validateUUID(user_id)) {
         res.status(400).send('Incorrect URL parameters')
     } else {
         const profile = await getUser(user_id)
