@@ -1,22 +1,23 @@
 import React from 'react'
-import '../../../styles/styles'
+import { hot } from 'react-hot-loader/root';
+import '../styles/styles'
 import GetListings from './GetListings'
-import ListersProfile from './ListersProfile'
 import NavBar from './NavBar'
-import UserProfile from './UserProfile'
+import Profile from './Profile'
 import Header from './Header'
 import Footer from './Footer'
 import SignUpForm from './SignUpForm'
+import Hero from './hero/Hero'
 
 const App = () => {
   return (
     <>
       <div className="grid-container">
+        <Hero />
         <Header />
         <NavBar />
         <GetListings />
-        {/* <ListersProfile /> */}
-        {/* <UserProfile /> */}
+        {/* <Profile /> */}
         <SignUpForm />
         <Footer />
       </div>
@@ -24,4 +25,4 @@ const App = () => {
   )
 }
 
-export default App
+export default hot(App)

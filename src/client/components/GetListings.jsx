@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 const axios = require('axios')
-import '../../../styles/styles'
+import '../styles/styles'
 import DisplayListing from './DisplayListing'
 import Loading from './Loading'
 

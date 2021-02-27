@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../../styles/styles'
+import '../styles/styles'
 
 const DisplayListing = props => {
   const {listings_user_id, rent, description, suburb, postcode, userLikes } = props.listing
@@ -15,7 +15,7 @@ const DisplayListing = props => {
           <li> The following users are interested in this listing:
             <ul>{
                 !!userLikes 
-                ? userLikes.map(like => <li>User ID: {like}</li>) 
+                ? userLikes.map(like => <li key={like}>User ID: {like}</li>) 
                 : <span>No users have liked this listing yet.</span>
                 }
             </ul>
