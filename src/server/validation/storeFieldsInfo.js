@@ -7,31 +7,33 @@ const conn = require('knex')(config)
 //it pulls the column names and data types of those columns,
 //and stores them in .env variables.
 
-const storeFieldsInfo = async (tables, db = conn) => {
-    tables.forEach( async table => {
-        const getFieldsInfo = await db.select('column_name', 'data_type')
+const storeFieldsInfo = async (table, db = conn) => {
+    try {
+        const namesTypesArray = await db.select('column_name', 'data_type')
         .from('information_schema.columns')
         .whereRaw(`table_name = \'${table}\'`)
-        const storageObject = {}
-        getFieldsInfo.map(item => {
-        const { column_name, data_type } = item
-        storageObject[column_name] = data_type
+        const keysValsObject = {}
+        namesTypesArray.map(nameTypeObject => {
+            const {column_name, data_type} = nameTypeObject
+            keysValsObject[`${column_name}`] = data_type
         })
         switch (table) {
             case 'users':
-                process.env.USERS_FIELDS = JSON.stringify(storageObject)
+                process.env.USERS_FIELDS = JSON.stringify(keysValsObject)
                 break;
             case 'listings':
-                process.env.LISTINGS_FIELDS = JSON.stringify(storageObject)
+                process.env.LISTINGS_FIELDS = JSON.stringify(keysValsObject)
                 break;
             case 'locations':
-                process.env.LOCATIONS_FIELDS = JSON.stringify(storageObject)
+                process.env.LOCATIONS_FIELDS = JSON.stringify(keysValsObject)
                 break;
             case 'likes':
-                process.env.LIKES_FIELDS = JSON.stringify(storageObject)
+                process.env.LIKES_FIELDS = JSON.stringify(keysValsObject)
                 break;
         }
-    })
+    } catch (e) {
+        throw Error(`Error in storeFieldsInfo: ${JSON.stringify(e)}`)
+    }
 }
 
 module.exports = storeFieldsInfo

@@ -1,5 +1,6 @@
 require('dotenv').config()
 const env = process.env
+const storeFieldsInfo = require('./storeFieldsInfo')
 
 //pretty self explanatory, just validates that a string is type UUID.
 const validateUUID = uuid => {
@@ -61,22 +62,26 @@ const validateRequestKeysVals = (ENVobject, requestObject) => {
 //if validation fails, errors will throw the execution to the catch block,
 //which returns false to the API.
 //if validation is successful, true will be returned.
-const validateRequestBody = requestBody => {
+const validateRequestBody = async requestBody => {
    //choose env var to compare against
     try {
         for(const table in requestBody) {
+            //this will call the function to store the fields and types in ENV vars
+            await storeFieldsInfo(table)
+            //this will validate the keys and values from the request body object against
+            //the fields and data types stored in the env variables.
             switch(table) {
                 case("users"):
-                    validateRequestKeysVals(env.USERS_FIELDS, requestBody[table])
+                    await validateRequestKeysVals(env.USERS_FIELDS, requestBody[table])
                     break
                 case("locations"):
-                    validateRequestKeysVals(env.LOCATIONS_FIELDS, requestBody[table])
+                    await validateRequestKeysVals(env.LOCATIONS_FIELDS, requestBody[table])
                     break
                 case("listings"):
-                    validateRequestKeysVals(env.LISTINGS_FIELDS, requestBody[table])
+                    await validateRequestKeysVals(env.LISTINGS_FIELDS, requestBody[table])
                     break
                 case("likes"):
-                    validateRequestKeysVals(env.LIKES_FIELDS, requestBody[table])
+                    await validateRequestKeysVals(env.LIKES_FIELDS, requestBody[table])
                     break
             }
         }

@@ -20,16 +20,9 @@ router.post('/', async (req, res) => {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
-            // const profile = await createUser(body)
-            const profile = false
-            //if no profile found to update, throw error to the catch block
-            if(!profile || !JSON.stringify(profile)) {
-                throw Error('Create profile failed')
-                // res.status(500).send('Update to profile failed')
-            } else {
+            const profile = await createUser(body)
                 //if update is successful
                 res.status(200).send(JSON.stringify(profile))
-            }
         }
     }
         catch (e) {

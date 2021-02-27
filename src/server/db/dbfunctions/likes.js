@@ -30,7 +30,7 @@ const getAllLikes = async (type, db = conn) => {
 
 const getAllLikesForOne = async (id, type, db = conn) => {
     try {
-        const returningLikes = []
+        let returningLikes = []
         switch (type) {
         case 'user':
             //get all the listings where a user has left likes

@@ -7,21 +7,26 @@ const { formatObject } = require('../../validation/dataValidator')
 
 const createUser = async (userToInsert, db = conn) => {
     try {
-    const { users, location } = userToInsert
-    const { suburb, postcode } = location
+    const { users, locations } = userToInsert
+    const { suburb, postcode } = locations
     const userInsert = await db('users').insert({
         ...users,
-        id: uuidv4(),
-    }, ['id', 'email', 'first_name', 'last_name', 'bio'])
-    const locationInsert = await db('location').insert([
-        {suburb, postcode: parseInt(postcode), id: uuidv4(), user_id: userInsert[0].id}
-      ], ['suburb', 'postcode'])
-    if(!userInsert) throw Error('insert of user failed')
-    if(!locationInsert) throw Error('insert of user location failed')
-    return { user: {...userInsert[0]}, location: {...locationInsert[0]} }
+        users_id: uuidv4(),
+    }, ['users_id', 'email', 'first_name', 'last_name', 'bio'])
+    const locationInsert = await db('locations').insert({
+        suburb, 
+        postcode: parseInt(postcode), 
+        locations_id: uuidv4(), 
+        locations_user_id: userInsert[0].users_id}, 
+        ['suburb', 'postcode']
+    )
+    if(!userInsert || JSON.stringify(userInsert) === '{}') throw Error('insert of user failed')
+    if(!locationInsert || JSON.stringify(locationInsert) === '{}') throw Error('insert of user location failed')
+
+    return { users: {...userInsert[0]}, locations: {...locationInsert[0]} }
     } catch (e) {
         console.error({msg: 'Error from createUser db function'}, e)
-        return false
+        throw Error(`Error from createUser db function: ${JSON.stringify(e)}`)
     }
     
 }
@@ -41,10 +46,11 @@ const getUser = async (userID, db = conn) => {
         if(JSON.stringify(profile) === '{}') {
             throw Error('no profile found')
         }
-        profile.likes = getAllLikesForOne(userID, 'user')
-        // JSON.stringify(likes) === '{}' || !likes
-        //     ? profile.likes = []
-        //     : profile.likes
+        profile.listingsLiked = []
+        const listingsLiked = await getAllLikesForOne(userID, 'user')
+        if(JSON.stringify(listingsLiked) !== '{}') {
+            profile.listingsLiked = listingsLiked
+        }
         return profile
     } catch (e) {
         console.error({msg: 'Error from getUser db function'}, e)
@@ -61,7 +67,7 @@ const updateUser = async (userID, user, db = conn) => {
         //we only update users table if it is provided to us:
         if(!!users) {
             const updateUser = await db('users')
-                .where('id', userID)
+                .where('users_id', userID)
                 .update({...users}, ['email', 'first_name', 'last_name', 'bio'])
             returnObj = {...returnObj,user: {...updateUser[0]}}
         }
@@ -72,7 +78,7 @@ const updateUser = async (userID, user, db = conn) => {
                 location.postcode = parseInt(location.postcode)
             }
             const updateLocation = await db('location')
-                .where('user_id', userID)
+                .where('locations_user_id', userID)
                 .update({...location}, ['suburb', 'postcode'])
             
             returnObj = {...returnObj, location: {...updateLocation[0]}}
