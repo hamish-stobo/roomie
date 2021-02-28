@@ -1,17 +1,17 @@
 import React from 'react'
-import '../styles/styles'
+import '../../../styles/styles'
 
-const DisplayListing = props => {
+const Listing = props => {
   const {listings_user_id, rent, description, suburb, postcode, userLikes } = props.listing
   return (
     <>
-      <div className="display-listings">
+      <div className="Listing">
         <h3>Seller's user ID: {listings_user_id}</h3>
         <ul>
-          <li>{description}</li>
-          <li>{rent}</li>
-          <li>{suburb}</li>
-          <li>{postcode}</li>
+          <li>Description: {description}</li>
+          <li>Rent per week: ${rent}</li>
+          <li>Suburb: {suburb}</li>
+          <li>Postcode: {postcode}</li>
           <li> The following users are interested in this listing:
             <ul>{
                 !!userLikes 
@@ -26,4 +26,4 @@ const DisplayListing = props => {
   )
 }
 
-export default DisplayListing
+export default Listing

@@ -1,22 +1,20 @@
 import React from 'react'
 import { hot } from 'react-hot-loader/root';
-import '../styles/styles'
-import GetListings from './GetListings'
-import NavBar from './NavBar'
-import Profile from './Profile'
-import Header from './Header'
-import Footer from './Footer'
-import SignUpForm from './SignUpForm'
-import Hero from './hero/Hero'
+import '../../styles/styles'
+import Listings from '../Listings'
+import NavBar from '../NavBar'
+import Profile from '../Profile'
+import Footer from '../Footer'
+import SignUpForm from '../Register'
+import Hero from '../hero'
 
 const App = () => {
   return (
     <>
       <div className="grid-container">
         <Hero />
-        <Header />
         <NavBar />
-        <GetListings />
+        <Listings />
         {/* <Profile /> */}
         <SignUpForm />
         <Footer />

@@ -1,9 +1,8 @@
-@use './components/_App';
-@use './components/DisplayListings';
-@use './components/GetListings';
-@use './components/Header';
-@use './components/ListersProfile';
-@use './components/NavBar';
-@use './components/UserProfile';
-@use './components/Footer';
+@use '../components/App/_App';
+@use '../components/Listings/Listings';
+@use '../components/Listings/Listing/Listing';
+@use '../components/Listings/Header/Header';
+@use '../components/NavBar/NavBar';
+@use '../components/Profile/Profile';
+@use '../components/Footer/Footer';
 @use './RootSettings'

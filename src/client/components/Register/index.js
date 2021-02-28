@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 const axios = require('axios')
 
-const SignUpForm = () => {
+const Register = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -51,7 +51,7 @@ const SignUpForm = () => {
 
     return (
         <>
-            <form onSubmit={submit}>
+            <form className="Register" onSubmit={submit}>
                 <label>First Name:
                     <input type="text" name="firstName" value={firstName} onChange={onChangeFirstName} />
                 </label>
@@ -70,4 +70,4 @@ const SignUpForm = () => {
     )
 }
 
-export default SignUpForm
+export default Register

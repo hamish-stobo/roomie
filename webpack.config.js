@@ -2,7 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require('path');
 module.exports = {
    context: __dirname,
-   entry: ['react-hot-loader/patch', './src/client/index.js'],
+   entry: './src/client/index.js',
    output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'main.js',
@@ -29,10 +29,7 @@ module.exports = {
     ]
  },
 
-   resolve: { 
-      alias: {
-         'react-dom': '@hot-loader/react-dom',
-      },
+   resolve: {
       extensions: ["*", ".js", ".jsx", '.scss'] 
    },
    plugins: [
