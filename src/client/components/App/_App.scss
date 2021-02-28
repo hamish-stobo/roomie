@@ -1,45 +1,27 @@
-  .grid-container {
-    display: grid;
-    grid-template-columns: 0.8fr;
-    grid-template-rows: 0.5fr 0.4fr 1.9fr 0.3fr;
-    gap: 7px 0px;
-    grid-template-areas:
-      "Header"
-      "NavBar"
-      "GetListings"
-      "Footer";
-  }
-  
-  .Header { grid-area: Header; }
-  
-  .NavBar { grid-area: NavBar; }
-  
-  .GetListings { grid-area: GetListings; }
-  
-  .Footer { grid-area: Footer; }
+ 
   
   
 
-  @media only screen and (min-width: 786px) {
-    .grid-container {
-      display: grid;
-      grid-template-columns: 0.8fr 0.2fr 3.1fr 0.2fr 0.8fr;
-      grid-template-rows: 0.3fr 0.1fr 1.3fr;
-      gap: 7px 0px;
-      grid-template-areas:
-        "Header Header Header Header Header"
-        "NavBar NavBar NavBar NavBar NavBar"
-        ". . GetListings . ."
-        "Footer Footer Footer Footer Footer"
+  // @media only screen and (min-width: 786px) {
+  //   .grid-container {
+  //     display: grid;
+  //     grid-template-columns: 0.8fr 0.2fr 3.1fr 0.2fr 0.8fr;
+  //     grid-template-rows: 0.3fr 0.1fr 1.3fr;
+  //     gap: 7px 0px;
+  //     grid-template-areas:
+  //       "Header Header Header Header Header"
+  //       "NavBar NavBar NavBar NavBar NavBar"
+  //       ". . GetListings . ."
+  //       "Footer Footer Footer Footer Footer"
         
-    }
+  //   }
     
-    .Header { grid-area: Header; }
+  //   .Header { grid-area: Header; }
     
-    .NavBar { grid-area: NavBar; }
+  //   .NavBar { grid-area: NavBar; }
     
-    .GetListings { grid-area: GetListings; }
+  //   .GetListings { grid-area: GetListings; }
 
-    .Footer { grid-area: Footer; }
-  }
+  //   .Footer { grid-area: Footer; }
+  // }
 
