@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from "react-router-dom"
-import Hero from '../../Hero'
+import LandingPage from '../../LandingPage'
 import Layout from '../Layout'
 import Listings from '../../Listings'
 import Register from '../../Register'
@@ -8,7 +8,7 @@ import Register from '../../Register'
 const Router = () => (
     <div>
         <Switch>
-            <Route exact path="/"><Hero /></Route>
+            <Route exact path="/"><LandingPage /></Route>
             <Layout>
                 {/* <Route path="/login" component={Login} />
                 <Route path="/logout" component={LogOut} /> */}

@@ -1,3 +1,4 @@
+@use './RootSettings';
 @use '../components/App/_App';
 @use '../components/Listings/Listings';
 @use '../components/Listings/Listing/Listing';
@@ -6,7 +7,8 @@
 @use '../components/App/Layout/Footer/Footer';
 @use '../components/App/Layout/NavBar/NavBar';
 @use '../components/Profile/Profile';
-@use '../components/Hero/Hero';
-@use './RootSettings';
+@use '../components/LandingPage/LandingPage';
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+
+$landingpagebackground: linear-gradient(rgba(255, 255, 255, 0.726), rgb(0, 255, 255));

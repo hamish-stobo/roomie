@@ -1,3 +1,9 @@
+$landingPageBackground: linear-gradient(rgba(255, 255, 255, 0.726), rgb(0, 255, 255));
+$landingTextColor: rgb(235, 29, 135);
+
+$buttonBG: rgb(255, 238, 6);
+$buttonHoverBG: rgba(255, 238, 6, 0.85);
+
 *, html, body {
     margin: 0;
 	padding: 0;
@@ -12,17 +18,22 @@ ul {
 
 .button {
 	text-decoration: none;
-    background: rgb(255, 238, 6);
-	padding: 8px 12px;
-	min-width: 95px;
+    background: $buttonBG;
+	padding: 5px 10px;
+	min-width: 100px;
 	border: none;
 	border-radius: 30px;
-	color: rgb(194, 5, 162);
+	color: $landingTextColor;
 	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 	font-weight: 400;
 	font-size: 1.05em;
 }
 
 .button:hover {
-	background: rgba(255, 238, 6, 0.85);
+	background: $buttonHoverBG;
 }
+
+// darkish pink color: rgb(247, 11, 207);
+// blue-cyan background-image: linear-gradient(rgba(0, 0, 255, 0.555), rgba(0, 255, 255, 0.493));
+// yellow background: rgb(255, 238, 6);
+//btn hover yellow background: rgba(255, 238, 6, 0.85);
