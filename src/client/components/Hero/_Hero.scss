@@ -1,8 +1,17 @@
 .Hero {
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     align-items: center;
-    justify-content: center;
-    background: rgba(139, 21, 21, 0.5);
+    justify-content: space-evenly;
     height: 100vh;
+    color: rgb(247, 11, 207);
+    background-image: linear-gradient(rgba(0, 0, 255, 0.555), rgba(0, 255, 255, 0.493));
+}
+
+.bottomHalf {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 120px;
 }

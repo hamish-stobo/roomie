@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../../styles/styles'
+import House from '../../../../public/assets/House.svg'
 
 const Hero = () => (
     <div className="Hero">
-        <h1>WELCOME TO ROOMIE!!!!</h1>
-        <Link to='/listings'>***HIDE THIS IN PROD*** Link to listings page, test</Link>
+        <h1>r00mie</h1>
+        <svg>{House}</svg>
+        <div className="bottomHalf">
+            <Link className="button" to='/register'>Login</Link>
+            <Link className="button" to='/register'>Register</Link>
+        </div>
     </div>
 )
 
