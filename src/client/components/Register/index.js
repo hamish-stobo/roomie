@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 const axios = require('axios')
 
 const Register = () => {
@@ -66,6 +67,7 @@ const Register = () => {
                 </label>
                 <input type="submit" name="submit" />
             </form>
+            <Link to='/login'>Login</Link>
         </>
     )
 }
