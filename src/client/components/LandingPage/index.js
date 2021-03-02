@@ -10,7 +10,7 @@ const LandingPage = () => (
             <HouseSvg />
         </div>
         <div className="pageHalf">
-            <Link className="button" to='/register'>Login</Link>
+            <Link className="button" to='/login'>Login</Link>
             <Link className="button" to='/register'>Register</Link>
         </div>
     </div>
