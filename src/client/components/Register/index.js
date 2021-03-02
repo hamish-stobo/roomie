@@ -3,71 +3,57 @@ import { Link } from 'react-router-dom'
 const axios = require('axios')
 
 const Register = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [userDetails, setUserDetails] = useState(new Map()) 
 
+    const onChange = e => {
+        const { name, value } = e.target
+        //create a COPY of the existing map in state
+        //react will compare the two maps in useState and setState with Object.is, and trigger re-render
+        setUserDetails(new Map(userDetails.set(name, value)))
+    }
 
-    const submit = (e) => {
+    const submit = async e => {
         e.preventDefault()
-
-        alert(`here is ur data: {
-            firstname: ${firstName}
-            lastname: ${lastName}
-            email: ${email}
-        }`)
-        
-        /* This should work once we get /register up and running */
-
-        //   axios.post('/register ', {
-        //     data: {
-        //         first_name: firstName,
-        //         last_name: lastName,
-        //         email: email,
-        //         password: password,
-        //     },
-        // }).then(res => {
-        //     console.log('res worked',res)
-        // })
-
-    }
-
-    const onChangeFirstName = (e) => {
-        setFirstName(e.target.value)
-    }
-
-    const onChangeLastName = (e) => {
-        setLastName(e.target.value)
-    }
-
-
-    const onChangeEmail = (e) => {
-        setEmail(e.target.value)
-    }
-
-    const onPasswordChange = (e) => {
-        setPassword(e.target.value)
+        const userObject = Object.fromEntries(userDetails)
+        console.log(`here is ur data: ${JSON.stringify(userObject)}`)
+        //once auth ready:
+        //
+        // try {
+        //     const response = await axios.post('/register ', {
+        //         data: userObject
+        //     })
+        //     //if response truthy
+        //     if(!!reponse && response !== '{}') {
+        //         console.log(`all good, response: ${response}`)
+        //     } else {
+        //         throw Error('Attempt to login failed')
+        // } 
+        // } catch (e) {
+        //     console.log(e)
+        // }
     }
 
     return (
         <>
             <form className="Register" onSubmit={submit}>
                 <label>First Name:
-                    <input type="text" name="firstName" value={firstName} onChange={onChangeFirstName} />
+                    <input type="text" name="first_name" value={userDetails.first_name} onChange={onChange} />
                 </label>
                 <label>Last Name:
-                    <input type="text" name="lastName" value={lastName} onChange={onChangeLastName} />
+                    <input type="text" name="last_name" value={userDetails.last_name} onChange={onChange} />
                 </label>
                 <label>Email:
-                    <input type="email" name="email" value={email} onChange={onChangeEmail} />
+                    <input type="email" name="email" value={userDetails.email} onChange={onChange} />
                 </label>
                 <label>Password :
-                    <input type="password" name="password" value={password} onChange={onPasswordChange} />
+                    <input type="password" name="password" value={userDetails.password} onChange={onChange} />
+                </label>
+                <label>Bio :
+                    <textarea name="bio" value={userDetails.bio} onChange={onChange} />
                 </label>
                 <input type="submit" name="submit" />
             </form>
-            <Link to='/login'>Login</Link>
+            <Link to='/login' className="button">Login</Link>
         </>
     )
 }
