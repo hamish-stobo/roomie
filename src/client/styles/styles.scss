@@ -8,7 +8,7 @@
 @use '../components/App/Layout/NavBar/NavBar';
 @use '../components/Profile/Profile';
 @use '../components/LandingPage/LandingPage';
+@use '../components/LandingPage/Login/Login';
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
-
-$landingpagebackground: linear-gradient(rgba(255, 255, 255, 0.726), rgb(0, 255, 255));
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');

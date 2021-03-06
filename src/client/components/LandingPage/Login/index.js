@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import '../../../styles/styles'
 const axios = require('axios')
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
         e.preventDefault()
         const userDetails = Object.fromEntries(userInfo)
         console.log(userDetails)
-        //when auth is ready:
+        //when auth/login functionality is ready:
         // try {
         //     const response = await axios.post('/api/v1/login', {
         //     data: {...userDetails})
@@ -30,18 +31,14 @@ const Login = () => {
         //
     }
     return (
-        <>
+        <div className="Login-Container" >
             <form className="Login" onSubmit={submit}>
-                <label>Email:
-                    <input type="email" name="email" value={userInfo.email} onChange={onChange} />
-                </label>
-                <label>Password :
-                    <input type="password" name="password" value={userInfo.password} onChange={onChange} />
-                </label>
-                <input type="submit" name="submit" />
+                <input className="text-input" type="email" name="email" placeholder="Email" value={userInfo.email} onChange={onChange} />
+                <input className="text-input" type="password" placeholder="Password" name="password" value={userInfo.password} onChange={onChange} />
+                <input className="button" type="submit" name="submit"/>
             </form>
-            <Link className="button" to='/register'>Register</Link>
-        </>
+            <Link className="small-caps-purple" to='/register'>Sign Up for Roomie</Link>
+        </div>
     )
 }
 

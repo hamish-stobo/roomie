@@ -1,15 +1,15 @@
-$landingPageBackground: linear-gradient(rgba(255, 255, 255, 0.726), rgb(0, 255, 255));
-$landingTextColor: rgb(235, 29, 135);
-
-$buttonBG: rgb(255, 238, 6);
-$buttonHoverBG: rgba(255, 238, 6, 0.85);
+$PalePurpScurp: rgba(219, 0, 255, 0.76);
+$PurpScurp: #DB00FF;
+$PaleBanana: rgba(255, 245, 0, 0.41);
+$Banana: #FFF500;
+$CurlyFont: 'Pattaya', sans-serif;
 
 *, html, body {
     margin: 0;
 	padding: 0;
 	border: 0;
 	text-align: center;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Raleway', sans-serif;
 }
 
 ul {
@@ -18,22 +18,23 @@ ul {
 
 .button {
 	text-decoration: none;
-    background: $buttonBG;
+    background: $PurpScurp;
 	padding: 5px 10px;
 	min-width: 100px;
 	border: none;
 	border-radius: 30px;
-	color: $landingTextColor;
+	color: $Banana;
 	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 	font-weight: 400;
 	font-size: 1.05em;
 }
 
-.button:hover {
-	background: $buttonHoverBG;
+.small-caps-purple {
+    font-variant: small-caps;
+    text-decoration: none;
+    color: $PurpScurp;
+	font-size: 1.2em;
 }
-
-// darkish pink color: rgb(247, 11, 207);
-// blue-cyan background-image: linear-gradient(rgba(0, 0, 255, 0.555), rgba(0, 255, 255, 0.493));
-// yellow background: rgb(255, 238, 6);
-//btn hover yellow background: rgba(255, 238, 6, 0.85);
+// .button:hover {
+// 	background: $buttonHoverBG;
+// }

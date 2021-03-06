@@ -4,14 +4,12 @@ import LandingPage from '../../LandingPage'
 import Layout from '../Layout'
 import Listings from '../../Listings'
 import Register from '../../Register'
-import Login from '../../Login'
 
 const Router = () => (
     <div>
         <Switch>
             <Route exact path="/"><LandingPage /></Route>
             <Layout>
-                <Route path="/login" component={Login} />
                 {/* <Route path="/logout" component={LogOut} /> */}
                 <Route path="/register" component={Register} />
                 <Route path="/listings" component={Listings} />

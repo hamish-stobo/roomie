@@ -1,0 +1,18 @@
+@import '../../../styles/_RootSettings';
+
+// .Login-Container {
+//     min-height: 200px;
+// }
+
+.Login {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 200px;
+    max-height: 300px;
+}
+
+.text-input {
+    padding: 2px auto;
+    box-shadow: 2px 2px solid black;
+    margin: 10px auto;
+}

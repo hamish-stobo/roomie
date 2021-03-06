@@ -1,18 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import '../../styles/styles'
-import HouseSvg from '../HouseSvg'
+import Login from './Login'
 
 const LandingPage = () => (
     <div className="LandingPage">
         <div className="pageHalf">
-            <h1 className="header">r00mie</h1>
-            <HouseSvg />
+            <h1 className="header">rOOmie</h1>
         </div>
         <div className="pageHalf">
-            <Link className="button" to='/login'>Login</Link>
-            <Link className="button" to='/register'>Register</Link>
+            <Login />
         </div>
+        <div className="small-caps-purple"><p>© 2021 All Rights Reserved</p></div>
     </div>
 )
 
