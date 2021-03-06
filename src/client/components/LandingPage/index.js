@@ -4,13 +4,9 @@ import Login from './Login'
 
 const LandingPage = () => (
     <div className="LandingPage">
-        <div className="pageHalf">
-            <h1 className="header">rOOmie</h1>
-        </div>
-        <div className="pageHalf">
-            <Login />
-        </div>
-        <div className="small-caps-purple"><p>© 2021 All Rights Reserved</p></div>
+        <h1 className="header">rOOmie</h1>
+        <Login />
+        <div className="small-caps-purple copyright"><p>© 2021 All Rights Reserved</p></div>
     </div>
 )
 

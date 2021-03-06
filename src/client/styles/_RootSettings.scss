@@ -5,11 +5,18 @@ $Banana: #FFF500;
 $CurlyFont: 'Pattaya', sans-serif;
 
 *, html, body {
-    margin: 0;
+    margin: 0 auto;
 	padding: 0;
 	border: 0;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 ul {
@@ -20,13 +27,15 @@ ul {
 	text-decoration: none;
     background: $PurpScurp;
 	padding: 5px 10px;
-	min-width: 100px;
-	border: none;
-	border-radius: 30px;
+	border-radius: 5px;
 	color: $Banana;
 	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 	font-weight: 400;
 	font-size: 1.05em;
+}
+
+.button:hover {
+	cursor: pointer;
 }
 
 .small-caps-purple {
@@ -35,6 +44,10 @@ ul {
     color: $PurpScurp;
 	font-size: 1.2em;
 }
-// .button:hover {
-// 	background: $buttonHoverBG;
-// }
+
+.copyright {
+	position: absolute;
+	bottom: 10px;
+	font-size: 0.9em;
+}
+
