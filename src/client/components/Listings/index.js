@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 const axios = require('axios')
 import '../../styles/styles'
-import Header from './Header'
 import Listing from './Listing'
 import Loading from './Loading'
 
@@ -22,7 +21,6 @@ const Listings = () => {
     return (
         <>
             <div className="Listings">
-                <Header />
                 {listings.length > 0 ? listings.map((listing, idx) => {
                     // let { listing_id } = listing
                     // let uniqueKey = listing_id + idx.toString()

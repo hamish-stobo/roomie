@@ -1,10 +1,16 @@
+@import '../../../../styles/_RootSettings';
+
 .NavBar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    outline: 1px solid green;
     height: 50px;
     top: 0;
-    background: salmon;
-    position: sticky;
+    background: $PaleBanana;
+    color: $PurpScurp;
+}
+
+.Logo {
+    font-family: $CurlyFont;
+    font-size: 1.6em;
 }
