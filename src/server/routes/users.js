@@ -1,22 +1,14 @@
 require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
-const { validateUUID, validateRequestBody, formatObject } = require('../validation/dataValidator')
+const { validateUUID, validateEmail } = require('../validation/dataValidator')
 
  
 //insert a new user
 router.post('/', async (req, res) => {
     try {
         const { body } = req
-        //remove null/undefined properties before data validation
-        const formattedBody = formatObject(body)
-        //validate the request body - check data types
-        const isValid = validateRequestBody(formattedBody)
-        //we check the keys and data types are correct,
-        //and check that the request body is not empty
-
-        //if client data is bad, tell them that they're bad and they should feel bad
-        if(!isValid || JSON.stringify(body) === "{}") {
+        if(JSON.stringify(body) === "{}") {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
@@ -30,12 +22,6 @@ router.post('/', async (req, res) => {
             res.status(500).send('Could not create profile')
         }
 })
-
-//given a user's first name, will return that
-//users profile and the listings which they have 
-//left likes on.
-
-//if no profile found, an empty object will be returned
 router.get('/:user_id', async (req, res) => {
     try {
     const { user_id } = req.params
@@ -43,9 +29,8 @@ router.get('/:user_id', async (req, res) => {
         res.status(400).send('Incorrect URL parameters')
     } else {
         const profile = await getUser(user_id)
-        if(!profile || JSON.stringify(profile) === "") {
+        if(!profile || JSON.stringify(profile) === "{}") {
             res.status(404).send('Profile not found :(')
-        // res.status(500).send('Update to profile failed')
         } else {
         //if update is successful
             res.status(200).send(JSON.stringify(profile))
@@ -60,23 +45,16 @@ router.get('/:user_id', async (req, res) => {
 
 router.put('/:user_id', async (req, res) => {
     try {
-        const { user_id } = req.params
-        const body = formatObject(req.body)
-        console.log(`formatted body: ${JSON.stringify(body)}`)
-        // console.log(`user_id: ${JSON.stringify(user_id)}, body: ${JSON.stringify(body)}`)
-       
-        //validate client data, and if client data is bad,
-        //tell them that they're bad and they should feel bad
-        if(!validateUUID(user_id) || JSON.stringify(body) === "{}" || !validateRequestBody(body)) {
+        const { user_id} = req.params
+        const { body } = req
+        if(!validateUUID(user_id) || JSON.stringify(body) === "{}" || !validateEmail(body.email)) {
             res.status(400).send('Request data malformed')
         }
         else {
-            //do the DB stuff
             const profile = await updateUser(user_id, body)
-            //if no profile found to update, throw error to the catch block
+            //extra layer of error handling
             if(JSON.stringify(profile) == "{}" || !profile) {
                 throw Error('Update to profile failed')
-                // res.status(500).send('Update to profile failed')
             } else {
                 //if update is successful
                 res.status(200).send(JSON.stringify(profile))

@@ -9,7 +9,7 @@ const getListing = async (listingId, db = conn) => {
         .select()
         .where('listing_id', listingId)
         if(listingArr == []) {
-            throw Error('No listing found!')
+            throw Error('No listing found :(')
         }
         const listing = listingArr[0]
         const listingLikes = await getAllLikesForOne(listingId, 'listing')

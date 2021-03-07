@@ -1,8 +1,6 @@
 const router = require('express').Router()
 const { getAllListings, getListing } = require('../db/dbfunctions/listings')
 
-//shows all listings and user_ids of users who have left likes on
-//those listings.
 router.get('/', async (req, res) => {
     try {
       const listingsAndLikes = await getAllListings()
@@ -17,9 +15,7 @@ router.get('/', async (req, res) => {
     }
   })
 
-//this takes a listing ID as the URL parameter, and
-//returns the listing record and all the userIDs of users
-//who have left likes on that listing.
+
 router.get('/:listing_id', async (req, res) => {
 try {
     const { listing_id } = req.params

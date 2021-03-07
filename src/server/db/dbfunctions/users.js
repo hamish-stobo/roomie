@@ -7,50 +7,33 @@ const { formatObject } = require('../../validation/dataValidator')
 
 const createUser = async (userToInsert, db = conn) => {
     try {
-    const { users, locations } = userToInsert
-    const { suburb, postcode } = locations
-    const userInsert = await db('users').insert({
-        ...users,
-        users_id: uuidv4(),
-    }, ['users_id', 'email', 'first_name', 'last_name', 'bio'])
-    const locationInsert = await db('locations').insert({
-        suburb, 
-        postcode: parseInt(postcode), 
-        locations_id: uuidv4(), 
-        locations_user_id: userInsert[0].users_id}, 
-        ['suburb', 'postcode']
-    )
-    if(!userInsert || JSON.stringify(userInsert) === '{}') throw Error('insert of user failed')
-    if(!locationInsert || JSON.stringify(locationInsert) === '{}') throw Error('insert of user location failed')
-
-    return { users: {...userInsert[0]}, locations: {...locationInsert[0]} }
+        const userInsert = await db('users').insert({
+            ...userToInsert,
+            user_id: uuidv4(),
+        }, ['user_id', 'email', 'password', 'first_name', 'last_name', 'user_location', 'profile_picture'])
+        
+        if(!userInsert || JSON.stringify(userInsert) === '{}') throw Error('Insert of user failed')
+        console.log(userInsert)
+        return userInsert[0]
     } catch (e) {
         console.error({msg: 'Error from createUser db function'}, e)
         throw Error(`Error from createUser db function: ${JSON.stringify(e)}`)
     }
-    
 }
 
 const getUser = async (userID, db = conn) => {
     try {
-        const profile = await db
-            .select('users_id', 'email', 'first_name', 'last_name', 'bio')
-            .first()
-            .from('users')
-            .where('users_id', userID)
-            .join('locations', 'locations_user_id', '=', 'users_id')
-            .whereNull('locations_listing_id')
-            .select('suburb', 'postcode')
+        const profile = await db('users')
+            .select()
+            .where('user_id', userID)
             .first()
         
-        if(JSON.stringify(profile) === '{}') {
-            throw Error('no profile found')
+        if(profile.length === 0 || JSON.stringify(profile[0]) === '{}') {
+            console.error({msg: 'No profile found'})
+            return false
         }
-        profile.listingsLiked = []
         const listingsLiked = await getAllLikesForOne(userID, 'user')
-        if(JSON.stringify(listingsLiked) !== '{}') {
-            profile.listingsLiked = listingsLiked
-        }
+        profile.listingsLiked = listingsLiked || []
         return profile
     } catch (e) {
         console.error({msg: 'Error from getUser db function'}, e)
@@ -60,33 +43,19 @@ const getUser = async (userID, db = conn) => {
 
 const updateUser = async (userID, user, db = conn) => {
     try {
-        const { 
-            users, location
-        } = user
-        let returnObj = {}
         //we only update users table if it is provided to us:
-        if(!!users) {
-            const updateUser = await db('users')
-                .where('users_id', userID)
-                .update({...users}, ['email', 'first_name', 'last_name', 'bio'])
-            returnObj = {...returnObj,user: {...updateUser[0]}}
+        const updateUser = await db('users')
+            .where('user_id', userID)
+            .update({...user}, ['email', 'first_name', 'last_name', 'user_location', 'profile_picture'])
+        console.log(JSON.stringify(updateUser))
+        if(updateUser.length == 0 || JSON.stringify(updateUser[0]) == "{}") {
+            console.error('Update user failed')
+            return false
         }
-        //we only update location table if it is provided to us:
-        if(!!location) {
-            //if property "postcode" is not null, run type conversion on it
-            if(!!location.postcode) {
-                location.postcode = parseInt(location.postcode)
-            }
-            const updateLocation = await db('location')
-                .where('locations_user_id', userID)
-                .update({...location}, ['suburb', 'postcode'])
-            
-            returnObj = {...returnObj, location: {...updateLocation[0]}}
-            } 
-        return returnObj
+        return updateUser[0]
     } catch (e) {
         console.error({msg: "error in updateUser"}, e)
-        return false
+        throw Error(`Error from updateUser db function: ${JSON.stringify(e)}`)
     }
 }
 
