@@ -1,30 +1,30 @@
 exports.up = async knex => {
   try {
     const tablesCreated = await knex.schema.createTable('users', table => {
-        table.uuid('users_id').unique().notNullable()
+        table.uuid('user_id').unique().notNullable()
         table.string('email').unique().notNullable()
         table.string('password').notNullable()
         table.string('first_name').notNullable()
         table.string('last_name').notNullable()
-        table.text('bio') //optional field
+        table.string('user_location').notNullable()
+        table.binary('profile_picture')
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
       .createTable('listings', table => {
-        table.uuid('listings_id').unique().notNullable()
+        table.uuid('listing_id').unique().notNullable()
         table.uuid('listings_user_id').unique().notNullable()
-        table.foreign('listings_user_id').references('users_id').inTable('users')
+        table.foreign('listings_user_id').references('user_id').inTable('users')
         table.float('rent', { precision: 2 }).notNullable()
+        table.string('listing_location').notNullable()
+        table.string('tagline').notNullable()
         table.text('description') // optional field
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
-      .createTable('locations', table => {
-        table.uuid('locations_id').unique().notNullable()
-        table.string('suburb').notNullable()
-        table.integer('postcode').unsigned().notNullable()
-        table.uuid('locations_user_id').unique()
-        table.foreign('locations_user_id').references('users_id').inTable('users')
-        table.uuid('locations_listing_id').unique()
-        table.foreign('locations_listing_id').references('listings_id').inTable('listings')
+      .createTable('images', table => {
+        table.uuid('image_id').unique().notNullable()
+        table.uuid('images_listing_id').notNullable()
+        table.foreign('images_listing_id').references('listing_id').inTable('listings')
+        table.binary('listing_image').unique()
         table.timestamp('created_at').defaultTo(knex.fn.now())
     })
     //here we need to check that all likes per ad are unique,
@@ -34,11 +34,11 @@ exports.up = async knex => {
     //incoming advertisement ID, prevent insert as the user has already
     //registered likes on that ad. 
     .createTable('likes', table => {
-        table.uuid('likes_id').unique().notNullable()
+        table.uuid('like_id').unique().notNullable()
         table.uuid('likes_user_id').notNullable()
-        table.foreign('likes_user_id').references('users_id').inTable('users')
+        table.foreign('likes_user_id').references('user_id').inTable('users')
         table.uuid('likes_listing_id').notNullable()
-        table.foreign('likes_listing_id').references('listings_id').inTable('listings')
+        table.foreign('likes_listing_id').references('listing_id').inTable('listings')
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
     
@@ -58,7 +58,7 @@ exports.up = async knex => {
 
 exports.down = knex => {
     return knex.schema.dropTableIfExists('likes')
-        .dropTableIfExists('location')
+        .dropTableIfExists('images')
         .dropTableIfExists('listings')
         .dropTableIfExists('users')
 }

@@ -34,18 +34,16 @@ const getAllLikesForOne = async (id, type, db = conn) => {
         switch (type) {
         case 'user':
             //get all the listings where a user has left likes
-            const userLikes = await db
+            const userLikes = await db('likes')
             .select('likes_listing_id')
-            .from('likes')
             .where('likes_user_id', id)
             returningLikes.push(...userLikes)
             break
         case 'listing':
             //get all user_ids of likes left for a particular listing
-            const listingLikes = await db
-            .select('user_id')
-            .from('likes')
-            .where('listing_id', id)
+            const listingLikes = await db('likes')
+            .select('likes_user_id')
+            .where('likes_listing_id', id)
             returningLikes.push(...listingLikes)
             break
         default:
@@ -60,6 +58,7 @@ const getAllLikesForOne = async (id, type, db = conn) => {
                 return like
             })
         }
+        console.log(`returningLikes ${returningLikes}`)
         return returningLikes
     } catch (e) {
         console.error({msg: 'Error from getAllLikesForOne'}, e)
