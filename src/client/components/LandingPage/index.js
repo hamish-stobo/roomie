@@ -1,12 +1,13 @@
 import React from 'react'
 import '../../styles/styles'
 import Login from './Login'
+import Footer from '../Footer'
 
 const LandingPage = () => (
-    <div className="LandingPage">
+    <div className="pageWrapper">
         <h1 className="header">rOOmie</h1>
         <Login />
-        <div className="small-caps-purple copyright"><p>© 2021 All Rights Reserved</p></div>
+        <Footer />
     </div>
 )
 

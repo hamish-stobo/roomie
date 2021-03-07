@@ -4,11 +4,12 @@
 @use '../components/Listings/Listing/Listing';
 @use '../components/Listings/Header/Header';
 @use '../components/App/Layout/Layout';
-@use '../components/App/Layout/Footer/Footer';
+@use '../components/Footer/Footer';
 @use '../components/App/Layout/NavBar/NavBar';
 @use '../components/Profile/Profile';
 @use '../components/LandingPage/LandingPage';
 @use '../components/LandingPage/Login/Login';
+@use '../components/Register/Register';
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');

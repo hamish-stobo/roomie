@@ -12,6 +12,16 @@ $CurlyFont: 'Pattaya', sans-serif;
 	font-family: 'Raleway', sans-serif;
 }
 
+.pageWrapper {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: $PurpScurp;
+    background: $PaleBanana;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
@@ -36,6 +46,14 @@ ul {
 
 .button:hover {
 	cursor: pointer;
+}
+
+.Form > * {
+    font-variant: small-caps;
+    font-size: 1.1em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    width: 100%;
+    border-radius: 5px;
 }
 
 .small-caps-purple {

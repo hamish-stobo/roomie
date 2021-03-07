@@ -1,15 +1,5 @@
 @import '../../styles/_RootSettings';
 
-.LandingPage {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    color: $PurpScurp;
-    background: $PaleBanana;
-}
-
 .header {
     font-family: $CurlyFont;
     font-size: 4em;

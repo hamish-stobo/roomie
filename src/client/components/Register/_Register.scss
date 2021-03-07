@@ -1,0 +1,90 @@
+@import '../../styles/_RootSettings';
+
+.Register-container {
+    max-width: 280px;
+    display: grid;
+    grid-template-columns: 280px;
+    grid-template-rows: 1fr auto;
+    grid-row-gap: 40px;
+    grid-template-areas: 
+    "top"
+    "register";
+    background: rgba(255, 255, 255, 0.4); 
+    padding: 0 10px 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+
+.registerTop {
+    grid-area: top;
+    display: grid;
+    grid-template-columns: auto 30px;
+    grid-template-rows: 30px 50px;
+    grid-template-areas: 
+    "blank exitbtn"
+    "description description";
+}
+
+
+.exitBtn {
+    grid-area: exitbtn;
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    background: none;
+    color: $PalePurpScurp;
+    font-size: 2em;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: color 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.exitBtn:hover,
+.exitBtn:focus {
+    color: $PurpScurp;
+}
+
+.registerTop > p {
+    grid-area: description;
+    margin: 0 30px;
+}
+
+.Register {
+    grid-area: register;
+    display: grid;
+    grid-template-columns: 260px;
+    grid-template-rows: repeat(5, 1fr);
+    grid-row-gap: 10px;
+    grid-template-areas: 
+    "first_name"
+    "last_name"
+    "email"
+    "password"
+    "SignUp";
+    padding-bottom: 20px;
+}
+
+.Register {
+    .text-input:nth-of-type(1) {
+        grid-area: first_name;
+    }
+
+    .text-input:nth-of-type(2) {
+        grid-area: last_name;
+    }
+
+    input[type=email] {
+        grid-area: email;
+    }
+
+    input[type=password] {
+        grid-area: password;
+    }
+
+    input[type=submit] {
+        grid-area: SignUp;
+}
+}

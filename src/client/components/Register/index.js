@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import '../../styles/_RootSettings'
 const axios = require('axios')
+import Footer from '../Footer'
 
-const Register = () => {
+const Register = ({toggle}) => {
     const [userDetails, setUserDetails] = useState(new Map()) 
-
     const onChange = e => {
         const { name, value } = e.target
         //create a COPY of the existing map in state
@@ -34,27 +35,22 @@ const Register = () => {
     }
 
     return (
-        <>
-            <form className="Register" onSubmit={submit}>
-                <label>First Name:
-                    <input type="text" name="first_name" value={userDetails.first_name} onChange={onChange} />
-                </label>
-                <label>Last Name:
-                    <input type="text" name="last_name" value={userDetails.last_name} onChange={onChange} />
-                </label>
-                <label>Email:
-                    <input type="email" name="email" value={userDetails.email} onChange={onChange} />
-                </label>
-                <label>Password :
-                    <input type="password" name="password" value={userDetails.password} onChange={onChange} />
-                </label>
-                <label>Bio :
-                    <textarea name="bio" value={userDetails.bio} onChange={onChange} />
-                </label>
-                <input type="submit" name="submit" />
-            </form>
-            <Link to='/login' className="button">Login</Link>
-        </>
+        <div className="pageWrapper">
+            <div className="Register-container">
+                <div className="registerTop">                
+                    <Link className="exitBtn" to="/">x</Link>
+                    <p className="small-caps-purple">Sign Up to Find a Flat or List a Room</p>
+                </div>
+                <form className="Form Register" onSubmit={submit}>
+                    <input className={`text-input ${!userDetails.get('first_name') ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails.get('first_name')} onChange={onChange} />
+                    <input className={`text-input ${!userDetails.get('last_name') ? '' : 'lowercase'}`} type="text" name="last_name" placeholder="Last Name" value={userDetails.get('last_name')} onChange={onChange} />
+                    <input className={`text-input ${!userDetails.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userDetails.get('email')} onChange={onChange} />
+                    <input className={`text-input ${!userDetails.get('password') ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password" value={userDetails.get('password')} onChange={onChange} />
+                    <input className="button" value="Sign Up" type="submit" name="submit" />
+                </form>
+            </div>
+            <Footer />
+        </div>
     )
 }
 
