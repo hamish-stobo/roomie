@@ -25,28 +25,6 @@
     "description description";
 }
 
-
-.exitBtn {
-    grid-area: exitbtn;
-    border: none;
-    margin: 0;
-    text-decoration: none;
-    background: none;
-    color: $PalePurpScurp;
-    font-size: 2em;
-    line-height: 1;
-    cursor: pointer;
-    text-align: center;
-    transition: color 250ms ease-in-out, transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.exitBtn:hover,
-.exitBtn:focus {
-    color: $PurpScurp;
-}
-
 .registerTop > p {
     grid-area: description;
     margin: 0 30px;

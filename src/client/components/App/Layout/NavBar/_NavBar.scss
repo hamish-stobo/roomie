@@ -2,15 +2,51 @@
 
 .NavBar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     height: 50px;
     top: 0;
     background: $PaleBanana;
     color: $PurpScurp;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    // justify-content: space-evenly;
+    // align-items: center;
+    // grid-template-areas:
+    //     "Logo Other"
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .Logo {
     font-family: $CurlyFont;
     font-size: 1.6em;
+    margin-left: 30px;
+}
+
+.Hamburger {
+    margin-right: 30px;
+}
+
+.Hamburger:hover {
+    cursor: pointer;
+}
+
+.menu-container {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    padding: 20px;
+    background: $PaleBanana;
+}
+
+.menu-ul {
+    // display: flex;
+    // flex-flow: column nowrap;
+    // align-items: stretch;
+    // justify-content: space-between;
+}
+
+.menu-li {
+    padding: 10px 0;
 }

@@ -10,6 +10,7 @@ $CurlyFont: 'Pattaya', sans-serif;
 	border: 0;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
+    font-variant: small-caps;
 }
 
 .pageWrapper {
@@ -49,15 +50,21 @@ ul {
 }
 
 .Form > * {
-    font-variant: small-caps;
     font-size: 1.1em;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     width: 100%;
     border-radius: 5px;
 }
 
+.Logo {
+    font-family: $CurlyFont;
+}
+
+.lowercase {
+    font-variant: normal;
+}
+
 .small-caps-purple {
-    font-variant: small-caps;
     text-decoration: none;
     color: $PurpScurp;
 	font-size: 1.2em;
@@ -67,5 +74,28 @@ ul {
 	position: absolute;
 	bottom: 10px;
 	font-size: 0.9em;
+    left: 5vw;
+    right: 5vw;
+}
+
+.exitBtn {
+    grid-area: exitbtn;
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    background: none;
+    color: $PalePurpScurp;
+    font-size: 2em;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: color 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.exitBtn:hover,
+.exitBtn:focus {
+    color: $PurpScurp;
 }
 

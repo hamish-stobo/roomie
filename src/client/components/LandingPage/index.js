@@ -5,7 +5,7 @@ import Footer from '../Footer'
 
 const LandingPage = () => (
     <div className="pageWrapper">
-        <h1 className="header">rOOmie</h1>
+        <h1 className="Logo Header lowercase">rOOmie</h1>
         <Login />
         <Footer />
     </div>

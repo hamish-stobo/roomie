@@ -1,13 +1,13 @@
 @import '../../styles/_RootSettings';
 
-.header {
-    font-family: $CurlyFont;
+.Header {
     font-size: 4em;
-    margin-bottom: 10vh;
+    margin: 0 auto 10vh;
+    // margin-bottom: 10vh;
 }
 
 @media screen and (min-width: 648px) {
-    .header {
+    .Header {
         font-size: 6em;
     }
 }
