@@ -76,16 +76,15 @@ ul {
 	font-size: 0.9em;
     left: 5vw;
     right: 5vw;
+    z-index: 1;
 }
 
 .exitBtn {
-    grid-area: exitbtn;
     border: none;
     margin: 0;
     text-decoration: none;
     background: none;
     color: $PalePurpScurp;
-    font-size: 2em;
     line-height: 1;
     cursor: pointer;
     text-align: center;

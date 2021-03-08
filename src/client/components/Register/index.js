@@ -38,7 +38,7 @@ const Register = ({toggle}) => {
         <div className="pageWrapper">
             <div className="Register-container">
                 <div className="registerTop">                
-                    <Link className="exitBtn" to="/">x</Link>
+                    <Link className="exitBtn registerExitBtn" to="/">x</Link>
                     <p className="small-caps-purple">Sign Up to Find a Flat or List a Room</p>
                 </div>
                 <form className="Form Register" onSubmit={submit}>

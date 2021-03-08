@@ -40,13 +40,45 @@
     background: $PaleBanana;
 }
 
-.menu-ul {
-    // display: flex;
-    // flex-flow: column nowrap;
-    // align-items: stretch;
-    // justify-content: space-between;
+.exit-nav {
+    background: rgba(1,1,1,0.2);
 }
 
 .menu-li {
     padding: 10px 0;
+}
+
+.lg {
+    display: none;
+    visibility: hidden;
+    position: static;
+}
+
+@media screen and (min-width: 648px) {
+    .sm {
+        display: none;
+        visibility:hidden;
+        position: static;
+    }
+
+    .lg {
+        display: block;
+        visibility: visible;
+    }
+
+    .menu-container {
+        margin-right: 0;
+        padding: 0 15px 0 0;
+        background: none;
+    }
+
+    .menu-ul {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-evenly;
+    }
+
+    .menu-li {
+        padding: 0 10px;
+    }
 }

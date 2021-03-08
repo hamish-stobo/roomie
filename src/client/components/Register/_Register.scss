@@ -13,6 +13,7 @@
     padding: 0 10px 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    z-index: 5;
 }
 
 .registerTop {
@@ -23,6 +24,11 @@
     grid-template-areas: 
     "blank exitbtn"
     "description description";
+}
+
+.registerExitBtn {
+    grid-area: exitbtn;
+    font-size: 2em;
 }
 
 .registerTop > p {
