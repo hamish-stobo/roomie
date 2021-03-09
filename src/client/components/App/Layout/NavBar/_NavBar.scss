@@ -36,12 +36,18 @@
     position: absolute;
     top: 50px;
     right: 0;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;;
     background: $PaleBanana;
+    width: 100vw;
 }
 
 .exit-nav {
-    background: rgba(1,1,1,0.2);
+    float: right;
+    font-size: 1.2em;
+}
+
+.menu-ul {
+    margin-top: 15px;
 }
 
 .menu-li {
@@ -70,12 +76,14 @@
         margin-right: 0;
         padding: 0 15px 0 0;
         background: none;
+        width: auto;
     }
 
     .menu-ul {
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-evenly;
+        margin-top: 0;
     }
 
     .menu-li {
