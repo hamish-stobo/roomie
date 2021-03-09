@@ -36,22 +36,14 @@
     position: absolute;
     top: 50px;
     right: 0;
-    padding: 10px 20px 20px 20px;;
     background: $PaleBanana;
     width: 100vw;
-}
-
-.exit-nav {
-    float: right;
-    font-size: 1.2em;
-}
-
-.menu-ul {
-    margin-top: 15px;
+    padding: 10px;
 }
 
 .menu-li {
     padding: 10px 0;
+    font-size: 1.2em;
 }
 
 .lg {
