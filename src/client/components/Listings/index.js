@@ -21,11 +21,12 @@ const Listings = () => {
     return (
         <>
             <div className="Listings">
-                {!listings.length > 0 ? listings.map((listing, idx) => {
+                <Listing />
+                {/* {listings.length > 0 ? listings.map((listing, idx) => {
                     // let { listing_id } = listing
                     // let uniqueKey = listing_id + idx.toString()
                     return <Listing key={idx} listing={listing} />
-                }) : <Loading />}
+                }) : <Loading />} */}
             </div>
         </>
     )

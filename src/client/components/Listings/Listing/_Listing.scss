@@ -1,9 +1,37 @@
-.Listing {
-    outline: 1px solid black;
-    color: blue;
-    width: 75%;
-    height: 100%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
+.ListingContainer {
+    width: 90vw;
 }
+
+.cardTop {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    justify-content: center;
+    float: left;
+}
+
+.profileImage {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+}
+
+.nameDate {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    .userName, .postedDate {
+        text-align: left;
+        margin-left: 10px;
+    }
+    
+    .userName {
+        font-size: 1.1em;
+        margin-bottom: 4px;
+    }
+    
+    .postedDate {
+        font-size: 0.8em;
+    }
+}
+
