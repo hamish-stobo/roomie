@@ -40,6 +40,8 @@
     .bedroomImage {
         margin-top: 12px;
         width: 100%;
+        height: calc(0.7 * 100vw);
+        object-fit: cover;
     }
     .indexCount {
         background: yellow;
@@ -81,5 +83,22 @@
     
 }
 
+.chevron {
+    position: relative;
+    bottom: 150px;
+}
 
+.chevron:hover {
+    cursor: pointer;
+}
+
+.chevron-left {
+    float: left;
+    left: 10px;
+}
+
+.chevron-right {
+    float: right;
+    right: 10px;
+}
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import '../../../styles/styles'
+import ChevronRight from './ChevronRight'
+import ChevronLeft from './ChevronLeft'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
@@ -19,9 +21,14 @@ const Listing = ({listing}) => {
   // }
   const [selected, setSelected] = useState(0)
   const imgsArr = ["https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/flagged/photo-1573168710865-2e4c680d921a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1039&q=80"]
-
+  
   const changeSelected = idx => {
     setSelected(idx)
+  }
+
+  const counter = difference => {
+    const current = selected + difference
+    setSelected(current)
   }
 
   return (
@@ -35,7 +42,9 @@ const Listing = ({listing}) => {
       </div>
       <div className="imageCarousel">
         <img className="bedroomImage" src={imgsArr[selected]} />
-        <div className="indexCount">{`${selected + 1}/${imgsArr.length}`}</div>
+        {selected !== 0 && <ChevronLeft counter={counter} />}
+        {selected !== imgsArr.length - 1 && <ChevronRight counter={counter} />}
+        {/* <div className="indexCount" >{`${selected + 1}/${imgsArr.length}`}</div> */}
       </div>
       <div className="underImage">
         <div className="Likes">
