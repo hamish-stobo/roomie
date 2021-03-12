@@ -50,20 +50,39 @@
     background: yellow;
     bottom: 50px;
     float: right;
-    // right: 25px;
     position: relative;
     padding: 4px 8px;
     border-radius: 15px;
     }
 }
 
+.tagline {
+    margin: 5px auto 0 30px;
+    text-align: left;
+    font-size: 1.1em;
+}
 
-
-.underImage {
-    width: 100%;
+.detailsContainer {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 5px;
+    .location-rent-col {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        .location, .rent {
+            margin-left: 0;
+            font-size: 0.9em;
+        }
+    }
+}
+
+.socialContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
     align-items: center;
     .Likes {
         align-self: flex-start;
@@ -75,22 +94,22 @@
     .Likes:hover {
         cursor: pointer;
     }
-    .dots {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        max-width: 100px;
-        .dot {
-            background: rgb(49, 49, 49);
-            border-radius: 10px;
-            height: 10px;
-            width: 10px;
-            cursor: pointer;
-        }
-        .selected {
-            background: yellow;
-        }
-    }
+    // .dots {
+    //     display: flex;
+    //     flex-flow: row nowrap;
+    //     justify-content: center;
+    //     max-width: 100px;
+    //     .dot {
+    //         background: rgb(49, 49, 49);
+    //         border-radius: 10px;
+    //         height: 10px;
+    //         width: 10px;
+    //         cursor: pointer;
+    //     }
+    //     .selected {
+    //         background: yellow;
+    //     }
+    // }
     .message {
         font-size: 1.2em;
     }
@@ -117,20 +136,6 @@
 .chevron-right {
     float: right;
     right: 10px;
-}
-
-.detailsContainer {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    .location-rent-col {
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        text-align: left;
-    }
 }
 
 .Icon {

@@ -55,25 +55,16 @@ const Listing = ({listing}) => {
         <img className="bedroomImage" src={imgsArr[selected]} />
         {selected !== 0 && <ChevronLeft counter={counter} />}
         {selected !== imgsArr.length - 1 && <ChevronRight counter={counter} />}
-        <span className="indexCount" style={{right: `${selected == imgsArr.length - 1 ? '44' : '15'}px`}}>{`${selected + 1}/${imgsArr.length}`}</span>
+        <span className="indexCount" style={{right: `${selected == imgsArr.length - 1 ? '39' : '10'}px`}}>{`${selected + 1}/${imgsArr.length}`}</span>
       </div>
-      <div className="underImage">
-        <div className="Likes" onClick={() => toggleLike('myID')}>
-          <span>{likes.length}</span>
-          {likes.includes('myID')
-            ? <FontAwesomeIcon className="likeIcon Icon" icon={faLikeBold} />
-            : <FontAwesomeIcon className="likeIcon Icon" icon={faThumbsUp} />
-          }
-        </div> 
+      <div className="tagline">Come and join our lovely home!</div>
         {/* <div className="dots" style={{width: `${25*imgsArr.length}px`}}>
           {imgsArr.map((item, idx) => <div onClick={(() => changeSelected(idx))} className={`dot ${idx == selected ? 'selected' : ''}`} key={idx} > </div>)}
         </div> */}
-        <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" />
-      </div>
       <div className="detailsContainer">
           <div className="location-rent-col">
-            <span>Remuera, Auckland</span>
-            <span>$225 per week</span>
+            <span className="location">Remuera, Auckland</span>
+            <span className="rent">$225 per week</span>
           </div>
           <div className="roomsContainer">
             <span>4</span>
@@ -84,7 +75,16 @@ const Listing = ({listing}) => {
             <BathroomIcon />
           </div>
       </div>
-      <div className="tagline">Come and join our lovely home!</div>
+      <div className="socialContainer">
+        <div className="Likes" onClick={() => toggleLike('myID')}>
+            <span>{likes.length}</span>
+            {likes.includes('myID')
+              ? <FontAwesomeIcon className="likeIcon Icon" icon={faLikeBold} />
+              : <FontAwesomeIcon className="likeIcon Icon" icon={faThumbsUp} />
+            }
+        </div> 
+        <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" />
+      </div>
     </div>
   )
 }
