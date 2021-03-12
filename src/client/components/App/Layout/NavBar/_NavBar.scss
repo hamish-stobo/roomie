@@ -46,6 +46,10 @@
     font-size: 1.2em;
 }
 
+.menu-li:hover {
+    cursor: pointer;
+}
+
 .lg {
     display: none;
     visibility: hidden;
@@ -53,6 +57,12 @@
 }
 
 @media screen and (min-width: 648px) {
+    .NavBar {
+        .Logo {
+            margin-left: 60px;
+            font-size: 1.9em;
+        }
+    }
     .sm {
         display: none;
         visibility:hidden;

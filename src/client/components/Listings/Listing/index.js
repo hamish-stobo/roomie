@@ -3,7 +3,8 @@ import '../../../styles/styles'
 import ChevronRight from './ChevronRight'
 import ChevronLeft from './ChevronLeft'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp, faComments } from "@fortawesome/free-regular-svg-icons"
 
 const Listing = ({listing}) => {
   // const {listings_user_id, listings_id, rent, description, suburb, postcode, userLikes } = listing
@@ -21,7 +22,8 @@ const Listing = ({listing}) => {
   // }
   const [selected, setSelected] = useState(0)
   const imgsArr = ["https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/flagged/photo-1573168710865-2e4c680d921a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1039&q=80"]
-  
+  const userLikes = ["id1", "id2", "id3", "currentUserId"];
+  const currentUserHasLiked = userLikes.includes("currentUserId");
   const changeSelected = idx => {
     setSelected(idx)
   }
@@ -48,30 +50,17 @@ const Listing = ({listing}) => {
       </div>
       <div className="underImage">
         <div className="Likes">
-          <span>19</span>
-          <div>LikesIcon</div>
+          <span>{userLikes.length}</span>
+          {currentUserHasLiked
+            ? <FontAwesomeIcon className="likeIcon" icon={faLikeBold} />
+            : <FontAwesomeIcon className="likeIcon" icon={faThumbsUp} />
+          }
         </div> 
         <div className="dots" style={{width: `${25*imgsArr.length}px`}}>
           {imgsArr.map((item, idx) => <div onClick={(() => changeSelected(idx))} className={`dot ${idx == selected ? 'selected' : ''}`} key={idx} > </div>)}
         </div>
-        <div className="message">Message Seller</div>
+        <FontAwesomeIcon className="message" icon={faComments} />
       </div>
-      {/* <h3>Seller's user ID: {listings_user_id}</h3>
-      <ul>
-        <li>Description: {description}</li>
-        <li>Rent per week: ${rent}</li>
-        <li>Suburb: {suburb}</li>
-        <li>Postcode: {postcode}</li>
-        <li> There are {!!userLikes && userLikes.length > 0 ? userLikes.length : 0} users interested in this listing:
-          <ul>{
-              !!userLikes 
-              ? userLikes.map(like => <li key={like}>User ID: {like}</li>) 
-              : <span>No users have liked this listing yet.</span>
-              }
-          </ul>
-        </li>
-        <FontAwesomeIcon onClick={() => buttonClick(listings_id, listings_user_id)} icon={faCoffee} />
-      </ul> */}
     </div>
   )
 }

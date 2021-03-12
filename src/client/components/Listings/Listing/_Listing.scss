@@ -1,6 +1,6 @@
-.ListingContainer {
-    width: 100vw;
-}
+// .ListingContainer {
+//     width: 100vw;
+// }
 
 .cardTop {
     display: flex;
@@ -15,6 +15,7 @@
     height: 50px;
     width: 50px;
     border-radius: 50px;
+    object-fit: cover;
 }
 
 .nameDate {
@@ -42,6 +43,8 @@
         width: 100%;
         height: calc(0.7 * 100vw);
         object-fit: cover;
+        max-width: 650px;
+        max-height: 450px;
     }
     .indexCount {
         background: yellow;
@@ -63,11 +66,17 @@
     * {
         width: 33%;
     }
+    .Likes {
+        align-self: flex-start;
+        font-size: 1.1em;
+        .likeIcon {
+            margin-left: 10px;
+        }
+    }
     .dots {
         display: flex;
         flex-flow: row nowrap;
         justify-content: center;
-        align-self: flex-start;
         max-width: 100px;
         .dot {
             background: rgb(49, 49, 49);
@@ -80,12 +89,15 @@
             background: yellow;
         }
     }
+    .message {
+        font-size: 1.1em;
+    }
     
 }
 
 .chevron {
     position: relative;
-    bottom: 150px;
+    bottom: calc(40vw);
 }
 
 .chevron:hover {

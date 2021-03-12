@@ -1,16 +1,16 @@
 @import '../../styles/_RootSettings';
-
-.Header {
-    font-size: 4em;
-    margin: 0 auto 10vh auto;
-    text-align: center;
-    width: 100vh;
-    // margin-bottom: 10vh;
+.pageWrapper {
+    .Header {
+        font-size: 4em;
+        margin: 0 auto 10vh auto;
+    }
 }
 
 @media screen and (min-width: 648px) {
-    .Header {
-        font-size: 6em;
+    .pageWrapper {
+        .Header {
+            font-size: 6em;
+        }
     }
 }
 
