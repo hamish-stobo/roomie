@@ -1,6 +1,6 @@
-// .ListingContainer {
-//     width: 100vw;
-// }
+.ListingContainer {
+    max-width: 660px;
+}
 
 .cardTop {
     display: flex;
@@ -41,21 +41,23 @@
     .bedroomImage {
         margin-top: 12px;
         width: 100%;
-        height: calc(0.7 * 100vw);
+        height: 350px;
         object-fit: cover;
         max-width: 650px;
         max-height: 450px;
     }
     .indexCount {
-        background: yellow;
-        bottom: 50px;
-        right: 25px;
-        float: right;
-        position: relative;
-        padding: 4px 8px;
-        border-radius: 15px;
+    background: yellow;
+    bottom: 50px;
+    float: right;
+    // right: 25px;
+    position: relative;
+    padding: 4px 8px;
+    border-radius: 15px;
     }
 }
+
+
 
 .underImage {
     width: 100%;
@@ -63,15 +65,15 @@
     flex-flow: row nowrap;
     justify-content: space-evenly;
     align-items: center;
-    * {
-        width: 33%;
-    }
     .Likes {
         align-self: flex-start;
         font-size: 1.1em;
         .likeIcon {
             margin-left: 10px;
         }
+    }
+    .Likes:hover {
+        cursor: pointer;
     }
     .dots {
         display: flex;
@@ -90,14 +92,17 @@
         }
     }
     .message {
-        font-size: 1.1em;
+        font-size: 1.2em;
+    }
+    .message:hover {
+        cursor: pointer;
     }
     
 }
 
 .chevron {
     position: relative;
-    bottom: calc(40vw);
+    bottom: 180px;
 }
 
 .chevron:hover {
@@ -114,3 +119,26 @@
     right: 10px;
 }
 
+.detailsContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    .location-rent-col {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+.Icon {
+    transform: scale(1.3);
+}
+
+@media screen and (min-width: 650px) {
+    .chevron {
+        bottom: 240px;
+    }
+}

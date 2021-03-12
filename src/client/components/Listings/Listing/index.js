@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import '../../../styles/styles'
 import ChevronRight from './ChevronRight'
 import ChevronLeft from './ChevronLeft'
+import BathroomIcon from './BathroomIcon'
+import BedroomIcon from './BedroomIcon'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp, faComments } from "@fortawesome/free-regular-svg-icons"
@@ -21,9 +23,16 @@ const Listing = ({listing}) => {
   //   // })
   // }
   const [selected, setSelected] = useState(0)
+  const [likes, setLikes] = useState(["id1", "id2", "id3"])
   const imgsArr = ["https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/flagged/photo-1573168710865-2e4c680d921a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1039&q=80"]
-  const userLikes = ["id1", "id2", "id3", "currentUserId"];
-  const currentUserHasLiked = userLikes.includes("currentUserId");
+  
+  const toggleLike = userID => {
+    likes.includes(userID)
+    //this will eventually be set up to call a delete on the likes table.
+      ? setLikes(likes.filter(item => item !== userID))
+    //this will eventually be set up to call a post on the likes table.
+      : setLikes([...likes, userID])
+  }
   const changeSelected = idx => {
     setSelected(idx)
   }
@@ -46,21 +55,36 @@ const Listing = ({listing}) => {
         <img className="bedroomImage" src={imgsArr[selected]} />
         {selected !== 0 && <ChevronLeft counter={counter} />}
         {selected !== imgsArr.length - 1 && <ChevronRight counter={counter} />}
-        {/* <div className="indexCount" >{`${selected + 1}/${imgsArr.length}`}</div> */}
+        <span className="indexCount" style={{right: `${selected == imgsArr.length - 1 ? '44' : '15'}px`}}>{`${selected + 1}/${imgsArr.length}`}</span>
       </div>
       <div className="underImage">
-        <div className="Likes">
-          <span>{userLikes.length}</span>
-          {currentUserHasLiked
-            ? <FontAwesomeIcon className="likeIcon" icon={faLikeBold} />
-            : <FontAwesomeIcon className="likeIcon" icon={faThumbsUp} />
+        <div className="Likes" onClick={() => toggleLike('myID')}>
+          <span>{likes.length}</span>
+          {likes.includes('myID')
+            ? <FontAwesomeIcon className="likeIcon Icon" icon={faLikeBold} />
+            : <FontAwesomeIcon className="likeIcon Icon" icon={faThumbsUp} />
           }
         </div> 
-        <div className="dots" style={{width: `${25*imgsArr.length}px`}}>
+        {/* <div className="dots" style={{width: `${25*imgsArr.length}px`}}>
           {imgsArr.map((item, idx) => <div onClick={(() => changeSelected(idx))} className={`dot ${idx == selected ? 'selected' : ''}`} key={idx} > </div>)}
-        </div>
-        <FontAwesomeIcon className="message" icon={faComments} />
+        </div> */}
+        <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" />
       </div>
+      <div className="detailsContainer">
+          <div className="location-rent-col">
+            <span>Remuera, Auckland</span>
+            <span>$225 per week</span>
+          </div>
+          <div className="roomsContainer">
+            <span>4</span>
+            <BedroomIcon />
+          </div>
+          <div className="bathroomsContainer">
+            <span>2</span>
+            <BathroomIcon />
+          </div>
+      </div>
+      <div className="tagline">Come and join our lovely home!</div>
     </div>
   )
 }
