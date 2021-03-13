@@ -6,9 +6,9 @@ import Listings from '../../Listings'
 import Register from '../../Register'
 
 const Router = () => (
-    <div>
+    <>
         <Switch>
-            <Route exact path="/"><LandingPage /></Route>
+            <Route exact path="/" component={LandingPage} />
             <Route path="/register" component={Register} />
             <Layout>
                 {/* <Route path="/logout" component={LogOut} /> */}
@@ -18,7 +18,7 @@ const Router = () => (
                 {/* <Route path="/profile" component={Profile} /> */}
             </Layout>
         </Switch>
-    </div>
+    </>
 )
 
 export default Router

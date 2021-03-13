@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../../../../styles/styles'
 import Hamburger from './Hamburger'
 import X from './X'
@@ -13,7 +14,7 @@ const NavBar = () => {
     return (
         <>
             <div className="NavBar">
-                <div className="Logo lowercase">rOOmie</div>
+                <Link to="/listings" className="Logo lowercase" onClick={() => toggleShow(false)}>rOOmie</Link>
                 <div className="Hamburger sm" onClick={() => toggleShow(!show)}>
                 {!show
                     ? <Hamburger />
@@ -23,16 +24,16 @@ const NavBar = () => {
                 {show && 
                 <div className="menu-container sm">
                     <ul className="menu-ul sm">
-                        <li className="menu-li sm">Profile</li>
-                        <li className="menu-li sm">List a Room</li>
-                        <li className="menu-li sm">Logout</li>
+                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/profile" style={{textDecoration: 'none', color: '#DB00FF'}}>Profile</Link></li>
+                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/addlisting" style={{textDecoration: 'none', color: '#DB00FF'}}>List a Room</Link></li>
+                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/logout" style={{textDecoration: 'none', color: '#DB00FF'}}>Logout</Link></li>
                     </ul>
                 </div>}
                 <div className="menu-container lg">
                     <ul className="menu-ul lg">
-                        <li className="menu-li lg">Profile</li>
-                        <li className="menu-li lg">List a Room</li>
-                        <li className="menu-li lg">Logout</li>
+                        <li className="menu-li sm"><Link to="/profile" style={{textDecoration: 'none', color: '#DB00FF'}}>Profile</Link></li>
+                        <li className="menu-li sm"><Link to="/addlisting" style={{textDecoration: 'none', color: '#DB00FF'}}>List a Room</Link></li>
+                        <li className="menu-li sm"><Link to="/logout" style={{textDecoration: 'none', color: '#DB00FF'}}>Logout</Link></li>
                     </ul>
                 </div>
             </div>

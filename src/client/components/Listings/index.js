@@ -22,6 +22,7 @@ const Listings = () => {
         <>
             <div className="Listings">
                 <Listing />
+                <Listing />
                 {/* {listings.length > 0 ? listings.map((listing, idx) => {
                     // let { listing_id } = listing
                     // let uniqueKey = listing_id + idx.toString()

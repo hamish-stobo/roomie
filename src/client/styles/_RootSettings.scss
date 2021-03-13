@@ -14,6 +14,14 @@ $CurlyFont: 'Pattaya', sans-serif;
     box-sizing: border-box;
 }
 
+body {
+    background: $PaleBanana;
+}
+
+* {
+    background: none;
+}
+
 .pageWrapper {
     display: flex;
     flex-flow: column;
@@ -21,7 +29,6 @@ $CurlyFont: 'Pattaya', sans-serif;
     justify-content: center;
     height: 100vh;
     color: $PurpScurp;
-    background: $PaleBanana;
 }
 
 input:focus,
@@ -58,7 +65,13 @@ ul {
 }
 
 .Logo {
+    text-decoration: none;
     font-family: $CurlyFont;
+    color: $PalePurpScurp;
+}
+
+.Logo:visited {
+    text-decoration: none;
 }
 
 .lowercase {
@@ -72,12 +85,18 @@ ul {
 }
 
 .copyright {
-	position: absolute;
-	bottom: 10px;
 	font-size: 0.9em;
     left: 5vw;
     right: 5vw;
     z-index: 1;
+    padding-bottom: 10px;
+}
+
+.pageWrapper {
+    .copyright {
+        position: absolute;
+        bottom: 10px;
+    }
 }
 
 .exitBtn {
