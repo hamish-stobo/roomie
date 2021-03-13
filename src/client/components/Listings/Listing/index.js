@@ -55,25 +55,7 @@ const Listing = ({listing}) => {
         <img className="bedroomImage" src={imgsArr[selected]} />
         {selected !== 0 && <ChevronLeft counter={counter} />}
         {selected !== imgsArr.length - 1 && <ChevronRight counter={counter} />}
-        <span className="indexCount" style={{right: `${selected == imgsArr.length - 1 ? '39' : '10'}px`}}>{`${selected + 1}/${imgsArr.length}`}</span>
-      </div>
-      <div className="tagline">Come and join our lovely home!</div>
-        {/* <div className="dots" style={{width: `${25*imgsArr.length}px`}}>
-          {imgsArr.map((item, idx) => <div onClick={(() => changeSelected(idx))} className={`dot ${idx == selected ? 'selected' : ''}`} key={idx} > </div>)}
-        </div> */}
-      <div className="detailsContainer">
-          <div className="location-rent-col">
-            <span className="location">Remuera, Auckland</span>
-            <span className="rent">$225 per week</span>
-          </div>
-          <div className="roomsContainer">
-            <span>4</span>
-            <BedroomIcon />
-          </div>
-          <div className="bathroomsContainer">
-            <span>2</span>
-            <BathroomIcon />
-          </div>
+        <span className="indexCount" style={{right: `${selected == imgsArr.length - 1 ? '29' : '0'}px`}}>{`${selected + 1}/${imgsArr.length}`}</span>
       </div>
       <div className="socialContainer">
         <div className="Likes" onClick={() => toggleLike('myID')}>
@@ -83,7 +65,25 @@ const Listing = ({listing}) => {
               : <FontAwesomeIcon className="likeIcon Icon" icon={faThumbsUp} />
             }
         </div> 
+        <div className="tagline">Come and join our lovely home!</div>
         {/* <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" /> */}
+      </div>
+        {/* <div className="dots" style={{width: `${25*imgsArr.length}px`}}>
+          {imgsArr.map((item, idx) => <div onClick={(() => changeSelected(idx))} className={`dot ${idx == selected ? 'selected' : ''}`} key={idx} > </div>)}
+        </div> */}
+      <div className="detailsContainer">
+          <div className="location-rent-col">
+            <span className="location">Remuera, Auckland</span>
+            <span className="rent">$225 per week</span>
+          </div>
+          <div className="iconContainer roomsContainer">
+            <span>4</span>
+            <BedroomIcon />
+          </div>
+          <div className="iconContainer bathroomsContainer">
+            <span>2</span>
+            <BathroomIcon />
+          </div>
       </div>
     </div>
   )

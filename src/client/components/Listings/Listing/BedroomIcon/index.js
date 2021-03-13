@@ -1,8 +1,8 @@
 import React from 'react'
 
 const BedroomIcon = () => (
-    <svg className="Icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="28" fill="url(#pattern2)"/>
+    <svg className="Icon" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="25" height="25" fill="url(#pattern2)"/>
         <defs>
         <pattern id="pattern2" patternContentUnits="objectBoundingBox" width="1" height="1">
         <use href="#image2" transform="scale(0.00195312)"/>

@@ -8,7 +8,7 @@
     align-items: flex-end;
     justify-content: center;
     float: left;
-    margin-left: 30px;
+    margin-left: 10px;
 }
 
 .profileImage {
@@ -47,69 +47,52 @@
         max-height: 450px;
     }
     .indexCount {
-    background: yellow;
+    background: rgba(255,255,255,0.69);
+    box-shadow: 0 0 4px rgba(0,0,0,0.4);
     bottom: 50px;
     float: right;
     position: relative;
     padding: 4px 8px;
     border-radius: 15px;
     }
-}
-
-.tagline {
-    margin: 5px auto 0 20px;
-    text-align: left;
-    font-size: 1.1em;
-}
-
-.detailsContainer {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-top: 5px;
-    .location-rent-col {
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        margin: 0 0 0 20px;
-        .location, .rent {
-            font-size: 0.9em;
-            margin: 0;
-        }
+    .chevron {
+        position: relative;
+        bottom: 140px;
     }
-    .roomsContainer {
-        margin: 0 0 0 10px;
-        span {
-            font-size: 1.1em;
-        }
-        svg {
-            margin-left: 10px;
-        }
+    
+    .chevron:hover {
+        cursor: pointer;
     }
-    .bathroomsContainer {
-        margin: 0 0 0 20px;
-        span {
-            font-size: 1.1em;
-        }
-        svg {
-            margin: 2px 0 0 10px;
-        }
+    
+    .chevron-left {
+        float: left;
+        left: 10px;
+    }
+    
+    .chevron-right {
+        float: right;
+        right: 10px;
     }
 }
 
 .socialContainer {
+    position: relative;
+    bottom: 25px;
+    width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    .tagline {
+        align-self: flex-end;
+        margin: 2px auto 0;
+        // text-align: left;
+        font-size: 1.1em;
+    }
     .Likes {
         align-self: flex-start;
-        font-size: 1.1em;
         .likeIcon {
-            margin-left: 10px;
+            margin-left: 8px;
         }
     }
     .Likes:hover {
@@ -131,32 +114,55 @@
     //         background: yellow;
     //     }
     // }
-    .message {
-        font-size: 1.2em;
-    }
-    .message:hover {
-        cursor: pointer;
-    }
-    
+    // .message {
+    //     font-size: 1.2em;
+    // }
+    // .message:hover {
+    //     cursor: pointer;
+    // }
 }
 
-.chevron {
+.detailsContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
     position: relative;
-    bottom: 180px;
-}
-
-.chevron:hover {
-    cursor: pointer;
-}
-
-.chevron-left {
-    float: left;
-    left: 10px;
-}
-
-.chevron-right {
-    float: right;
-    right: 10px;
+    bottom: 15px;
+    .location-rent-col {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0 0 0 10px;
+        .location, .rent {
+            font-size: 0.9em;
+            margin: 0;
+        }
+    }
+    .iconContainer {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+    .roomsContainer {
+        margin: 0 0 0 10px;
+        span {
+            font-size: 1.1em;
+        }
+        svg {
+            margin-left: 10px;
+        }
+    }
+    .bathroomsContainer {
+        margin: 0 0 0 20px;
+        span {
+            font-size: 1.1em;
+        }
+        svg {
+            margin: 2px 0 0 10px;
+        }
+    }
 }
 
 .Icon {
