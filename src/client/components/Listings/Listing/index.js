@@ -83,7 +83,7 @@ const Listing = ({listing}) => {
               : <FontAwesomeIcon className="likeIcon Icon" icon={faThumbsUp} />
             }
         </div> 
-        <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" />
+        {/* <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" /> */}
       </div>
     </div>
   )
