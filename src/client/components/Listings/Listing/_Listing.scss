@@ -5,7 +5,7 @@
     padding-top: 10px;
     margin-bottom: 10px;
     box-shadow: 0 0 5px rgba(0,0,0,0.15);
-    background: rgba(255,255,255,0.95);
+    background: $MoreWhite;
 }
 
 .ListingContainer:nth-child(1) {
@@ -19,31 +19,30 @@
     justify-content: center;
     float: left;
     margin-left: 10px;
-}
-
-.profileImage {
-    height: 50px;
-    width: 50px;
-    border-radius: 50px;
-    object-fit: cover;
-}
-
-.nameDate {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-end;
-    .userName, .postedDate {
-        text-align: left;
-        margin-left: 10px;
+    .profileImage {
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        object-fit: cover;
     }
-    
-    .userName {
-        font-size: 1.1em;
-        margin-bottom: 4px;
-    }
-    
-    .postedDate {
-        font-size: 0.8em;
+
+    .nameDate {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        .userName, .postedDate {
+            text-align: left;
+            margin-left: 10px;
+        }
+        
+        .userName {
+            font-size: 1.1em;
+            margin-bottom: 4px;
+        }
+        
+        .postedDate {
+            font-size: 0.8em;
+        }
     }
 }
 
@@ -181,6 +180,9 @@
 }
 
 @media screen and (min-width: 400px) {
+    .cardTop {
+        margin-left: 20px;
+    }
     .imageCarousel {
         .bedroomImage {
             height: 320px;
@@ -210,6 +212,9 @@
 }
 
 @media screen and (min-width: 500px) {
+    .cardTop {
+        margin-left: 30px;
+    }
     .imageCarousel {
         .bedroomImage {
             height: 360px;
