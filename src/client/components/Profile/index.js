@@ -1,10 +1,12 @@
 import React from 'react'
 import '../../styles/styles'
+import Listings from '../Listings'
 
 const Profile = () => {
   return (
     <>
-    <h3>Profile</h3>
+     <img src="" />
+    {/* <Listings /> */}
     </>
   )
 }
