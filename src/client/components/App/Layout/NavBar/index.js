@@ -31,9 +31,9 @@ const NavBar = () => {
                 </div>}
                 <div className="menu-container lg">
                     <ul className="menu-ul lg">
-                        <li className="menu-li sm"><Link to="/profile" style={{textDecoration: 'none', color: '#DB00FF'}}>Profile</Link></li>
-                        <li className="menu-li sm"><Link to="/addlisting" style={{textDecoration: 'none', color: '#DB00FF'}}>List a Room</Link></li>
-                        <li className="menu-li sm"><Link to="/logout" style={{textDecoration: 'none', color: '#DB00FF'}}>Logout</Link></li>
+                        <li className="menu-li lg"><Link to="/profile" style={{textDecoration: 'none', color: '#DB00FF'}}>Profile</Link></li>
+                        <li className="menu-li lg"><Link to="/addlisting" style={{textDecoration: 'none', color: '#DB00FF'}}>List a Room</Link></li>
+                        <li className="menu-li lg"><Link to="/logout" style={{textDecoration: 'none', color: '#DB00FF'}}>Logout</Link></li>
                     </ul>
                 </div>
             </div>
