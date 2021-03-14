@@ -11,7 +11,7 @@ const Profile = () => {
         <span>John Smith</span>
         <span>john.smith@gmail.com</span>
         <span>+64210395224</span>
-        <span>Member since 04/02/2021</span>
+        <span>Member since 05/02/2021</span>
       </div>
       <div className="editButton">Edit Profile</div>
     </div>
