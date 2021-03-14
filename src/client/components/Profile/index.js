@@ -27,7 +27,13 @@ const Profile = () => {
         <div onClick={() => changeSelected(false)} className={!left && 'selected'}>Your Listings</div>
       </div>
       {left 
-        ? <div>You haven't liked any listings yet!</div>
+        ? <div>
+          1) Get array of likes for the current user.
+          2) Save as dictionary, where the keys are the listing IDs
+          and the values are array indices
+          3) Get the listings, filter by whether or not their PK exists
+          as a key in the likes dictionary. (DICT = OBJECT)
+        </div>
         : <Listings />
       }
       </>

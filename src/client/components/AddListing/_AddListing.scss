@@ -1,0 +1,12 @@
+@import '../../styles/_RootSettings';
+
+.AddListingContainer {
+    background: $WhiteIsh;
+    .fileUpload {
+        text-decoration: none;
+        border: none;
+        background: none;
+        border: none;
+        border-image: none;
+    }
+}
