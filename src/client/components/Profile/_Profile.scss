@@ -1,34 +1,110 @@
 @import '../../styles/_RootSettings';
 
-.profileContainer {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas: 
-        "img detail detail"
-        "img detail detail"
-        "img detail detail"
-        "button button button";
+.profileWrapper {
     background: $MoreWhite;
-    padding: 20px 0;
-    .profileImg {
-        grid-area: img;
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        object-fit: cover;
+    .profileContainer {
+        display: grid;
+        grid-template-rows: 3fr 1fr;
+        grid-template-columns: 20% 80%;
+        grid-column-gap: 10px;
+        grid-template-areas: 
+            "img detail"
+            "button button";
+        padding: 20px 0;
+        max-width: 660px;
+        .profileImg {
+            grid-area: img;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 10px;
+        }
+        .profileDetailsColumn {
+            grid-area: detail;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: flex-start;
+            span {
+                margin-left: 1px;
+            }
+            .username {
+                font-size: 1.25em;
+                margin-bottom: 2px;
+            }
+        }
+        .editButton {
+            grid-area: button;
+            cursor: pointer;
+            font-size: 1.05em;
+            margin-top: 5px;
+            width: 180px;
+        }
+    }  
+}
+.LikesListingsButtons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    color: $PurpScurp;
+    margin:  0 auto;
+    max-width: 660px;
+    div {
+        cursor: pointer;
+        padding: 8px;
+        font-size: 1.05em;
+        margin: 0 10px;
     }
-    .profileDetailsColumn {
-        grid-area: detail;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: flex-start;
-        align-items: flex-end;
-        span {
-            margin-left: 1px;
+    .selected {
+        padding-bottom: 6px;
+        border-bottom: 2px solid $PurpScurp;
+    }
+}
+
+
+@media screen and (min-width: 400px) {
+    .profileWrapper {
+        .profileContainer {
+            .profileImg {
+                margin-left: 50px;
+            }
+            .profileDetailsColumn {
+                margin-left: 70px;
+            }
         }
     }
-    .editButton {
-        grid-area: button;
+    .LikesListingsButtons {
+        div {
+            margin: 0 40px;
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .profileWrapper {
+        .profileContainer {
+            .profileImg {
+                margin-left: 100%;
+            }
+            .profileDetailsColumn {
+                margin-left: calc(40% - 70px);
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .profileWrapper {
+        .profileContainer {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-evenly;
+            align-items: flex-end;
+            .profileImg, .profileDetailsColumn, .editButton {
+                margin: 0;
+            }
+        }
     }
 }
