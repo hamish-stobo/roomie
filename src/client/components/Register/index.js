@@ -42,10 +42,10 @@ const Register = ({toggle}) => {
                     <p className="small-caps-purple">Sign Up to Find a Flat or List a Room</p>
                 </div>
                 <form className="Form Register" onSubmit={submit}>
-                    <input className={`text-input ${!userDetails.get('first_name') ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails.get('first_name')} onChange={onChange} />
-                    <input className={`text-input ${!userDetails.get('last_name') ? '' : 'lowercase'}`} type="text" name="last_name" placeholder="Last Name" value={userDetails.get('last_name')} onChange={onChange} />
-                    <input className={`text-input ${!userDetails.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userDetails.get('email')} onChange={onChange} />
-                    <input className={`text-input ${!userDetails.get('password') ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password" value={userDetails.get('password')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('first_name') ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails.get('first_name')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('last_name') ? '' : 'lowercase'}`} type="text" name="last_name" placeholder="Last Name" value={userDetails.get('last_name')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userDetails.get('email')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('password') ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password" value={userDetails.get('password')} onChange={onChange} />
                     <input className="button" value="Sign Up" type="submit" name="submit" />
                 </form>
             </div>

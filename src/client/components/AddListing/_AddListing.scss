@@ -1,12 +1,30 @@
 @import '../../styles/_RootSettings';
 
 .AddListingContainer {
-    background: $WhiteIsh;
-    .fileUpload {
-        text-decoration: none;
-        border: none;
-        background: none;
-        border: none;
-        border-image: none;
+    background: rgba(255, 255, 255, 0.4);
+    width: 95vw;
+    max-width: 660px;
+    .addListingTop {
+        margin: 50px auto;
     }
+    .addListingForm {
+        display: flex;
+        width: 100%;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+        // grid-template-rows: repeat(5, 1fr);
+        // grid-row-gap: 10px;
+        // grid-template-areas: 
+        // "title"
+        // "location"
+        // "rent"
+        // "bedrooms"
+        // "bathrooms"
+        // "";
+        padding-bottom: 20px;
+            .fileUpload {
+                text-decoration: none;
+            }
+        }
 }

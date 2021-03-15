@@ -30,12 +30,12 @@ const Login = () => {
         // }
         //
     }
-    //if the email input is empty, remove the email clas
+    //if the email input required is empty, remove the email clas
     return (
         <div className="Login-Container" >
             <form className="Form Login" onSubmit={submit}>
-                <input className={`text-input ${!userInfo.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userInfo.email} onChange={onChange} />
-                <input className={`text-input ${!userInfo.get('password') ? '' : 'lowercase'}`} type="password" placeholder="Password" name="password" value={userInfo.password} onChange={onChange} />
+                <input required className={`text-input required ${!userInfo.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userInfo.email} onChange={onChange} />
+                <input required className={`text-input required ${!userInfo.get('password') ? '' : 'lowercase'}`} type="password" placeholder="Password" name="password" value={userInfo.password} onChange={onChange} />
                 <input className="button" type="submit" name="submit" value="Login"/>
             </form>
             <Link className="small-caps-purple" to='/register'>Sign Up for Roomie</Link>

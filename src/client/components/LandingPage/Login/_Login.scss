@@ -8,26 +8,24 @@
     grid-template-areas: 
     "login"
     "signup";
+    .Login {
+        grid-area: login;
+        display: grid;
+        grid-template-columns: 260px;
+        grid-template-rows: repeat(3, 1fr);
+        grid-row-gap: 10px;
+        grid-template-areas: 
+        "email"
+        "password"
+        "login";
+        .text-input {
+            grid-area: email;
+        }
+        .text-input:nth-of-type(2) {
+            grid-area: password;
+        }
+    }
 }
 
-.Login {
-    grid-area: login;
-    display: grid;
-    grid-template-columns: 260px;
-    grid-template-rows: repeat(3, 1fr);
-    grid-row-gap: 10px;
-    grid-template-areas: 
-    "email"
-    "password"
-    "login";
-}
 
-.text-input {
-    grid-area: email;
-    color: black;
-    background: rgba(255,255,255,0.69);
-}
 
-.text-input:nth-of-type(2) {
-    grid-area: password;
-}
