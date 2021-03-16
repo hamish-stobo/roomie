@@ -9,10 +9,17 @@ const Footer = () => {
         setDocHeight((document.height !== undefined) ? document.height : document.body.offsetHeight)
     }
     useEffect(() => {
-        setFooterHeight()
+        resizeObserver.observe(document.body)
     })
+    const resizeObserver = new ResizeObserver(entries => 
+        // setDocHeight(entries[0].target.clientHeight)
+        setFooterHeight()
+    )
+      
+      // start observing a DOM node
+    
     const topPos = {
-        top: `calc(${windowHeight > docHeight ? windowHeight : docHeight}px - 20px)`
+        top: `calc(${docHeight > windowHeight ? docHeight : windowHeight}px - 20px)`
     }
     return ( 
         <div style={topPos} className="small-caps-purple copyright">
