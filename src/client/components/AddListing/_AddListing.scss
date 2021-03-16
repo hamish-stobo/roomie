@@ -3,28 +3,41 @@
 .AddListingContainer {
     background: rgba(255, 255, 255, 0.4);
     width: 95vw;
-    max-width: 660px;
+    max-width: 500px;
     .addListingTop {
-        margin: 50px auto;
+        .small-caps-purple {
+            padding: 30px;
+        }
     }
     .addListingForm {
         display: flex;
-        width: 100%;
+        // width: calc(100% - 60px);
         flex-flow: column nowrap;
         align-items: center;
         justify-content: space-evenly;
-        // grid-template-rows: repeat(5, 1fr);
-        // grid-row-gap: 10px;
-        // grid-template-areas: 
-        // "title"
-        // "location"
-        // "rent"
-        // "bedrooms"
-        // "bathrooms"
-        // "";
-        padding-bottom: 20px;
+        // margin: 30px;
+        padding-bottom: 30px;
+            .text-input {
+                margin-bottom: 5px;
+            }
+            input[type="text"], input[type="number"]{
+                height: 40px;
+            }
+            .fileContainer {
+                height: 48px;
+                margin-bottom: 15px;
+            }
             .fileUpload {
                 text-decoration: none;
             }
         }
+}
+
+@media screen and (min-width: 400px) {
+    .AddListingContainer {
+        .addListingForm {
+            width: calc(100% - 60px);
+            margin: 30px;
+        }
+    }
 }

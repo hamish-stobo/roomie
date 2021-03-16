@@ -22,13 +22,13 @@ const AddListing = () => {
                 <p className="small-caps-purple">Add a Listing</p>
             </div>
             <form className="Form addListingForm" onSubmit={submit}>
-                <input required className={`text-input required ${!listingDetails.get('title') ? '' : 'lowercase'}`} type="text" name="title" placeholder="Title" value={listingDetails.get('title')} onChange={onChange} />
-                <input required className={`text-input required ${!listingDetails.get('location') ? '' : 'lowercase'}`} type="text" name="location" placeholder="Location (suburb)" value={listingDetails.get('location')} onChange={onChange} />
-                <input required className={`text-input required ${!listingDetails.get('rent') ? '' : 'lowercase'}`} type="text" name="rent" placeholder="Weekly rent" value={listingDetails.get('rent')} onChange={onChange} />
-                <input required className="text-input required" type="number" name="bedrooms" placeholder="No. of bedrooms:" value={listingDetails.get('bedrooms')} onChange={onChange} />
-                <input required className="text-input required" type="number" name="bathrooms" placeholder="No. of bathrooms:" value={listingDetails.get('bathrooms')} onChange={onChange} />
-                <div className="text-input required">
-                    <label htmlFor="file-upload">Upload one or more photos</label>
+                <input required className={`text-input ${!listingDetails.get('title') ? '' : 'lowercase'}`} type="text" name="title" placeholder="Title" value={listingDetails.get('title')} onChange={onChange} />
+                <input required className={`text-input ${!listingDetails.get('location') ? '' : 'lowercase'}`} type="text" name="location" placeholder="Location (suburb)" value={listingDetails.get('location')} onChange={onChange} />
+                <input required className={`text-input ${!listingDetails.get('rent') ? '' : 'lowercase'}`} type="text" name="rent" placeholder="Weekly rent" value={listingDetails.get('rent')} onChange={onChange} />
+                <input required className="text-input" type="number" name="bedrooms" placeholder="No. of bedrooms:" value={listingDetails.get('bedrooms')} onChange={onChange} />
+                <input required className="text-input" type="number" name="bathrooms" placeholder="No. of bathrooms:" value={listingDetails.get('bathrooms')} onChange={onChange} />
+                <div className="text-input fileContainer">
+                    <label htmlFor="file-upload-label">Upload one or more photos</label>
                     <input required id="file-upload" className="fileUpload" type="file" multiple accept="image/png, image/jpeg" name="images" onChange={onChange}/>
                 </div>
                 <input required className="button" value="Sign Up" type="submit" name="submit" />
