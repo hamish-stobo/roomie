@@ -97,17 +97,16 @@ ul {
     // left: 5vw;
     // right: 5vw;
     z-index: 1;
-    padding: 10px 0 10px 0;
+    padding: 15px 0 15px 0;
     margin: 15px auto;
     position: absolute;
     left: calc(50vw - 93px);
 }
 
-.pageWrapper {
-    .copyright {
-        padding-top: 20px;
-    }
-}
+// .pageWrapper {
+//     .copyright {
+//     }
+// }
 
 .exitBtn {
     border: none;

@@ -4,6 +4,8 @@
     background: rgba(255, 255, 255, 0.4);
     width: 95vw;
     max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
     .addListingTop {
         .small-caps-purple {
             padding: 30px;
@@ -35,6 +37,7 @@
 
 @media screen and (min-width: 400px) {
     .AddListingContainer {
+        margin-top: 5vh;
         .addListingForm {
             width: calc(100% - 60px);
             margin: 30px;
