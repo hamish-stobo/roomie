@@ -12,7 +12,7 @@ const Profile = () => {
     <>
     <div className="profileWrapper">
       <div className="profileContainer">
-        <img class="profileImg" src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80" />
+        <img className="profileImg" src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80" />
         <div className="profileDetailsColumn">
           <span className="username">John Smith</span>
           <span>john.smith@gmail.com</span>
@@ -23,8 +23,8 @@ const Profile = () => {
       </div>
     </div>
       <div className="LikesListingsButtons">
-        <div onClick={() => changeSelected(true)} className={left && 'selected'}>Likes</div>
-        <div onClick={() => changeSelected(false)} className={!left && 'selected'}>Your Listings</div>
+        <div onClick={() => changeSelected(true)} className={left ? 'selected' : ''}>Likes</div>
+        <div onClick={() => changeSelected(false)} className={!left ? 'selected' : ''}>Your Listings</div>
       </div>
       {left 
         ? <div>

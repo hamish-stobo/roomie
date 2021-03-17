@@ -7,10 +7,6 @@
     color: $PurpScurp;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
-    // justify-content: space-evenly;
-    // align-items: center;
-    // grid-template-areas:
-    //     "Logo Other"
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -43,17 +39,43 @@
 
 .NavBar > .sm {
     background: $WhiteIsh;
+    clip-path: polygon(
+    0 0, /* left top */
+    100% 0, /* right top */ 
+    calc(100vw - 8vw) 100%, /* right bottom */
+    0 100% /* left bottom */
+  );
 }
 
 .NavBar > .Hamburger {
     background: none;
+    clip-path: none;
 }
 
 .menu-li {
     padding: 10px 0;
     font-size: 1.2em;
     color: $PurpScurp;
+    text-align: right;
 }
+
+.sm .menu-li:nth-child(1) {
+    margin-right: 3vw;
+}
+
+.sm .menu-li:nth-child(2) {
+    margin-right: 6vw;
+}
+
+.sm .menu-li:nth-child(3) {
+    margin-right: 9vw;
+}
+
+.sm > a {
+    margin: 0;
+}
+
+
 
 .menu-li:hover {
     cursor: pointer;
@@ -99,5 +121,6 @@
 
     .menu-li {
         padding: 0 10px;
+        text-align: center;
     }
 }
