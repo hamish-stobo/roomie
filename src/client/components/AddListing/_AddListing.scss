@@ -22,6 +22,7 @@
         padding-bottom: 30px;
             .text-input {
                 margin-bottom: 5px;
+                width: 94%;
             }
             input[type="text"], input[type="number"]{
                 height: 40px;
@@ -32,6 +33,9 @@
             }
             .fileUpload {
                 text-decoration: none;
+            }
+            .button {
+                width: 94%;
             }
         }
 }

@@ -5,7 +5,7 @@ import '../../styles/styles'
 
 const AddListing = () => {
     const [listingDetails, setListingDetails] = useState(new Map()) 
-    const [images, setImages] = useState({})
+    const [images, setImages] = useState([])
     const onChange = e => {
         const { name, value } = e.target
         //create a COPY of the existing map in state
@@ -14,8 +14,7 @@ const AddListing = () => {
         console.log(`name ${name}, value ${value}`)
     }
     const addImages = e => {
-        setImages(images.images = e.target.files)
-        console.log(`images: ${images.images.length}`)
+        setImages([...images, ...e.target.files])
     }
     const submit = e => {
         e.preventDefault()
@@ -23,12 +22,14 @@ const AddListing = () => {
         listingDetails.forEach((val, key) => {
             formData.append(key, val)
         })
-        const imgsArr = images.images
-        for(let i = 0; i < imgsArr.length; i++) {
-            formData.append(`images${i}`, imgsArr[i])
-            console.log(JSON.stringify(imgsArr[i]))
-        }
-        console.log(JSON.stringify(formData))
+        formData.append('images', images);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]);
+            if(pair[0] == 'images') {
+                console.log(`IMAGES: ...${images[1]}`)
+            }
+         } 
+        // console.log(JSON.stringify(formData))
         // axios.post('/api/v1/listings', formData, {
         //     headers: {
         //         'content-type': 'multipart/form-data'
@@ -50,7 +51,7 @@ const AddListing = () => {
                     <label htmlFor="file-upload-label">Upload one or more photos</label>
                     <input required id="file-upload" className="fileUpload" type="file" multiple accept="image/png, image/jpeg" name="images" onChange={addImages}/>
                 </div>
-                <input required className="button" value="Sign Up" type="submit" name="submit" />
+                <input required className="button" value="Submit" type="submit" name="submit" />
             </form>
         </div>
     )
