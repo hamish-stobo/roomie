@@ -39,7 +39,7 @@ const AddListing = () => {
     return (
         <div className="AddListingContainer">
             <div className="addListingTop">
-                <p className="small-caps-purple">Add a Listing</p>
+                <p className="small-caps-purple">List a Room</p>
             </div>
             <form className="Form addListingForm" onSubmit={submit}>
                 <input required className={`text-input ${!listingDetails.get('title') ? '' : 'lowercase'}`} type="text" name="title" placeholder="Title" value={listingDetails.get('title')} onChange={onChange} />

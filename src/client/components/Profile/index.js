@@ -28,11 +28,8 @@ const Profile = () => {
       </div>
       {left 
         ? <div>
-          1) Get array of likes for the current user.
-          2) Save as dictionary, where the keys are the listing IDs
-          and the values are array indices
-          3) Get the listings, filter by whether or not their PK exists
-          as a key in the likes dictionary. (DICT = OBJECT)
+          1) Get array of likes - map to object of listing IDs found in table where user ID equals currently logged in user.
+          2) Get listings, filter by whether or not the likes object contains listing ID in current iteration of filter loop.
         </div>
         : <Listings />
       }
