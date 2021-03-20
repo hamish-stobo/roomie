@@ -49,7 +49,7 @@ const Profile = () => {
       <div onClick={() => changeSelected(false)} className={!left ? 'selected' : ''}>Your Listings</div>
     </div>
       {left 
-        ? <div>
+        ? <div style={{background: "rgba(255,255,255,0.59)"}}>
           1) Get array of likes - map to object of listing IDs found in table where user ID equals currently logged in user.
           2) Get listings, filter by whether or not the likes object contains listing ID in current iteration of filter loop.
         </div>

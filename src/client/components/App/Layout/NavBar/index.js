@@ -24,9 +24,9 @@ const NavBar = () => {
                 {show && 
                 <div className="menu-container sm">
                     <ul className="menu-ul sm">
-                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/profile" style={{textDecoration: 'none', color: '#DB00FF'}}>Profile</Link></li>
-                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/addlisting" style={{textDecoration: 'none', color: '#DB00FF'}}>List a Room</Link></li>
-                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/logout" style={{textDecoration: 'none', color: '#DB00FF'}}>Logout</Link></li>
+                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/profile" style={{textDecoration: 'none', color: 'rgb(63, 63, 63)'}}>Profile</Link></li>
+                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/addlisting" style={{textDecoration: 'none', color: 'rgb(63, 63, 63)'}}>List a Room</Link></li>
+                        <li onClick={() => toggleShow(false)} className="menu-li sm"><Link to="/logout" style={{textDecoration: 'none', color: 'rgb(63, 63, 63)'}}>Logout</Link></li>
                     </ul>
                 </div>}
                 <div className="menu-container lg">

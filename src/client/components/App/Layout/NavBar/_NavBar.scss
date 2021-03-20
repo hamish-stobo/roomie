@@ -38,13 +38,13 @@
 }
 
 .NavBar > .sm {
-    background: $WhiteIsh;
-    clip-path: polygon(
-    0 0, /* left top */
-    100% 0, /* right top */ 
-    calc(100vw - 8vw) 100%, /* right bottom */
-    0 100% /* left bottom */
-  );
+    background: $MoreWhite;
+//     clip-path: polygon(
+//     0 0, /* left top */
+//     100% 0, /* right top */ 
+//     calc(100vw - 8vw) 100%, /* right bottom */
+//     0 100% /* left bottom */
+//   );
 }
 
 .NavBar > .Hamburger {
@@ -55,27 +55,12 @@
 .menu-li {
     padding: 10px 0;
     font-size: 1.2em;
-    color: $PurpScurp;
-    text-align: right;
-}
-
-.sm .menu-li:nth-child(1) {
-    margin-right: 3vw;
-}
-
-.sm .menu-li:nth-child(2) {
-    margin-right: 6vw;
-}
-
-.sm .menu-li:nth-child(3) {
-    margin-right: 9vw;
+    text-align: center;
 }
 
 .sm > a {
-    margin: 0;
+    margin: 0 auto;
 }
-
-
 
 .menu-li:hover {
     cursor: pointer;

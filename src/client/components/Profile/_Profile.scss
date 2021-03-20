@@ -1,11 +1,13 @@
 @import '../../styles/_RootSettings';
 
 .profileWrapper {
-    background: $MoreWhite;
+    background: $WhiteIsh;
     .lg-element {
         display: none;
     }
     .profileContainer {
+        background: $MoreWhite;
+        border-radius: 8px;
         display: grid;
         grid-template-rows: 1fr 4fr;
         grid-template-columns: 20% 80%;
