@@ -6,7 +6,7 @@ import Listings from '../../Listings'
 import Register from '../../Register'
 import Profile from '../../Profile'
 import AddListing from '../../AddListing'
-// import EditProfile from '../../EditProfile'
+import EditProfile from '../../EditProfile'
 
 const Router = () => (
     <>
@@ -19,7 +19,7 @@ const Router = () => (
                 <Route path="/listings" component={Listings} />
                 <Route path="/addlisting" component={AddListing} />
                 <Route path="/profile" component={Profile} />
-                {/* <Route path="/editprofile" component={EditProfile} /> */}
+                <Route path="/editprofile" component={EditProfile} />
             </Layout>
         </Switch>
     </>
