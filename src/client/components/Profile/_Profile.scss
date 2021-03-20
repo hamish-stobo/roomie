@@ -2,6 +2,9 @@
 
 .profileWrapper {
     background: $MoreWhite;
+    .lg-element {
+        display: none;
+    }
     .profileContainer {
         display: grid;
         grid-template-rows: 1fr 4fr;
@@ -36,6 +39,7 @@
             margin-top: 5px;
             span {
                 margin-left: 1px;
+                font-size: 0.9em;
             }
             .username {
                 font-size: 1.25em;
@@ -72,20 +76,32 @@
 }
 
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 360px) {
     .profileWrapper {
         .profileContainer {
             .profileImg {
-                margin-left: 50px;
+                margin-left: 10vw;
             }
             .profileDetailsColumn {
-                margin-left: 70px;
+                margin-left: 15vw;
             }
         }
     }
     .LikesListingsButtons {
         div {
-            margin: 0 40px;
+            margin: 0 45px;
+        }
+    }
+}
+@media screen and (min-width: 400px) {
+    .profileWrapper {
+        .profileContainer {
+            .profileImg {
+                margin-left: 14vw;
+            }
+            .profileDetailsColumn {
+                margin-left: 18vw;
+            }
         }
     }
 }
@@ -103,16 +119,34 @@
     }
 }
 
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 648px) {
     .profileWrapper {
         .profileContainer {
             display: flex;
             flex-flow: row nowrap;
-            justify-content: space-evenly;
-            align-items: flex-end;
-            .profileImg, .profileDetailsColumn, .editButton {
+            justify-content: center;
+            align-items: center;
+            .profileImg, .profileDetailsColumn, .editButton, .deleteButton, .profileButtonsContainer {
                 margin: 0;
             }
+            .profileButtonsContainer {
+                display: flex;
+                flex-flow: column nowrap;
+                .editButton, .deleteButton {
+                    margin: 0 10px;
+                    padding-left: 15px;
+                }
+                .editButton {
+                    margin-bottom: 10px;
+                    padding-left: 2px;
+                }
+            }
+        }
+        .sm-element {
+            display: none;
+        }
+        .lg-element {
+            display: block;
         }
     }
 }

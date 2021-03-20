@@ -8,12 +8,12 @@ import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
 const ProfileMenu = ({toggleProfileMenu}) => {
     return (
         <>
-        <ul className="editProfileWrapper">
-            <Link onClick={() => toggleProfileMenu(false)} to="/editProfile" className="linky">
+        <ul className="editProfileWrapper sm-element">
+            <Link onClick={() => toggleProfileMenu(false)} to="/editprofile" className="linky">
                 <FontAwesomeIcon className="edit-icon" icon={faEdit} />
                 <span className="menuSpan">Edit Profile</span>
             </Link>
-            <Link onClick={() => toggleProfileMenu(false)} to="/deleteProfile" className="linky">
+            <Link onClick={() => toggleProfileMenu(false)} to="/deleteprofile" className="linky">
                 <FontAwesomeIcon className="trash-icon" icon={faTrashAlt} />
                 <span className="menuSpan">Delete Profile</span>
             </Link>
