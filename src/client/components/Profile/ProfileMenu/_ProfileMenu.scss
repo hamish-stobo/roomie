@@ -1,0 +1,33 @@
+@import '../../../styles/_RootSettings';
+
+.editProfileWrapper {
+    position: absolute;
+    top: 105px;
+    right: 35px;
+    background: $MoreWhite;
+    padding: 8px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    .linky {
+        text-decoration: none;
+        color: $GunMetal;
+        padding: 5px;
+        margin: 0;
+        .edit-icon, .trash-icon {
+            margin-right: 5px;
+        }
+        .edit-icon {
+            font-size: 1.1em;
+        }
+        .trash-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+    }
+    .profileMenu-border {
+        border-top: 1px transparent $GunMetal;
+    }
+}

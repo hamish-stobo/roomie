@@ -1,17 +1,26 @@
 @import '../../styles/_RootSettings';
 
 .profileWrapper {
-    background: $WhiteIsh;
+    background: $MoreWhite;
     .profileContainer {
         display: grid;
-        grid-template-rows: 3fr 1fr;
+        grid-template-rows: 1fr 4fr;
         grid-template-columns: 20% 80%;
-        grid-column-gap: 10px;
+        grid-column-gap: 20px;
         grid-template-areas: 
-            "img detail"
-            "button button";
+            "faCog faCog"
+            "img detail";
         padding: 20px 0;
         max-width: 660px;
+        .faCog {
+            grid-area: faCog;
+            font-size: 1.7em;
+            margin-right: 54px;
+            color: $PurpScurp;
+        }
+        .faCog:hover {
+            cursor: pointer;
+        }
         .profileImg {
             grid-area: img;
             width: 90px;
@@ -24,8 +33,7 @@
             grid-area: detail;
             display: flex;
             flex-flow: column nowrap;
-            justify-content: center;
-            align-items: flex-start;
+            margin-top: 5px;
             span {
                 margin-left: 1px;
             }
