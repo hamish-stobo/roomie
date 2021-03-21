@@ -20,15 +20,16 @@
         justify-content: space-evenly;
         // margin: 30px;
         padding-bottom: 30px;
+        font-size: 1.1em;
             .text-input {
                 margin-bottom: 5px;
                 width: 94%;
             }
             input[type="text"], input[type="number"]{
-                height: 40px;
+                height: 45px;
             }
             .fileContainer {
-                height: 48px;
+                height: 55px;
                 margin-bottom: 15px;
             }
             .fileUpload {
@@ -36,6 +37,7 @@
             }
             .button {
                 width: 94%;
+                height: 35px;
             }
         }
 }
