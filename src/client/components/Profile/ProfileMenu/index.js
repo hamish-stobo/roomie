@@ -15,7 +15,7 @@ const ProfileMenu = ({toggleProfileMenu}) => {
             </Link>
             <Link onClick={() => toggleProfileMenu(false)} to="/deleteprofile" className="linky">
                 <FontAwesomeIcon className="trash-icon" icon={faTrashAlt} />
-                <span className="menuSpan">Delete Profile</span>
+                <span className="menuSpan">Delete Account</span>
             </Link>
         </ul>
         </>
