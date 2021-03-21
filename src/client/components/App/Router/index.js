@@ -7,6 +7,7 @@ import Register from '../../Register'
 import Profile from '../../Profile'
 import AddListing from '../../AddListing'
 import EditProfile from '../../EditProfile'
+import EditListing from '../../EditListing'
 
 const Router = () => (
     <>
@@ -20,6 +21,7 @@ const Router = () => (
                 <Route path="/addlisting" component={AddListing} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/editprofile" component={EditProfile} />
+                <Route path="/editlisting" component={EditListing} />
             </Layout>
         </Switch>
     </>
