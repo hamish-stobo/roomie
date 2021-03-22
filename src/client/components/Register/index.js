@@ -24,7 +24,7 @@ const Register = ({toggle}) => {
         userDetails.forEach((val, key) => {
             formData.append(key, val)
         })
-        formData.append('image', image);
+        formData.append('profile_picture', image);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1])
             if(pair[0] == 'images') {

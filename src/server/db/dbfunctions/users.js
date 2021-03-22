@@ -1,12 +1,19 @@
 const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
+const fileUpload = require('express-fileupload');
 const getAllLikesForOne = require('./likes').getAllLikesForOne
 const { v4: uuidv4 } = require('uuid')
 const { formatObject } = require('../../validation/dataValidator')
 
+
+
 const createUser = async (userToInsert, db = conn) => {
     try {
+        // delete userToInsert.profile_picture
+        // const {user_id, email, password, first_name, last_name} = userToInsert
+        // console.log(JSON.stringify(userToInsert))
+        // return
         const userInsert = await db('users').insert({
             ...userToInsert,
             user_id: uuidv4(),

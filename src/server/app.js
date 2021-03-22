@@ -3,13 +3,14 @@ require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
+const fileUpload = require('express-fileupload');
 const app = express()
 app.use(cors())
 const DIST_DIR = path.join(__dirname, '../', '../dist')
 app.use(express.static(DIST_DIR))
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-
+app.use(fileUpload());
 //route modules
 const listings = require('./routes/listings')
 const users = require('./routes/users')
