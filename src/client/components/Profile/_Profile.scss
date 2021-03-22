@@ -15,8 +15,8 @@
         grid-template-areas: 
             "faCog faCog"
             "img detail";
-        padding: 20px 0;
-        max-width: 660px;
+        padding: 20px 0 50px;
+        max-width: 800px;
         .faCog {
             grid-area: faCog;
             font-size: 1.7em;
@@ -112,10 +112,19 @@
     .profileWrapper {
         .profileContainer {
             .profileImg {
-                margin-left: 100%;
+                margin-left: 70%;
+                width: 120px;
+                height: 120px;
             }
             .profileDetailsColumn {
                 margin-left: calc(40% - 70px);
+                justify-content: center;
+                span {
+                    font-size: 1.0em;
+                }
+                .username {
+                    font-size: 1.4em;
+                }
             }
         }
     }
@@ -128,6 +137,7 @@
             flex-flow: row nowrap;
             justify-content: center;
             align-items: center;
+            padding: 50px 0 80px;
             .profileImg, .profileDetailsColumn, .editButton, .deleteButton, .profileButtonsContainer {
                 margin: 0;
             }
