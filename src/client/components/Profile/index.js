@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faCog, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
 import ProfileMenu from './ProfileMenu'
 
@@ -10,6 +10,7 @@ import '../../styles/styles'
 import Listings from '../Listings'
 
 const Profile = () => {
+  const profileImg = "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
   const [left, setLeft] = useState(true)
   const [displayMenu, setDisplayMenu] = useState(false)
   const changeSelected = input => {
@@ -24,7 +25,10 @@ const Profile = () => {
     <div className="profileWrapper">
       <div className="profileContainer">
       <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />
-        <img className="profileImg" src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80" />
+        {!!profileImg 
+          ? <img className="profileImg" src={profileImg} />
+          : <FontAwesomeIcon className="profileImg iconImg" icon={faCamera} />
+        }
         <div className="profileDetailsColumn">
           <span className="username">John Smith</span>
           <span><strong>Email:</strong> john.smith@gmail.com</span>
