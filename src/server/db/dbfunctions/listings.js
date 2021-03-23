@@ -41,7 +41,26 @@ const getAllListings = async (db = conn) => {
     }
 }
 
+const createListing = async (listing, photos, db = conn) => {
+    try {
+        const userInsert = await db('listings').insert({
+            ...listing,
+            user_id: uuidv4(),
+        }, ['listings_user_id', 'rent', 'listing_location', 'tagline', 'description', 'user_location', 'profile_picture'])
+        
+        if(!userInsert || JSON.stringify(userInsert) === '{}') throw Error('Insert of user failed')
+        console.log(userInsert)
+        return userInsert[0]
+    })
+    return listings
+    } catch (e) {
+        console.error({msg: 'Error from get all listings DB function'}, e)
+        return false
+    }
+}
+
 module.exports = {
     getListing,
-    getAllListings
+    getAllListings,
+    createListing
 }
