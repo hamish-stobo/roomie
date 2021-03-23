@@ -1,7 +1,7 @@
 const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
-const fileUpload = require('express-fileupload');
+const fileUpload = require('express-fileupload')
 const getAllLikesForOne = require('./likes').getAllLikesForOne
 const { v4: uuidv4 } = require('uuid')
 const { formatObject } = require('../../validation/dataValidator')
@@ -35,12 +35,12 @@ const getUser = async (userID, db = conn) => {
             .where('user_id', userID)
             .first()
         
-        if(profile.length === 0 || JSON.stringify(profile[0]) === '{}') {
+        if(JSON.stringify(profile) == '{}' || !profile) {
             console.error({msg: 'No profile found'})
             return false
         }
         const listingsLiked = await getAllLikesForOne(userID, 'user')
-        profile.listingsLiked = listingsLiked || []
+        profile.listingsLiked = !!listingsLiked ? listingsLiked : []
         return profile
     } catch (e) {
         console.error({msg: 'Error from getUser db function'}, e)

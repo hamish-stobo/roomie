@@ -12,7 +12,7 @@ exports.up = async knex => {
       })
       .createTable('listings', table => {
         table.uuid('listing_id').unique().notNullable()
-        table.uuid('listings_user_id').unique().notNullable()
+        table.uuid('listings_user_id').notNullable()
         table.foreign('listings_user_id').references('user_id').inTable('users')
         table.float('rent', { precision: 2 }).notNullable()
         table.string('listing_location').notNullable()
@@ -24,7 +24,7 @@ exports.up = async knex => {
         table.uuid('image_id').unique().notNullable()
         table.uuid('images_listing_id').notNullable()
         table.foreign('images_listing_id').references('listing_id').inTable('listings')
-        table.binary('listing_image').unique()
+        table.binary('listing_image')
         table.timestamp('created_at').defaultTo(knex.fn.now())
     })
     //here we need to check that all likes per ad are unique,
