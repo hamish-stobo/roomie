@@ -12,10 +12,9 @@ const Listings = () => {
         const { data } = await axios.get('/api/v1/listings/')
             setListings(data) 
     }
-    // on load || change in users.length getUser will make the axios call and return the users
     useEffect(() => {
         getListings()
-    }, [listings.length])
+    })
 
  
     return (
