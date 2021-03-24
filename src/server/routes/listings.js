@@ -35,10 +35,10 @@ try {
 //3967addd-e6b6-4696-958b-8d56507a10da
 router.post('/:user_id', async (req, res) => {
   try {
-      console.log(req.files.listing_photos)
+      console.log(req.files.listing_image)
       const { user_id } = req.params
       const { body } = req
-      const data = req.files.listing_photos.map(photo => photo.data)
+      const data = req.files.listing_image.map(photo => photo.data)
       if(JSON.stringify(body) === "{}" || data.length <= 0) {
           res.status(400).send('Request data malformed')
       } else {

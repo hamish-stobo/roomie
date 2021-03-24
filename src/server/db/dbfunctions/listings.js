@@ -84,7 +84,7 @@ const createListing = async (user_id, listing, photos, db = conn) => {
             console.log(JSON.stringify(`Insert of photos succeeded: ${imagesInsert}`))
         }
 
-        return 'yay we did it'
+        return 'Listing inserted successfully'
     } catch (e) {
         console.error({msg: 'Error from get all listings DB function'}, e)
         throw Error(JSON.stringify(e))
