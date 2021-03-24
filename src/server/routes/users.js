@@ -7,13 +7,16 @@ const { validateUUID, validateEmail } = require('../validation/dataValidator')
 //insert a new user
 router.post('/', async (req, res) => {
     try {
+        console.log(req)
         const { body } = req
-        if(JSON.stringify(body) === "{}") {
+        const { data } = req.files.profile_picture
+        if(JSON.stringify(body) === "{}" || !data) {
             res.status(400).send('Request data malformed')
         } else {
             //do the DB stuff
-            const profile = await createUser(body)
+            const profile = await createUser({...body, profile_picture: data})
                 //if update is successful
+                console.log(JSON.stringify(profile));
                 res.status(200).send(JSON.stringify(profile))
         }
     }

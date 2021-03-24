@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { getAllListings, getListing } = require('../db/dbfunctions/listings')
+const { getAllListings, getListing, createListing } = require('../db/dbfunctions/listings')
 
 router.get('/', async (req, res) => {
     try {
@@ -20,15 +20,39 @@ router.get('/:listing_id', async (req, res) => {
 try {
     const { listing_id } = req.params
     const listing = await getListing(listing_id)
+    console.log(listing)
     if(!listing || listing == {}) {
       res.status(404).send('There\'s no listing by that name around these parts. Now, be on your way.')
     } else {
-      res.status(200).send(JSON.stringify(listing))
+      res.status(200).send(JSON.stringify(listing, circularReplacer()))
     }
 } catch (e) {
     console.error({msg: 'Error from /listing'}, e)
     res.status(500).send('Error from GET listing route.')
 }
+})
+
+//3967addd-e6b6-4696-958b-8d56507a10da
+router.post('/:user_id', async (req, res) => {
+  try {
+      console.log(req.files.listing_photos)
+      const { user_id } = req.params
+      const { body } = req
+      const data = req.files.listing_photos.map(photo => photo.data)
+      if(JSON.stringify(body) === "{}" || data.length <= 0) {
+          res.status(400).send('Request data malformed')
+      } else {
+          //do the DB stuff
+          const insertListingResponse = await createListing(user_id, body, data)
+              //if update is successful
+              console.log(insertListingResponse);
+              res.status(200).send(JSON.stringify(insertListingResponse))
+      }
+  }
+      catch (e) {
+          console.error({msg: 'Error from /createListing'}, e)
+          res.status(500).send('Could not create profile')
+      }
 })
 
 module.exports = router
