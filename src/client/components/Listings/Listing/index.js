@@ -9,10 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp, faComments } from "@fortawesome/free-regular-svg-icons"
 
-const Listing = ({uniqueKey}) => {
+const Listing = ({idx, uniqueKey, listing}) => {
   // const {listings_user_id, listings_id, rent, description, suburb, postcode, userLikes } = listing
-  
-  
   //this function needs the id of the listing which is being liked,
   //and the ID of the user who is currently logged in.
   // const buttonClick = (listingId, userId) => {
@@ -27,7 +25,7 @@ const Listing = ({uniqueKey}) => {
     
     
   const [selected, setSelected] = useState(0)
-  const [likes, setLikes] = useState(["id1", "id2", "id3"])
+  const [likes, setLikes] = useState(listing.userLikes)
   const imgsArr = ["https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/flagged/photo-1573168710865-2e4c680d921a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1039&q=80"]
   const [elHeight, setElHeight] = useState('')
   const [displayMenu, setDisplayMenu] = useState(false)
@@ -62,6 +60,7 @@ const Listing = ({uniqueKey}) => {
     element.current = document.querySelector(`#listingMenu${uniqueKey}`)
     // window.addEventListener('scroll', () => setTimeout(() => getElHeight(element.current), 200))
     getElHeight(element.current)
+
   })
   return (
     <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
