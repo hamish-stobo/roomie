@@ -1,6 +1,7 @@
 const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
+const { v4: uuidv4 } = require('uuid')
 
 const getAllLikes = async (type, db = conn) => {
     try {
@@ -66,6 +67,47 @@ const getAllLikesForOne = async (id, type, db = conn) => {
     }
 }
 
+const addLike = async (likes_user_id, likes_listing_id, db = conn) => {
+    try {
+        const checkLike = await db('likes')
+            .select()
+            .where({
+                likes_user_id,
+                likes_listing_id
+            })
+        if(checkLike.length > 0) throw Error ('Like already exists for this user on this listing')
+        const likeInsert = await db('likes')
+            .insert({
+                like_id: uuidv4(), 
+                likes_user_id, 
+                likes_listing_id
+            }, ['like_id', 'likes_user_id', 'likes_listing_id'])
+        
+        console.log(`like inserted successfully! ${JSON.stringify(likeInsert[0])}`)
+        
+        return likeInsert[0]
+    } catch (e) {
+        console.error(`Error in addLikes DB function ${e}`)
+        throw e
+    }
+}
+
+const removeLike = async (likes_user_id, likes_listing_id, db = conn) => {
+    try {
+        const likeDeletion = await db('likes')
+            .del()
+            .where({
+                likes_user_id,
+                likes_listing_id
+            })
+        if(likeDeletion == 0) throw Error(`${likeDeletion} likes were deleted`)
+        return `Success! Like was removed ${likeDeletion}`
+    } catch (e) {
+        console.error(e)
+        throw e
+    }
+}
+
 //not used - makes a query for each item in listingsArr, 
 //making for a too many connections error.
 
@@ -109,5 +151,7 @@ const getAllLikesForOne = async (id, type, db = conn) => {
 
 module.exports = {
     getAllLikesForOne,
-    getAllLikes
+    getAllLikes,
+    addLike,
+    removeLike
 }

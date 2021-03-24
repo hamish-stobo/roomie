@@ -14,9 +14,11 @@ app.use(fileUpload());
 //route modules
 const listings = require('./routes/listings')
 const users = require('./routes/users')
+const likes = require('./routes/likes')
 //routes
 app.use('/api/v1/listings', listings)
 app.use('/api/v1/users', users)
+app.use('/api/v1/likes', likes)
 
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
 const mockResponse = {
