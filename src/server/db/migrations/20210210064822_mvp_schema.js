@@ -17,7 +17,8 @@ exports.up = async knex => {
         table.float('rent', { precision: 2 }).notNullable()
         table.string('listing_location').notNullable()
         table.string('tagline').notNullable()
-        table.text('description') // optional field
+        table.integer('bathrooms').notNullable()
+        table.integer('bedrooms').notNullable()
         table.timestamp('created_at').defaultTo(knex.fn.now())
       })
       .createTable('images', table => {
