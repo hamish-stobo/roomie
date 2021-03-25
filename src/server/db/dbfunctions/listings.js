@@ -35,7 +35,9 @@ const getAllListings = async (db = conn) => {
     const imagesObj = {}
     const images = await db('images').select('images_listing_id', 'listing_image')
     images.map(image => {
-        const { images_listing_id, listing_image } = image
+        let { images_listing_id, listing_image } = image
+        console.log(listing_image)
+        listing_image = `data:image/jpeg;base64,${Buffer.from(listing_image).toString('base64')}`
         !imagesObj.hasOwnProperty(images_listing_id)
             ? imagesObj[images_listing_id] = [listing_image]
             : imagesObj[images_listing_id].push(listing_image)

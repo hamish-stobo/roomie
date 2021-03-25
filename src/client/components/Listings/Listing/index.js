@@ -22,14 +22,16 @@ const Listing = ({idx, uniqueKey, listing}) => {
   //   //   listings_user_id: userId
   //   // })
   // }
-    
+  // const convertToBase64 = image => {
+  //   return `data:${image.imagemimetype};base64,${Buffer.from(image.data).toString('base64')}`
+  // }
     
   const [selected, setSelected] = useState(0)
   const [likes, setLikes] = useState(listing.userLikes)
-  const imgsArr = ["https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/flagged/photo-1573168710865-2e4c680d921a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1039&q=80"]
+  const [imgsArr, setImgsArr] = useState(listing.listing_photos)
   const [elHeight, setElHeight] = useState('')
   const [displayMenu, setDisplayMenu] = useState(false)
-  const [currUser, setCurrUser] = useState('761eb1e3-3795-42c8-baba-2d3ebdf8a670')
+  const [currUser, setCurrUser] = useState('fb534fb6-e285-4e83-a50f-ab32abed0bc6')
   const element = useRef('null')
 
   const addLike = async userID => {
@@ -84,10 +86,8 @@ const Listing = ({idx, uniqueKey, listing}) => {
   
   useEffect(() => {
     element.current = document.querySelector(`#listingMenu${uniqueKey}`)
-    // window.addEventListener('scroll', () => setTimeout(() => getElHeight(element.current), 200))
     getElHeight(element.current)
-
-  })
+  }, [])
   return (
     <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
       <div className="cardTop">
