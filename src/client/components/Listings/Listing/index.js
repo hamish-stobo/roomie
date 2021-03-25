@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+const axios = require('axios')
 import '../../../styles/styles'
 import ChevronRight from './ChevronRight'
 import ChevronLeft from './ChevronLeft'
@@ -21,7 +22,6 @@ const Listing = ({idx, uniqueKey, listing}) => {
   //   //   listings_user_id: userId
   //   // })
   // }
-  
     
     
   const [selected, setSelected] = useState(0)
@@ -29,15 +29,41 @@ const Listing = ({idx, uniqueKey, listing}) => {
   const imgsArr = ["https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/flagged/photo-1573168710865-2e4c680d921a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80", "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1039&q=80"]
   const [elHeight, setElHeight] = useState('')
   const [displayMenu, setDisplayMenu] = useState(false)
+  const [currUser, setCurrUser] = useState('761eb1e3-3795-42c8-baba-2d3ebdf8a670')
   const element = useRef('null')
+
+  const addLike = async userID => {
+    try {
+      const addLike = await axios.post('api/v1/likes', 
+        {
+          likes_listing_id: listing.listing_id,
+          likes_user_id: userID
+      })
+      if(!addLike || addLike == '{}') throw Error('Add like failed in the server')
+      setLikes([...likes, userID])
+    } catch (e) {
+        alert(e)
+    }
+  }
+
+  const removeLike = async userID => {
+    try {
+      const deleteLike = await axios.delete(`api/v1/likes/${listing.listing_id}/${userID}`)
+      if(!deleteLike || deleteLike == 0) throw Error('Delete like failed in the server')
+      setLikes(likes.filter(item => item !== userID))
+    } catch (e) {
+        alert(e)
+    }
+  }
   
   const toggleLike = userID => {
     likes.includes(userID)
     //this will eventually be set up to call a delete on the likes table.
-      ? setLikes(likes.filter(item => item !== userID))
+      ? removeLike(userID)
     //this will eventually be set up to call a post on the likes table.
-      : setLikes([...likes, userID])
+      : addLike(userID)
   }
+
   const changeSelected = idx => {
     setSelected(idx)
   }
@@ -84,9 +110,9 @@ const Listing = ({idx, uniqueKey, listing}) => {
         <span className="indexCount" style={{right: `${selected == imgsArr.length - 1 ? '29' : '0'}px`}}>{`${selected + 1}/${imgsArr.length}`}</span>
       </div>
       <div className="socialContainer">
-        <div className="Likes" onClick={() => toggleLike('myID')}>
+        <div className="Likes" onClick={() => toggleLike(currUser)}>
             <span>{likes.length}</span>
-            {likes.includes('myID')
+            {likes.includes(currUser)
               ? <FontAwesomeIcon className="likeIcon Icon" icon={faLikeBold} />
               : <FontAwesomeIcon className="likeIcon Icon" icon={faThumbsUp} />
             }
@@ -99,11 +125,11 @@ const Listing = ({idx, uniqueKey, listing}) => {
         </div> */}
       <div className="detailsContainer">
           <div className="location-rent-col">
-            <span className="location">Remuera, Auckland</span>
-            <span className="rent">$225 per week</span>
+            <span className="location">{listing.listing_location}</span>
+            <span className="rent">${listing.rent} per week</span>
           </div>
           <div className="iconContainer roomsContainer">
-            <span>4</span>
+            <span>3</span>
             <BedroomIcon />
           </div>
           <div className="iconContainer bathroomsContainer">
