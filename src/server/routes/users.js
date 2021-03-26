@@ -36,12 +36,12 @@ router.get('/:user_id', async (req, res) => {
             res.status(404).send('Profile not found :(')
         } else {
         //if update is successful
-            res.status(200).send(JSON.stringify(profile))
+            res.status(200).send(profile)
         }
     }
     } catch (e) {
-      console.error({msg: 'Error from /GET /profile'}, e)
-      res.status(500).send('Could not GET /profile')
+      console.error('Error from GET profile', e)
+      res.status(500).send(e)
     }
   })
 

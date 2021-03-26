@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faCog, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
@@ -10,6 +10,7 @@ import '../../styles/styles'
 import Listings from '../Listings'
 
 const Profile = () => {
+  const [profile, setProfile] = useState({})
   const profileImg = "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
   const [left, setLeft] = useState(true)
   const [displayMenu, setDisplayMenu] = useState(false)
@@ -20,20 +21,40 @@ const Profile = () => {
     console.log(`Clicked: ${input}`)
     setDisplayMenu(input)
   }
+
+  const getProfile = async userID => {
+    try {
+      if(userID === 'logged in user') {
+        //setProfile(authedUser)
+      }  else {
+        const profileRes = await axios.get(`/api/v1/users/${userID}`)
+        const { data } = profileRes
+        if(!data || data == '{}') throw 'No profile found'
+        data.created_at = data.created_at.split('T')[0]
+        setProfile(data)
+      }
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  useEffect(() => {
+    getProfile('fb534fb6-e285-4e83-a50f-ab32abed0bc6')
+  }, [])
   return (
     <>
     <div className="profileWrapper">
       <div className="profileContainer">
       <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />
         {!!profileImg 
-          ? <img className="profileImg" src={profileImg} />
+          ? <img className="profileImg" src={profile.profile_picture} />
           : <FontAwesomeIcon className="profileImg iconImg" icon={faCamera} />
         }
         <div className="profileDetailsColumn">
-          <span className="username">John Smith</span>
-          <span><strong>Email:</strong> john.smith@gmail.com</span>
-          <span><strong>Ph:</strong> +64210395224</span>
-          <span><strong>Member since:</strong> 05/02/2021</span>
+          <span className="username">{profile.first_name} {profile.last_name}</span>
+          <span><strong>Email:</strong> {profile.email}</span>
+          <span><strong>Location:</strong> {profile.user_location}</span>
+          <span><strong>Member since:</strong> {profile.created_at}</span>
         </div>
         <div className="lg-element profileButtonsContainer">
           <Link to="/editprofile" className="button editButton">

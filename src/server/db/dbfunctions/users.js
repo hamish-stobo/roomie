@@ -36,15 +36,17 @@ const getUser = async (userID, db = conn) => {
             .first()
         
         if(JSON.stringify(profile) == '{}' || !profile) {
-            console.error({msg: 'No profile found'})
-            return false
+            throw Error('No profile found')
         }
-        const listingsLiked = await getAllLikesForOne(userID, 'user')
-        profile.listingsLiked = !!listingsLiked ? listingsLiked : []
+        // const listingsLiked = await getAllLikesForOne(userID, 'user')
+        // profile.listingsLiked = !!listingsLiked ? listingsLiked : []
+        // profile_picture
+        const { profile_picture } = profile
+        profile.profile_picture = `data:image/jpeg;base64,${Buffer.from(profile_picture).toString('base64')}`
         return profile
     } catch (e) {
-        console.error({msg: 'Error from getUser db function'}, e)
-        return false
+        console.error('Error in getUser', e)
+        throw e
     }
 }
 
