@@ -25,7 +25,7 @@ const Listings = () => {
                     const { listing_id } = listing
                     const uniqueKey = listing_id + idx.toString
                     return <Listing idx={idx} key={uniqueKey} uniqueKey={idx} listing={listing} />
-                }) : <div>There are currently no listings to display</div>}
+                }) : <div>Loading...</div>}
             </div>
         </>
     )

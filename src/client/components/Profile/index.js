@@ -59,7 +59,7 @@ const Profile = () => {
         <div className="lg-element profileButtonsContainer">
           <Link to="/editprofile" className="button editButton">
             <FontAwesomeIcon icon={faEdit} />
-            <span> Edit</span>
+            <span> Update</span>
           </Link>
           <Link to="/deleteprofile" className="button deleteButton">
             <FontAwesomeIcon icon={faTrashAlt} />

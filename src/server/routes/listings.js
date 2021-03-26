@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { getAllListings, getListing, createListing } = require('../db/dbfunctions/listings')
+const { getAllListings, getListing, createListing, deleteListing } = require('../db/dbfunctions/listings')
 
 router.get('/', async (req, res) => {
     try {
@@ -56,6 +56,17 @@ router.post('/:user_id', async (req, res) => {
           console.error(e)
           res.status(500).send(e)
       }
+})
+
+router.delete('/:listing_id', async (req, res) => {
+  try {
+    const { listing_id } = req.params
+    console.log(listing_id)
+    const deleteListingRes = await deleteListing(listing_id)
+    res.status(200).send(`yay we deleted it ${deleteListingRes}`)
+  } catch (e) {
+    res.send(e)
+  }
 })
 
 module.exports = router

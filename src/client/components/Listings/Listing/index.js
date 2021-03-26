@@ -87,7 +87,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
             <div className="dot">{' '}</div>
             <div className="dot">{' '}</div>
         </div>
-        {displayMenu && <ListingMenu elHeight={elHeight} toggleListingMenu={toggleListingMenu}/>}
+        {displayMenu && <ListingMenu elHeight={elHeight} toggleListingMenu={toggleListingMenu} listing_id={listing.listing_id}/>}
       </div>
       <div className="imageCarousel">
         <img className="bedroomImage" src={imgsArr[selected]} />

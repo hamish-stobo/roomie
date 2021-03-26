@@ -11,7 +11,7 @@ const ProfileMenu = ({toggleProfileMenu}) => {
         <ul className="editProfileWrapper sm-element">
             <Link onClick={() => toggleProfileMenu(false)} to="/editprofile" className="linky">
                 <FontAwesomeIcon className="edit-icon" icon={faEdit} />
-                <span className="menuSpan">Edit Profile</span>
+                <span className="menuSpan">Update Profile</span>
             </Link>
             <Link onClick={() => toggleProfileMenu(false)} to="/deleteprofile" className="linky">
                 <FontAwesomeIcon className="trash-icon" icon={faTrashAlt} />

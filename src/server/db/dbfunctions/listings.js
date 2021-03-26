@@ -98,8 +98,27 @@ const createListing = async (user_id, listing, photos, db = conn) => {
     }
 }
 
+const deleteListing = async (listing_id, db = conn) => {
+    try {
+        console.log(`listing to remove: ${listing_id}`)
+        const listingImagesDeletion = await db('images')
+            .del()
+            .where('images_listing_id', listing_id)
+        if(listingImagesDeletion == 0) throw `${listingDeletion} listingsImages were deleted`
+        const listingDeletion = await db('listings')
+            .del()
+            .where('listing_id', listing_id)
+        if(listingDeletion == 0) throw `${listingDeletion} listings were deleted`
+        return `Success! Listing was removed ${listingDeletion}`
+    } catch (e) {
+        console.error(e)
+        throw e
+    }
+}
+
 module.exports = {
     getListing,
     getAllListings,
-    createListing
+    createListing,
+    deleteListing
 }

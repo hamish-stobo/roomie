@@ -5,16 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
 
-const ListingMenu = ({elHeight, toggleListingMenu}) => {
+const ListingMenu = ({elHeight, toggleListingMenu, listing_id}) => {
     
     return (
         <>
         <ul className="ListingMenuWrapper" style={{top: `calc(${elHeight}px + 60px)`}}>
-            <Link onClick={() => toggleListingMenu(false)} to="/editlisting" className="linky">
+            <Link onClick={() => toggleListingMenu(false)} to={`/editlisting/${listing_id}`} className="linky">
                 <FontAwesomeIcon className="edit-icon" icon={faEdit} />
                 <span className="menuSpan">Edit Listing</span>
             </Link>
-            <Link onClick={() => toggleListingMenu(false)} to="/deletelisting" className="linky">
+            <Link onClick={() => toggleListingMenu(false)} to={`/deletelisting/${listing_id}`} className="linky">
                 <FontAwesomeIcon className="trash-icon" icon={faTrashAlt} />
                 <span className="menuSpan">Delete Listing</span>
             </Link>
