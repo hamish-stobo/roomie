@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faCog, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
@@ -14,6 +14,7 @@ const Profile = () => {
   const profileImg = "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
   const [left, setLeft] = useState(true)
   const [displayMenu, setDisplayMenu] = useState(false)
+  const { user_id } = useParams()
   const changeSelected = input => {
     setLeft(input)
   }
@@ -39,7 +40,8 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    getProfile('fb534fb6-e285-4e83-a50f-ab32abed0bc6')
+    console.log(user_id)
+    getProfile(user_id)
   }, [])
   return (
     <>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Redirect } from 'react-router-dom'
 const axios = require('axios')
 import '../../../styles/styles'
 import ChevronRight from './ChevronRight'
@@ -19,6 +20,11 @@ const Listing = ({idx, uniqueKey, listing}) => {
   const [displayMenu, setDisplayMenu] = useState(false)
   const [currUser, setCurrUser] = useState('fb534fb6-e285-4e83-a50f-ab32abed0bc6')
   const element = useRef('null')
+  const [listingAuthor, setListingAuthor] = useState('')
+
+  const redirectToAuthor = user_id => {
+    setListingAuthor(user_id)
+  }
 
   const addLike = async userID => {
     try {
@@ -76,9 +82,10 @@ const Listing = ({idx, uniqueKey, listing}) => {
   }, [])
   return (
     <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
+      {listingAuthor && <Redirect to={`profile/${listingAuthor}`} />}
       <div className="cardTop">
-        <img className="profileImage" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"/>
-        <div className="nameDate">
+        <img onClick={() => redirectToAuthor(listing.listings_user_id)} className="profileImage" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"/>
+        <div onClick={() => redirectToAuthor(listing.listings_user_id)} className="nameDate">
           <span className="userName">John Smith</span>
           <span className="postedDate">Listed Today</span>
         </div>

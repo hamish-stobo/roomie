@@ -21,7 +21,7 @@ const Router = () => (
                 
                 <Route path="/listings" component={Listings} />
                 <Route path="/addlisting" component={AddListing} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/profile/:user_id" component={Profile} />
                 <Route path="/editprofile" component={EditProfile} />
                 <Route path="/editlisting" component={EditListing} />
                 <Route path="/deleteprofile" component={DeleteProfile} />
