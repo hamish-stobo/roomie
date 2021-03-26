@@ -11,20 +11,6 @@ import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp, faComments } from "@fortawesome/free-regular-svg-icons"
 
 const Listing = ({idx, uniqueKey, listing}) => {
-  // const {listings_user_id, listings_id, rent, description, suburb, postcode, userLikes } = listing
-  //this function needs the id of the listing which is being liked,
-  //and the ID of the user who is currently logged in.
-  // const buttonClick = (listingId, userId) => {
-  //   console.log(`listings_listing_id: ${listingId}\nlistings_user_id: ${userId}`)
-  //   // axios.post('api/v1/likes', 
-  //   // data: {
-  //   //   listings_listing_id: listingId,
-  //   //   listings_user_id: userId
-  //   // })
-  // }
-  // const convertToBase64 = image => {
-  //   return `data:${image.imagemimetype};base64,${Buffer.from(image.data).toString('base64')}`
-  // }
     
   const [selected, setSelected] = useState(0)
   const [likes, setLikes] = useState(listing.userLikes)
