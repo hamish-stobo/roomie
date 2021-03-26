@@ -3,11 +3,11 @@ const { getAllListings, getListing, createListing, deleteListing } = require('..
 
 router.get('/', async (req, res) => {
     try {
-      const listingsAndLikes = await getAllListings()
-      if(listingsAndLikes.length == 0 || !listingsAndLikes) {
+      const listings = await getAllListings()
+      if(listings.length == 0 || !listings) {
         res.status(404).send('Our database is an empty desert. No listings were found.')
       } else {
-        res.status(200).send(JSON.stringify(listingsAndLikes))
+        res.status(200).send(JSON.stringify(listings))
       }
     } catch (e) {
       console.error({msg: 'Error from api/v1/listing'}, e)

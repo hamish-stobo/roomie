@@ -43,14 +43,23 @@ const getAllListings = async (db = conn) => {
             : imagesObj[images_listing_id].push(listing_image)
     })
     const likesObj = await getAllLikes('listings')
+    const usersIds = {}
+    const users = await db('users').select()
+    users.map((user, idx) => { 
+        const { user_id } = user
+        usersIds[user_id] = idx
+    })
     const listings = listingsArr.map(listing => {
-        const { listing_id } = listing
+        const { listing_id, listings_user_id } = listing
+        const userIndex = usersIds[listings_user_id]
         !!likesObj[listing_id]
             ? listing.userLikes = likesObj[listing_id]
             : listing.userLikes = []
         !!imagesObj[listing_id]
             ? listing.listing_photos = imagesObj[listing_id]
             : listing.listing_photos = []
+        listing.author = users[userIndex]
+        listing.author.profile_picture = `data:image/jpeg;base64,${Buffer.from(listing.author.profile_picture).toString('base64')}`
         return listing
     })
     return listings

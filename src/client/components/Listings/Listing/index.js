@@ -21,6 +21,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
   const [currUser, setCurrUser] = useState('fb534fb6-e285-4e83-a50f-ab32abed0bc6')
   const element = useRef('null')
   const [listingAuthor, setListingAuthor] = useState('')
+  const [createdAt, setCreatedAt] = useState(listing.created_at)
 
   const redirectToAuthor = user_id => {
     setListingAuthor(user_id)
@@ -74,6 +75,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
   const getElHeight = (element) => {
     const yPosition = window.pageYOffset + element.getBoundingClientRect().top
     setElHeight(yPosition)
+    setCreatedAt(createdAt.split('T')[0])
   }
   
   useEffect(() => {
@@ -84,10 +86,10 @@ const Listing = ({idx, uniqueKey, listing}) => {
     <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
       {listingAuthor && <Redirect to={`profile/${listingAuthor}`} />}
       <div className="cardTop">
-        <img onClick={() => redirectToAuthor(listing.listings_user_id)} className="profileImage" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"/>
+        <img onClick={() => redirectToAuthor(listing.listings_user_id)} className="profileImage" src={listing.author.profile_picture}/>
         <div onClick={() => redirectToAuthor(listing.listings_user_id)} className="nameDate">
-          <span className="userName">John Smith</span>
-          <span className="postedDate">Listed Today</span>
+          <span className="userName">{listing.author.first_name} {listing.author.last_name}</span>
+          <span className="postedDate">Listed on {createdAt}</span>
         </div>
         <div className="listingMenuDots" onClick={() => toggleListingMenu(!displayMenu)} >
             <div className="dot">{' '}</div>
