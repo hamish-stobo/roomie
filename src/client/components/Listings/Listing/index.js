@@ -117,7 +117,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
               : <FontAwesomeIcon className="likeIcon Icon" icon={faThumbsUp} />
             }
         </div> 
-        <div className="tagline">Come and join our lovely home!</div>
+        <div className="tagline">{listing.tagline}</div>
         {/* <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" /> */}
       </div>
         {/* <div className="dots" style={{width: `${25*imgsArr.length}px`}}>

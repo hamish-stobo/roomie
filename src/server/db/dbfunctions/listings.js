@@ -62,7 +62,7 @@ const getAllListings = async (db = conn) => {
 
 const createListing = async (user_id, listing, photos, db = conn) => {
     try {
-        console.log(user_id, JSON.stringify(listing), ...photos)
+        console.log(user_id, JSON.stringify(listing), photos)
         const listing_id = uuidv4()
         const listingInsert = await db('listings').insert({
             listing_id,
@@ -75,21 +75,26 @@ const createListing = async (user_id, listing, photos, db = conn) => {
         }
         else {
             console.log(JSON.stringify(`Insert of listing succeeded: ${JSON.stringify(listingInsert)}`))
-            const imagesToInsert = photos.map(photo => {
-                return {
+            const imagesToInsert = Array.isArray(photos)
+                ? photos.map(photo => {
+                    return {
+                        image_id: uuidv4(),
+                        images_listing_id: listing_id,
+                        listing_image: photo
+                    }
+                })
+                :  {
                     image_id: uuidv4(),
                     images_listing_id: listing_id,
-                    listing_image: photo
+                    listing_image: photos
                 }
-            })
             const imagesInsert = await db('images').insert(imagesToInsert, ['image_id', 'images_listing_id', 'listing_image'])
             console.log(JSON.stringify(`Insert of photos succeeded: ${imagesInsert}`))
+            return 'Listing inserted successfully'
         }
-
-        return 'Listing inserted successfully'
     } catch (e) {
-        console.error({msg: 'Error from get all listings DB function'}, e)
-        throw Error(JSON.stringify(e))
+        console.error({msg: 'Error from createListing DB function'}, e)
+        throw Error(e)
     }
 }
 

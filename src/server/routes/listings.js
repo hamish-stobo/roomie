@@ -36,9 +36,12 @@ try {
 router.post('/:user_id', async (req, res) => {
   try {
       console.log(req.files.listing_image)
+      const { listing_image } = req.files
       const { user_id } = req.params
       const { body } = req
-      const data = req.files.listing_image.map(photo => photo.data)
+      const data = Array.isArray(listing_image) 
+        ? listing_image.map(photo => photo.data)
+        : listing_image.data
       if(JSON.stringify(body) === "{}" || data.length <= 0) {
           res.status(400).send('Request data malformed')
       } else {
@@ -46,12 +49,12 @@ router.post('/:user_id', async (req, res) => {
           const insertListingResponse = await createListing(user_id, body, data)
               //if update is successful
               console.log(insertListingResponse);
-              res.status(200).send(JSON.stringify(insertListingResponse))
+              res.status(200).send(insertListingResponse)
       }
   }
       catch (e) {
-          console.error({msg: 'Error from /createListing'}, e)
-          res.status(500).send('Could not create profile')
+          console.error(e)
+          res.status(500).send(e)
       }
 })
 
