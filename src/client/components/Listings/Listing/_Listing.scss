@@ -119,8 +119,9 @@
     .Likes {
         align-self: flex-start;
         margin-left: 10px;
-        .likeIcon {
-            margin-left: 8px;
+        width: 60px;
+        span, .likeIcon {
+            margin: 0 4px 0 10px;
         }
     }
     .Likes:hover {
