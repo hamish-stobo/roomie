@@ -11,7 +11,6 @@ import Listings from '../Listings'
 
 const Profile = () => {
   const [profile, setProfile] = useState({})
-  const profileImg = "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
   const [left, setLeft] = useState(true)
   const [displayMenu, setDisplayMenu] = useState(false)
   const { user_id } = useParams()
@@ -48,7 +47,7 @@ const Profile = () => {
     <div className="profileWrapper">
       <div className="profileContainer">
       <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />
-        {!!profileImg 
+        {!!profile.profile_picture 
           ? <img className="profileImg" src={profile.profile_picture} />
           : <FontAwesomeIcon className="profileImg iconImg" icon={faCamera} />
         }
