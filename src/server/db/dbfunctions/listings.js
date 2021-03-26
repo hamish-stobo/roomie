@@ -42,7 +42,7 @@ const getAllListings = async (db = conn) => {
             ? imagesObj[images_listing_id] = [listing_image]
             : imagesObj[images_listing_id].push(listing_image)
     })
-    const likesObj = await getAllLikes('listings', db)
+    const likesObj = await getAllLikes('listings')
     const listings = listingsArr.map(listing => {
         const { listing_id } = listing
         !!likesObj[listing_id]
