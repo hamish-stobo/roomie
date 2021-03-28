@@ -36,7 +36,6 @@ const getAllListings = async (db = conn) => {
     const images = await db('images').select('images_listing_id', 'listing_image')
     images.map(image => {
         let { images_listing_id, listing_image } = image
-        console.log(listing_image)
         listing_image = `data:image/jpeg;base64,${Buffer.from(listing_image).toString('base64')}`
         !imagesObj.hasOwnProperty(images_listing_id)
             ? imagesObj[images_listing_id] = [listing_image]
@@ -62,6 +61,11 @@ const getAllListings = async (db = conn) => {
         listing.author.profile_picture = `data:image/jpeg;base64,${Buffer.from(listing.author.profile_picture).toString('base64')}`
         return listing
     })
+    const userProfile = users[1].profile_picture
+    const userProfileFromListing = listings[0].author.profile_picture
+    let buf1 = `data:image/jpeg;base64,${Buffer.from(userProfile).toString('base64')}`
+    let buf2 = `data:image/jpeg;base64,${Buffer.from(userProfileFromListing).toString('base64')}`
+    console.log(buf1 === buf2)
     return listings
     } catch (e) {
         console.error({msg: 'Error from get all listings DB function'}, e)

@@ -45,6 +45,7 @@ const Profile = () => {
   return (
     <>
     <div className="profileWrapper">
+      {console.log(profile.profile_picture)}
       <div className="profileContainer">
       <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />
         {!!profile.profile_picture 
