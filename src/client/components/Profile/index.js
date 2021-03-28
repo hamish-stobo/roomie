@@ -18,7 +18,6 @@ const Profile = () => {
     setLeft(input)
   }
   const toggleProfileMenu = input => {
-    console.log(`Clicked: ${input}`)
     setDisplayMenu(input)
   }
 
@@ -39,13 +38,11 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    console.log(user_id)
     getProfile(user_id)
   }, [])
   return (
     <>
     <div className="profileWrapper">
-      {console.log(profile.profile_picture)}
       <div className="profileContainer">
       <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />
         {!!profile.profile_picture 
@@ -80,7 +77,7 @@ const Profile = () => {
           1) Get array of likes - map to object of listing IDs found in table where user ID equals currently logged in user.
           2) Get listings, filter by whether or not the likes object contains listing ID in current iteration of filter loop.
         </div>
-        : <Listings />
+        : <Listings user_id={user_id} />
       }
       </>
   )

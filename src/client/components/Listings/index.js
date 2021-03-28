@@ -4,7 +4,7 @@ import '../../styles/styles'
 import Listing from './Listing'
 
 
-const Listings = () => {
+const Listings = ({user_id}) => {
     const [listings, setListings] = useState([])
     // This will need to be changed to /getListings when it's ready
     const getListings = async () => {
@@ -15,17 +15,24 @@ const Listings = () => {
         getListings()
     }, [])
 
- 
     return (
         <>
             <div className="Listings">
-                {/* <Listing uniqueKey={0} />
-                <Listing uniqueKey={1} /> */}
-                {listings.length > 0 ? listings.map((listing, idx) => {
-                    const { listing_id } = listing
-                    const uniqueKey = listing_id + idx.toString
-                    return <Listing idx={idx} key={uniqueKey} uniqueKey={idx} listing={listing} />
-                }) : <div>Loading...</div>}
+                {!!user_id && listings.length > 0
+                    ? listings
+                        .filter(listing => listing.listings_user_id == user_id)
+                        .map((listing, idx) => {
+                        const { listing_id } = listing
+                        const uniqueKey = listing_id + idx.toString
+                        return <Listing idx={idx} key={uniqueKey} uniqueKey={idx} listing={listing} />
+                    })
+                : !user_id && listings.length > 0 
+                    ? listings.map((listing, idx) => {
+                        const { listing_id } = listing
+                        const uniqueKey = listing_id + idx.toString
+                        return <Listing idx={idx} key={uniqueKey} uniqueKey={idx} listing={listing} />
+                    }) 
+                : <div>Loading...</div>}
             </div>
         </>
     )

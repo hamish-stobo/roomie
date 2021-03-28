@@ -86,7 +86,6 @@ const Listing = ({idx, uniqueKey, listing}) => {
     <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
       {listingAuthor && <Redirect to={`profile/${listingAuthor}`} />}
       <div className="cardTop">
-        {idx == 0 && console.log(listing.author.profile_picture)}
         <img onClick={() => redirectToAuthor(listing.listings_user_id)} className="profileImage" src={listing.author.profile_picture}/>
         <div onClick={() => redirectToAuthor(listing.listings_user_id)} className="nameDate">
           <span className="userName">{listing.author.first_name} {listing.author.last_name}</span>

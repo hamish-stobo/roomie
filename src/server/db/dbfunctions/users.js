@@ -5,8 +5,7 @@ const fileUpload = require('express-fileupload')
 const getAllLikesForOne = require('./likes').getAllLikesForOne
 const { v4: uuidv4 } = require('uuid')
 const { formatObject } = require('../../validation/dataValidator')
-
-
+const convertToBase64 = require('./binaryToBase64')
 
 const createUser = async (userToInsert, db = conn) => {
     try {
@@ -42,7 +41,8 @@ const getUser = async (userID, db = conn) => {
         // profile.listingsLiked = !!listingsLiked ? listingsLiked : []
         // profile_picture
         const { profile_picture } = profile
-        profile.profile_picture = `data:image/jpeg;base64,${Buffer.from(profile_picture).toString('base64')}`
+        profile.profile_picture = await convertToBase64(profile_picture)
+        // profile.profile_picture = `data:image/jpeg;base64,${Buffer.from(profile_picture).toString('base64')}`
         return profile
     } catch (e) {
         console.error('Error in getUser', e)
@@ -68,8 +68,19 @@ const updateUser = async (userID, user, db = conn) => {
     }
 }
 
+const getAllUsers = async (db = conn) => {
+    try {
+        //we only update users table if it is provided to us:
+        const users = db('users').select()
+        return users
+    } catch (e) {
+        throw Error(`Error from getAllUsers db function: ${JSON.stringify(e)}`)
+    }
+}
+
 module.exports = {
     createUser,
     getUser,
-    updateUser
+    updateUser,
+    getAllUsers
 }

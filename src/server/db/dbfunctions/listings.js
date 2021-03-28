@@ -4,6 +4,8 @@ const conn = require('knex')(config)
 const bytea = require('postgres-bytea')
 const { v4: uuidv4 } = require('uuid')
 const { getAllLikes, getAllLikesForOne } = require('./likes')
+const convertToBase64 = require('./binaryToBase64')
+const { getAllUsers } = require('./users')
 
 const getListing = async (listingId, db = conn) => {
     try {
@@ -34,21 +36,26 @@ const getAllListings = async (db = conn) => {
         .select()
     const imagesObj = {}
     const images = await db('images').select('images_listing_id', 'listing_image')
-    images.map(image => {
+    images.map(async image => {
         let { images_listing_id, listing_image } = image
-        listing_image = `data:image/jpeg;base64,${Buffer.from(listing_image).toString('base64')}`
+        listing_image = await convertToBase64(listing_image)
         !imagesObj.hasOwnProperty(images_listing_id)
             ? imagesObj[images_listing_id] = [listing_image]
             : imagesObj[images_listing_id].push(listing_image)
     })
     const likesObj = await getAllLikes('listings')
     const usersIds = {}
-    const users = await db('users').select()
-    users.map((user, idx) => { 
+    const getUsers = await getAllUsers()
+    getUsers.map((user, idx) => { 
         const { user_id } = user
         usersIds[user_id] = idx
     })
-    const listings = listingsArr.map(listing => {
+    const users = getUsers.map(async user => {
+        const { profile_picture } = user
+        user.profile_picture = await convertToBase64(profile_picture)
+        return user
+    })
+    const listings = listingsArr.map(async (listing, idx) => {
         const { listing_id, listings_user_id } = listing
         const userIndex = usersIds[listings_user_id]
         !!likesObj[listing_id]
@@ -57,16 +64,10 @@ const getAllListings = async (db = conn) => {
         !!imagesObj[listing_id]
             ? listing.listing_photos = imagesObj[listing_id]
             : listing.listing_photos = []
-        listing.author = users[userIndex]
-        listing.author.profile_picture = `data:image/jpeg;base64,${Buffer.from(listing.author.profile_picture).toString('base64')}`
+        listing.author = await users[userIndex]
         return listing
     })
-    const userProfile = users[1].profile_picture
-    const userProfileFromListing = listings[0].author.profile_picture
-    let buf1 = `data:image/jpeg;base64,${Buffer.from(userProfile).toString('base64')}`
-    let buf2 = `data:image/jpeg;base64,${Buffer.from(userProfileFromListing).toString('base64')}`
-    console.log(buf1 === buf2)
-    return listings
+    return Promise.all(listings)
     } catch (e) {
         console.error({msg: 'Error from get all listings DB function'}, e)
         return false
