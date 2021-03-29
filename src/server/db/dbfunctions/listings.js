@@ -21,8 +21,7 @@ const getListing = async (listingId, db = conn) => {
         const images = await db('images')
             .select('listing_image')
             .where('images_listing_id', listingId)
-
-        listing.images = !!images ? images : []
+        listing.images = !!images ? await Promise.all(images.map(async image => await convertToBase64(image.listing_image))) : []
         return listing
     } catch (e) {
         console.error({msg: 'Error from getListing DB function'}, e)

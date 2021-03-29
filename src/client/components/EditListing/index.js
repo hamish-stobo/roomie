@@ -1,15 +1,15 @@
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import React, { useState } from 'react'
 import '../../styles/styles'
 
 
 const EditListing = () => {
     const [listingDetails, setListingDetails] = useState(new Map()) 
     const [images, setImages] = useState([])
+    const { listing_id } = useParams()
     const onChange = e => {
         const { name, value } = e.target
-        //create a COPY of the existing map in state
-        //react will compare the two maps in useState and setState with Object.is, and trigger re-render
         setListingDetails(new Map(listingDetails.set(name, value)))
         console.log(`name ${name}, value ${value}`)
     }
@@ -36,19 +36,39 @@ const EditListing = () => {
         //     }
         // })
     }
+
+    const getListing = async listing_id => {
+        try {
+            const listing = await axios.get(`/api/v1/listings/${listing_id}`)
+            const { data } = listing
+            if(!data) throw 'No listing found'
+            setImages([...images, ...data.images])
+            for(const prop in data) {
+                if(prop === 'images') break
+                setListingDetails(new Map(listingDetails.set(prop, data[prop])))
+            }
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+    useEffect(() => {
+        getListing(listing_id)
+    }, [])
     return (
         <div className="AddListingContainer editListingWrapper">
             <div className="addListingTop">
                 <p className="small-caps-purple">Edit Listing</p>
             </div>
             <form className="Form addListingForm" onSubmit={submit}>
-                <input required className={`text-input ${!listingDetails.get('title') ? '' : 'lowercase'}`} type="text" name="title" placeholder="Title" value={listingDetails.get('title')} onChange={onChange} />
-                <input required className={`text-input ${!listingDetails.get('location') ? '' : 'lowercase'}`} type="text" name="location" placeholder="Location (suburb)" value={listingDetails.get('location')} onChange={onChange} />
+                <label htmlFor="tagline-input">Tagline</label>
+                <input id="tagline-input" required className={`text-input ${!listingDetails.get('title') ? '' : 'lowercase'}`} type="text" name="tagline" placeholder="Title" value={listingDetails.get('tagline')} onChange={onChange} />
+                <input required className={`text-input ${!listingDetails.get('location') ? '' : 'lowercase'}`} type="text" name="listing_location" placeholder="Location (suburb)" value={listingDetails.get('listing_location')} onChange={onChange} />
                 <input required className={`text-input ${!listingDetails.get('rent') ? '' : 'lowercase'}`} type="number" name="rent" placeholder="Weekly rent" value={listingDetails.get('rent')} onChange={onChange} />
                 <input required className="text-input" type="number" name="bedrooms" placeholder="No. of bedrooms:" value={listingDetails.get('bedrooms')} onChange={onChange} />
                 <input required className="text-input" type="number" name="bathrooms" placeholder="No. of bathrooms:" value={listingDetails.get('bathrooms')} onChange={onChange} />
                 <div className="text-input fileContainer">
-                    <label htmlFor="file-upload-label">Upload one or more photos</label>
+                    <label htmlFor="file-upload-label">Upload one or more new photos</label>
                     <input required id="file-upload" className="fileUpload" type="file" multiple accept="image/png, image/jpeg" name="images" onChange={addImages}/>
                 </div>
                 <input required className="button" value="Submit" type="submit" name="submit" />

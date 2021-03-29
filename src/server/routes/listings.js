@@ -20,14 +20,13 @@ router.get('/:listing_id', async (req, res) => {
 try {
     const { listing_id } = req.params
     const listing = await getListing(listing_id)
-    if(!listing || listing == {}) {
-      res.status(404).send('There\'s no listing by that name around these parts. Now, be on your way.')
-    } else {
-      res.status(200).send(JSON.stringify(listing, circularReplacer()))
-    }
+    if(!listing || listing == {}) throw "There's no listing by that name around these parts. Now, be on your way."
+    res.status(200).send(JSON.stringify(listing))
 } catch (e) {
-    console.error({msg: 'Error from /listing'}, e)
-    res.status(500).send('Error from GET listing route.')
+    e === "There's no listing by that name around these parts. Now, be on your way."
+      ? res.status(404).send(e)
+      : res.status(500).send(`Error from GET listing route${e}` )
+    
 }
 })
 
