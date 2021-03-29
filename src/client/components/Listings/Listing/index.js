@@ -18,7 +18,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
   const [imgsArr, setImgsArr] = useState(listing.listing_photos)
   const [elHeight, setElHeight] = useState('')
   const [displayMenu, setDisplayMenu] = useState(false)
-  const [currUser, setCurrUser] = useState('fb534fb6-e285-4e83-a50f-ab32abed0bc6')
+  const [currUser, setCurrUser] = useState('c1783704-a832-426a-835c-41d789d75566')
   const element = useRef('null')
   const [listingAuthor, setListingAuthor] = useState('')
   const [createdAt, setCreatedAt] = useState(listing.created_at)

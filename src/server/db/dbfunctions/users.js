@@ -37,12 +37,9 @@ const getUser = async (userID, db = conn) => {
         if(JSON.stringify(profile) == '{}' || !profile) {
             throw Error('No profile found')
         }
-        // const listingsLiked = await getAllLikesForOne(userID, 'user')
-        // profile.listingsLiked = !!listingsLiked ? listingsLiked : []
-        // profile_picture
         const { profile_picture } = profile
         profile.profile_picture = await convertToBase64(profile_picture)
-        // profile.profile_picture = `data:image/jpeg;base64,${Buffer.from(profile_picture).toString('base64')}`
+        
         return profile
     } catch (e) {
         console.error('Error in getUser', e)

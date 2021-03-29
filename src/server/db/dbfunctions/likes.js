@@ -59,11 +59,10 @@ const getAllLikesForOne = async (id, type, db = conn) => {
                 return like
             })
         }
-        console.log(`returningLikes ${returningLikes}`)
         return returningLikes
     } catch (e) {
         console.error({msg: 'Error from getAllLikesForOne'}, e)
-        return Error('Error from getAllLikesForOne')
+        return Error(`Error from getAllLikesForOne ${e}`)
     }
 }
 
@@ -82,8 +81,6 @@ const addLike = async (likes_user_id, likes_listing_id, db = conn) => {
                 likes_user_id, 
                 likes_listing_id
             }, ['like_id', 'likes_user_id', 'likes_listing_id'])
-        
-        console.log(`like inserted successfully! ${JSON.stringify(likeInsert[0])}`)
         
         return likeInsert[0]
     } catch (e) {

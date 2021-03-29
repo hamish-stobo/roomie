@@ -130,9 +130,24 @@ const deleteListing = async (listing_id, db = conn) => {
     }
 }
 
+const getListingsLiked = async user_id => {
+    try {
+        const userLikes = await getAllLikesForOne(user_id, 'user')
+        const listingIdsObj = {}
+        userLikes.map((listingId, idx) => listingIdsObj[listingId] = idx)
+        const allListings = await getAllListings()
+        const filteredListings = allListings.filter(listing => listingIdsObj.hasOwnProperty(listing.listing_id))
+        return filteredListings
+    } catch(e) {
+        console.error(e)
+        throw e
+    }
+}
+
 module.exports = {
     getListing,
     getAllListings,
     createListing,
-    deleteListing
+    deleteListing,
+    getListingsLiked
 }

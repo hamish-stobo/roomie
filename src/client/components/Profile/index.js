@@ -8,15 +8,14 @@ import ProfileMenu from './ProfileMenu'
 
 import '../../styles/styles'
 import Listings from '../Listings'
+import LikedListings from '../LikedListings'
 
 const Profile = () => {
   const [profile, setProfile] = useState({})
   const [left, setLeft] = useState(true)
   const [displayMenu, setDisplayMenu] = useState(false)
   const { user_id } = useParams()
-  const changeSelected = input => {
-    setLeft(input)
-  }
+
   const toggleProfileMenu = input => {
     setDisplayMenu(input)
   }
@@ -69,15 +68,12 @@ const Profile = () => {
     </div>
     {displayMenu && <ProfileMenu toggleProfileMenu={toggleProfileMenu} />}
     <div className="LikesListingsButtons">
-      <div onClick={() => changeSelected(true)} className={left ? 'selected' : ''}>Likes</div>
-      <div onClick={() => changeSelected(false)} className={!left ? 'selected' : ''}>Your Listings</div>
+      <div onClick={() => setLeft(true)} className={left ? 'selected' : ''}>Your Listings</div>
+      <div onClick={() => setLeft(false)} className={!left ? 'selected' : ''}>Likes</div>
     </div>
       {left 
-        ? <div style={{background: "rgba(255,255,255,0.59)"}}>
-          1) Get array of likes - map to object of listing IDs found in table where user ID equals currently logged in user.
-          2) Get listings, filter by whether or not the likes object contains listing ID in current iteration of filter loop.
-        </div>
-        : <Listings user_id={user_id} />
+        ? <Listings user_id={user_id} />
+        : <LikedListings user_id={user_id} />
       }
       </>
   )

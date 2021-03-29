@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { getAllListings, getListing, createListing, deleteListing } = require('../db/dbfunctions/listings')
+const { getListingsLiked, getAllListings, getListing, createListing, deleteListing } = require('../db/dbfunctions/listings')
 
 router.get('/', async (req, res) => {
     try {
@@ -20,7 +20,6 @@ router.get('/:listing_id', async (req, res) => {
 try {
     const { listing_id } = req.params
     const listing = await getListing(listing_id)
-    console.log(listing)
     if(!listing || listing == {}) {
       res.status(404).send('There\'s no listing by that name around these parts. Now, be on your way.')
     } else {
@@ -32,10 +31,9 @@ try {
 }
 })
 
-//3967addd-e6b6-4696-958b-8d56507a10da
+
 router.post('/:user_id', async (req, res) => {
   try {
-      console.log(req.files.listing_image)
       const { listing_image } = req.files
       const { user_id } = req.params
       const { body } = req
@@ -45,15 +43,11 @@ router.post('/:user_id', async (req, res) => {
       if(JSON.stringify(body) === "{}" || data.length <= 0) {
           res.status(400).send('Request data malformed')
       } else {
-          //do the DB stuff
           const insertListingResponse = await createListing(user_id, body, data)
-              //if update is successful
-              console.log(insertListingResponse);
               res.status(200).send(insertListingResponse)
       }
   }
       catch (e) {
-          console.error(e)
           res.status(500).send(e)
       }
 })
@@ -61,11 +55,24 @@ router.post('/:user_id', async (req, res) => {
 router.delete('/:listing_id', async (req, res) => {
   try {
     const { listing_id } = req.params
-    console.log(listing_id)
     const deleteListingRes = await deleteListing(listing_id)
     res.status(200).send(`yay we deleted it ${deleteListingRes}`)
   } catch (e) {
     res.send(e)
+  }
+})
+
+router.get('/likes/:user_id', async (req, res) => {
+  try {
+    const { user_id } = req.params
+    console.log(user_id)
+    const likedListings = await getListingsLiked(user_id)
+    if(!likedListings || !Array.isArray(likedListings) || likedListings.length == 0) throw 'No listings liked yet'
+    res.status(200).send(JSON.stringify(likedListings))
+  } catch (e) {
+    e === 'No listings liked yet' 
+      ? res.status(404).send(e)
+      : res.status(500).send(e)
   }
 })
 

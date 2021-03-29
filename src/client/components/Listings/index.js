@@ -8,8 +8,12 @@ const Listings = ({user_id}) => {
     const [listings, setListings] = useState([])
     // This will need to be changed to /getListings when it's ready
     const getListings = async () => {
-        const { data } = await axios.get('/api/v1/listings/')
-        setListings([...listings, ...data])
+        try {
+            const { data } = await axios.get('/api/v1/listings/')
+            setListings([...listings, ...data])
+        } catch (e) {
+            alert(e)
+        }
     }
     useEffect( () => {
         getListings()
