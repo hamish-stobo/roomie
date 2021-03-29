@@ -1,11 +1,14 @@
 @import '../../styles/_RootSettings';
 
 .editListingWrapper {
-    label {
-        box-shadow: none;
-    }
-
-    .fileContainer {
-        padding: 5px;
+    .addListingForm {
+        label {
+            box-shadow: none;
+            padding: 8px 0 3px 0;
+        }
+        .fileContainer {
+            padding: 5px;
+            height: 40px;
+        }
     }
 }

@@ -5,23 +5,29 @@ import '../../styles/styles'
 
 
 const EditListing = () => {
-    const [listingDetails, setListingDetails] = useState(new Map()) 
+    const [listingDetails, setListingDetails] = useState({
+        tagline: '',
+        listing_location: '',
+        rent: 0,
+        bedrooms: 0,
+        bathrooms: 0
+    }) 
     const [images, setImages] = useState([])
     const { listing_id } = useParams()
-    const onChange = e => {
-        const { name, value } = e.target
-        setListingDetails(new Map(listingDetails.set(name, value)))
-        console.log(`name ${name}, value ${value}`)
-    }
+    // const onChange = e => {
+    //     const { name, value } = e.target
+    //     setListingDetails({...listingDetails, [name]: value})
+    //     console.log(`name ${name}, value ${value}`)
+    // }
     const addImages = e => {
         setImages([...images, ...e.target.files])
     }
     const submit = e => {
         e.preventDefault()
         const formData = new FormData();
-        listingDetails.forEach((val, key) => {
-            formData.append(key, val)
-        })
+        for(const prop in listingDetails) {
+            formData.append(prop, listingDetails[prop])
+        }
         formData.append('images', images);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
@@ -43,10 +49,8 @@ const EditListing = () => {
             const { data } = listing
             if(!data) throw 'No listing found'
             setImages([...images, ...data.images])
-            for(const prop in data) {
-                if(prop === 'images') break
-                setListingDetails(new Map(listingDetails.set(prop, data[prop])))
-            }
+            delete data.images
+            setListingDetails({...listingDetails, ...data})
         } catch (e) {
             alert(e)
         }
@@ -57,19 +61,24 @@ const EditListing = () => {
     }, [])
     return (
         <div className="AddListingContainer editListingWrapper">
+            {console.log(!!listingDetails.tagline)}
             <div className="addListingTop">
                 <p className="small-caps-purple">Edit Listing</p>
             </div>
             <form className="Form addListingForm" onSubmit={submit}>
                 <label htmlFor="tagline-input">Tagline</label>
-                <input id="tagline-input" required className={`text-input ${!listingDetails.get('title') ? '' : 'lowercase'}`} type="text" name="tagline" placeholder="Title" value={listingDetails.get('tagline')} onChange={onChange} />
-                <input required className={`text-input ${!listingDetails.get('location') ? '' : 'lowercase'}`} type="text" name="listing_location" placeholder="Location (suburb)" value={listingDetails.get('listing_location')} onChange={onChange} />
-                <input required className={`text-input ${!listingDetails.get('rent') ? '' : 'lowercase'}`} type="number" name="rent" placeholder="Weekly rent" value={listingDetails.get('rent')} onChange={onChange} />
-                <input required className="text-input" type="number" name="bedrooms" placeholder="No. of bedrooms:" value={listingDetails.get('bedrooms')} onChange={onChange} />
-                <input required className="text-input" type="number" name="bathrooms" placeholder="No. of bathrooms:" value={listingDetails.get('bathrooms')} onChange={onChange} />
+                    <input id="tagline-input" required className={`text-input ${!listingDetails.tagline ? '' : 'lowercase'}`} type="text" name="tagline" value={listing.tagline} onChange={e => setListingDetails({...listingDetails, tagline: e.target.value})} />
+                <label htmlFor="location-input">Location</label>
+                    <input id="location-input" required className={`text-input ${!listingDetails.listing_location ? '' : 'lowercase'}`} type="text" name="listing_location" value={listingDetails.listing_location} onChange={e => setListingDetails({...listingDetails, listing_location: e.target.value})} />
+                <label htmlFor="rent-input">Weekly Rent</label>
+                    <input id="rent-input" required className={`text-input ${!listingDetails.rent ? '' : 'lowercase'}`} type="number" name="rent" value={listingDetails.rent} onChange={e => setListingDetails({...listingDetails, rent: e.target.value})} />
+                <label htmlFor="bedrooms-input">No. of Bedrooms</label>
+                    <input id="bedrooms-input" required className="text-input" type="number" name="bedrooms" value={listingDetails.bedrooms} onChange={e => setListingDetails({...listingDetails, bedrooms: e.target.value})} />
+                <label htmlFor="bathrooms-input">No. of Bathrooms</label>
+                    <input id="bathrooms-input" required className="text-input" type="number" name="bathrooms" value={listingDetails.bathrooms} onChange={e => setListingDetails({...listingDetails, bathrooms: e.target.value})} />
+                <label htmlFor="file-upload">Upload one or more new photos</label>
                 <div className="text-input fileContainer">
-                    <label htmlFor="file-upload-label">Upload one or more new photos</label>
-                    <input required id="file-upload" className="fileUpload" type="file" multiple accept="image/png, image/jpeg" name="images" onChange={addImages}/>
+                    <input required id="file-upload" type="file" multiple accept="image/png, image/jpeg" name="images" onChange={addImages}/>
                 </div>
                 <input required className="button" value="Submit" type="submit" name="submit" />
             </form>
