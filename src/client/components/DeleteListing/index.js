@@ -26,7 +26,7 @@ const DeleteListing = () => {
                 <button className="button" onClick={() => goBack()}>Back</button>
                 <button className="button delBtn" onClick={() => DeleteListing(listing_id)}>Delete</button>
             </div>
-            {redirect && <Redirect push to="/listings" />}
+            {redirect && <Redirect to="/listings" />}
         </div>
     )
 }
