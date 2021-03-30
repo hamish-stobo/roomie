@@ -29,12 +29,6 @@ const EditListing = () => {
             formData.append(prop, listingDetails[prop])
         }
         formData.append('images', images);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]);
-            if(pair[0] == 'images') {
-                console.log(`IMAGES: ...${images[1]}`)
-            }
-         } 
         // console.log(JSON.stringify(formData))
         // axios.put('/api/v1/listings/listing_id', formData, {
         //     headers: {
@@ -46,8 +40,8 @@ const EditListing = () => {
     const getListing = async listing_id => {
         try {
             const listing = await axios.get(`/api/v1/listings/${listing_id}`)
+            if(!listing || !listing.data) throw 'No listing found'
             const { data } = listing
-            if(!data) throw 'No listing found'
             setImages([...images, ...data.images])
             delete data.images
             setListingDetails({...listingDetails, ...data})
@@ -61,15 +55,14 @@ const EditListing = () => {
     }, [])
     return (
         <div className="AddListingContainer editListingWrapper">
-            {console.log(!!listingDetails.tagline)}
             <div className="addListingTop">
                 <p className="small-caps-purple">Edit Listing</p>
             </div>
             <form className="Form addListingForm" onSubmit={submit}>
                 <label htmlFor="tagline-input">Tagline</label>
-                    <input id="tagline-input" required className={`text-input ${!listingDetails.tagline ? '' : 'lowercase'}`} type="text" name="tagline" value={listing.tagline} onChange={e => setListingDetails({...listingDetails, tagline: e.target.value})} />
+                    <input id="tagline-input" maxLength="20" required className={`text-input ${!listingDetails.tagline ? '' : 'lowercase'}`} type="text" name="tagline" value={listingDetails.tagline} placeholder='Enter catchy title for your listing' onChange={e => setListingDetails({...listingDetails, tagline: e.target.value})} />
                 <label htmlFor="location-input">Location</label>
-                    <input id="location-input" required className={`text-input ${!listingDetails.listing_location ? '' : 'lowercase'}`} type="text" name="listing_location" value={listingDetails.listing_location} onChange={e => setListingDetails({...listingDetails, listing_location: e.target.value})} />
+                    <input id="location-input" required className={`text-input ${!listingDetails.listing_location ? '' : 'lowercase'}`} type="text" name="listing_location" placeholder="Where is the listing located?" value={listingDetails.listing_location} onChange={e => setListingDetails({...listingDetails, listing_location: e.target.value})} />
                 <label htmlFor="rent-input">Weekly Rent</label>
                     <input id="rent-input" required className={`text-input ${!listingDetails.rent ? '' : 'lowercase'}`} type="number" name="rent" value={listingDetails.rent} onChange={e => setListingDetails({...listingDetails, rent: e.target.value})} />
                 <label htmlFor="bedrooms-input">No. of Bedrooms</label>
