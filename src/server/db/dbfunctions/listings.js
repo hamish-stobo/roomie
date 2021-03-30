@@ -111,6 +111,36 @@ const createListing = async (user_id, listing, photos, db = conn) => {
     }
 }
 
+const updateListing = async (listing_id, body, photos, db = conn) => {
+    try {
+        const listingImagesDeletion = await db('images')
+                .del()
+                .where('images_listing_id', listing_id)
+        const imagesToInsert = Array.isArray(photos)
+            ? photos.map(photo => {
+                return {
+                    image_id: uuidv4(),
+                    images_listing_id: listing_id,
+                    listing_image: photo
+                }
+            })
+            :  {
+                    image_id: uuidv4(),
+                    images_listing_id: listing_id,
+                    listing_image: photos
+            }
+        const imagesInsert = await db('images')
+            .insert(imagesToInsert, ['image_id', 'images_listing_id', 'listing_image'])
+        const listingUpdate = await db('listings')
+            .where('listing_id', listing_id)
+            .update({...body})
+        return 'Listing successfully updated'
+    } catch (e) {
+        console.error(e)
+        throw e
+    }
+}
+
 const deleteListing = async (listing_id, db = conn) => {
     try {
         console.log(`listing to remove: ${listing_id}`)
@@ -148,5 +178,6 @@ module.exports = {
     getAllListings,
     createListing,
     deleteListing,
-    getListingsLiked
+    getListingsLiked,
+    updateListing
 }

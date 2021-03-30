@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { getListingsLiked, getAllListings, getListing, createListing, deleteListing } = require('../db/dbfunctions/listings')
+const { updateListing, getListingsLiked, getAllListings, getListing, createListing, deleteListing } = require('../db/dbfunctions/listings')
 
 router.get('/', async (req, res) => {
     try {
@@ -48,6 +48,28 @@ router.post('/:user_id', async (req, res) => {
   }
       catch (e) {
           res.status(500).send(e)
+      }
+})
+
+router.put('/:listing_id', async (req, res) => {
+  try {
+      const { body } = req
+      const { listing_id } = req.params
+      const { images } = req.files
+      const data = Array.isArray(images) 
+        ? images.map(photo => photo.data)
+        : images.data
+      console.log(req)
+      if(JSON.stringify(body) === "{}" || data.length <= 0) throw 'Request data malformed'
+      const updateListingResponse = await updateListing(listing_id, body, data)
+      res.status(200).send(updateListingResponse)
+  }
+      catch (e) {
+          if(e === 'Request data malformed') {
+            res.status(400).send(e)
+          } else {
+            res.status(500).send(e)
+          }
       }
 })
 
