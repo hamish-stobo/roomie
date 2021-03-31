@@ -144,15 +144,18 @@ const updateListing = async (listing_id, body, photos, db = conn) => {
 const deleteListing = async (listing_id, db = conn) => {
     try {
         console.log(`listing to remove: ${listing_id}`)
+        const likesDeletion = await db('likes')
+            .del()
+            .where('likes_listing_id', listing_id)
         const listingImagesDeletion = await db('images')
             .del()
             .where('images_listing_id', listing_id)
-        if(listingImagesDeletion == 0) throw `${listingDeletion} listingsImages were deleted`
+        if(listingImagesDeletion == 0) throw `${listingImagesDeletion} listingsImages were deleted`
         const listingDeletion = await db('listings')
             .del()
             .where('listing_id', listing_id)
         if(listingDeletion == 0) throw `${listingDeletion} listings were deleted`
-        return `Success! Listing was removed ${listingDeletion}`
+        return `Success! ${listingDeletion} listings were removed, it had ${listingImagesDeletion} photos and ${likesDeletion} likes`
     } catch (e) {
         console.error(e)
         throw e
