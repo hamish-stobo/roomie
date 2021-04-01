@@ -1,15 +1,55 @@
-import React from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import Footer from '../../Footer'
 
-const Layout = ({children}) => {
-    return (
-        <>
-            <NavBar/>
-                {children}
-            <Footer />
-        </>
-    )
+// export const Layout = ({children}) => {
+//     return (
+//         <>
+//             <NavBar/>
+//                 {children}
+//             <Footer />
+//         </>
+//     )
+// }
+
+const authContext = createContext()
+
+export const ProvideAuth = ({ children }) => {
+    const auth = useProvideAuth()
+    console.log(`Auth: ${JSON.stringify(auth)}`)
+    return <authContext.Provider value={auth}>
+        <NavBar/>
+            {children}
+        <Footer />
+    </authContext.Provider>;
 }
 
-export default Layout
+export const useAuth = () => {
+    return useContext(authContext)
+  };
+
+function useProvideAuth() {
+    const [user, setUser] = useState(null)
+    const isAuthed = user?.id ? true : false
+    // setUser({...user, id: "12345"})
+    useEffect(() => {
+      setTimeout(2000, setUser({...user, id: "12345"}))
+    }, []);
+  
+    const signin = (email, password) => {
+      return fetch("/api/v1/login", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((res) => res.json())
+        .then(
+          (user) => setUser(user.user),
+          (error) => setUser(null),
+          user
+        )
+        .catch((error) => error)
+    };
+  
+    return { user, setUser, isAuthed, signin }
+  }
