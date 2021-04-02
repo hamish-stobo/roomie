@@ -14,10 +14,10 @@ import ProtectedRoute from '../Auth/ProtectedRoute'
 import { ProvideAuth } from '../Auth'
 
 const Router = () => (
+    <ProvideAuth>
         <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/register" component={Register} />
-            <ProvideAuth>
                 <Layout>
                 {/* <Route path="/logout" component={LogOut} /> */}
                     <Switch>
@@ -30,9 +30,9 @@ const Router = () => (
                         <ProtectedRoute path="/deletelisting/:listing_id" component={DeleteListing} />
                     </Switch>
                 </Layout>
-            </ProvideAuth>
             <Route component={NotFound} />
         </Switch>
+    </ProvideAuth>
 )
 
 const NotFound = () => (

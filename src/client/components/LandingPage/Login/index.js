@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '../../../styles/styles'
-const axios = require('axios')
+import { useAuth } from '../../App/Auth'
 
 const Login = () => {
     const [userInfo, setUserInfo] = useState(new Map())
-
+    const auth = useAuth()
     const onChange = e => {
         const { name, value } = e.target
         setUserInfo(new Map(userInfo.set(name, value)))
     }
-
+    
     const submit = e => {
         e.preventDefault()
         const userDetails = Object.fromEntries(userInfo)
@@ -31,6 +31,7 @@ const Login = () => {
         //
     }
     //if the email input required is empty, remove the email clas
+    useEffect(() => {auth.signin('fb534fb6-e285-4e83-a50f-ab32abed0bc6')}, [])
     return (
         <div className="Login-Container" >
             <form className="Form Login" onSubmit={submit}>
