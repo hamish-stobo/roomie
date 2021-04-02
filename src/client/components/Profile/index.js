@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faCog, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
 import ProfileMenu from './ProfileMenu'
+import { useAuth } from '../App/Auth'
 
 import '../../styles/styles'
 import Listings from '../Listings'
@@ -15,6 +16,7 @@ const Profile = () => {
   const [left, setLeft] = useState(true)
   const [displayMenu, setDisplayMenu] = useState(false)
   const { user_id } = useParams()
+  const { user } = useAuth() 
 
   const toggleProfileMenu = input => {
     setDisplayMenu(input)
@@ -37,7 +39,12 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    getProfile(user_id)
+    //if user is viewing own profile, load profile from context, else get profile from server
+    if(user_id === user?.user_id) {
+      setProfile(user)
+    } else {
+      getProfile(user_id)
+    }
   }, [])
   return (
     <>

@@ -7,14 +7,12 @@ import X from './X'
 
 const NavBar = () => {
     const auth = useAuth()
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false)
     const image = auth?.user?.profile_picture
-    console.log(image)
+    const userID = auth?.user?.user_id
     const toggleShow = input => {
         setShow(input)
     }
-
-    console.log(`Navbar props: ${JSON.stringify(auth)}`)
     return (
         <>
             <div className="NavBar">
@@ -28,7 +26,7 @@ const NavBar = () => {
                 {show && 
                 <div className="menu-container sm">
                     <ul className="menu-ul-sm sm">
-                        <Link style={{textDecoration: 'none', color: 'rgb(63, 63, 63)'}} onClick={() => toggleShow(false)} className="menu-li sm navProfileLnk" to="/profile">
+                        <Link style={{textDecoration: 'none', color: 'rgb(63, 63, 63)'}} onClick={() => toggleShow(false)} className="menu-li sm navProfileLnk" to={`/profile/${userID}`} >
                             <img className="navbar-profileImage" src={image} /> 
                             Profile
                         </Link>
@@ -38,7 +36,7 @@ const NavBar = () => {
                 </div>}
                 <div className="menu-container lg">
                     <ul className="menu-ul lg">
-                        <Link className="menu-li lg navProfileLnk" to="/profile" style={{textDecoration: 'none', color: '#DB00FF'}}>
+                        <Link className="menu-li lg navProfileLnk" to={`/profile/${userID}`} style={{textDecoration: 'none', color: '#DB00FF'}}>
                             <img className="navbar-profileImage" src={image} />
                             Profile
                         </Link>
