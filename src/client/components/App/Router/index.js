@@ -10,25 +10,36 @@ import EditProfile from '../../EditProfile'
 import EditListing from '../../EditListing'
 import DeleteProfile from '../../DeleteProfile'
 import DeleteListing from '../../DeleteListing'
+import ProtectedRoute from '../Auth/ProtectedRoute'
+import { ProvideAuth } from '../Auth'
 
 const Router = () => (
-    <>
         <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/register" component={Register} />
-            <Layout>
+            <ProvideAuth>
+                <Layout>
                 {/* <Route path="/logout" component={LogOut} /> */}
-                
-                <Route path="/listings" component={Listings} />
-                <Route path="/addlisting" component={AddListing} />
-                <Route path="/profile/:user_id" component={Profile} />
-                <Route path="/editprofile" component={EditProfile} />
-                <Route path="/editlisting/:listing_id" component={EditListing} />
-                <Route path="/deleteprofile" component={DeleteProfile} />
-                <Route path="/deletelisting/:listing_id" component={DeleteListing} />
-            </Layout>
+                    <Switch>
+                        <ProtectedRoute path="/listings" component={Listings} />
+                        <ProtectedRoute path="/addlisting" component={AddListing} />
+                        <ProtectedRoute path="/profile/:user_id" component={Profile} />
+                        <ProtectedRoute path="/editprofile" component={EditProfile} />
+                        <ProtectedRoute path="/editlisting/:listing_id" component={EditListing} />
+                        <ProtectedRoute path="/deleteprofile" component={DeleteProfile} />
+                        <ProtectedRoute path="/deletelisting/:listing_id" component={DeleteListing} />
+                    </Switch>
+                </Layout>
+            </ProvideAuth>
+            <Route component={NotFound} />
         </Switch>
-    </>
+)
+
+const NotFound = () => (
+    <div>
+        <h1>Oops!</h1>
+        <p>The page you were looking for does not exist.</p>
+    </div>
 )
 
 export default Router

@@ -15,10 +15,9 @@ const Listings = ({user_id}) => {
             alert(e)
         }
     }
-    useEffect( () => {
+    useEffect(() => {
         getListings()
     }, [])
-
     return (
         <>
             <div className="Listings">
