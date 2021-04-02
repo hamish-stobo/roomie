@@ -16,14 +16,15 @@ const createUser = async (userToInsert, db = conn) => {
         const userInsert = await db('users').insert({
             ...userToInsert,
             user_id: uuidv4(),
-        }, ['user_id', 'email', 'password', 'first_name', 'last_name', 'user_location', 'profile_picture'])
+        }, ['user_id', 'email', 'first_name', 'last_name', 'user_location', 'profile_picture'])
         
-        if(!userInsert || JSON.stringify(userInsert) === '{}') throw Error('Insert of user failed')
-        console.log(userInsert)
+        if(!userInsert[0] || JSON.stringify(userInsert[0]) === '{}') throw 'Insert of user failed'
+        console.log(userInsert[0])
+        userInsert[0].profile_picture = await convertToBase64(userInsert[0].profile_picture) 
         return userInsert[0]
     } catch (e) {
         console.error({msg: 'Error from createUser db function'}, e)
-        throw Error(`Error from createUser db function: ${JSON.stringify(e)}`)
+        throw `Error from createUser db function: ${JSON.stringify(e)}`
     }
 }
 

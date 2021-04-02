@@ -9,6 +9,7 @@ const NavBar = () => {
     const auth = useAuth()
     const [show, setShow] = useState(false);
     const image = auth.user.profile_picture
+    console.log(image)
     const toggleShow = input => {
         setShow(input)
     }

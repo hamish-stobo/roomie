@@ -2,27 +2,41 @@ require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
 const { validateUUID, validateEmail } = require('../validation/dataValidator')
+const { createTokens, validateToken } = require('../middleware/JWT')
+const bcrypt = require('bcrypt')
 
  
 //insert a new user
 router.post('/', async (req, res) => {
     try {
-        console.log(req)
         const { body } = req
-        const { data } = req.files.profile_picture
-        if(JSON.stringify(body) === "{}" || !data) {
-            res.status(400).send('Request data malformed')
+        body.password = await bcrypt.hash(body.password, 10)
+        // console.log(req.body)
+        console.log(req.files)
+        if(JSON.stringify(body) == "{}") {
+            throw 'Request data malformed'
         } else {
             //do the DB stuff
-            const profile = await createUser({...body, profile_picture: data})
+            const profile = await createUser(body)
                 //if update is successful
-                console.log(JSON.stringify(profile));
+                //create token from secret, email and password for 28800 seconds
+                const accessToken = createTokens(profile)
+                res.cookie("access-token", accessToken, {
+                    maxAge: 28800, //cookie valid for 8 hours
+                    httpOnly: true,
+                  })
+                console.log(`profile: ${JSON.stringify(profile)}`)
+                console.log(`accessToken: ${JSON.stringify(accessToken)}`)
                 res.status(200).send(JSON.stringify(profile))
         }
     }
         catch (e) {
             console.error({msg: 'Error from /createUser'}, e)
-            res.status(500).send('Could not create profile')
+            if(e === 'Request data malformed')  { 
+                res.status(400).send(e)
+            } else {
+                res.status(500).send(e)
+            }
         }
 })
 router.get('/:user_id', async (req, res) => {

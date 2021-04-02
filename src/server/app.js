@@ -3,14 +3,17 @@ require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
-const fileUpload = require('express-fileupload');
+const fileUpload = require('express-fileupload')
+const cookieParser = require("cookie-parser")
 const app = express()
 app.use(cors())
 const DIST_DIR = path.join(__dirname, '../', '../dist')
 app.use(express.static(DIST_DIR))
-app.use(express.json());
+app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(fileUpload());
+app.use(fileUpload())
+app.use(cookieParser())
+
 //route modules
 const listings = require('./routes/listings')
 const users = require('./routes/users')
@@ -20,7 +23,7 @@ app.use('/api/v1/listings', listings)
 app.use('/api/v1/users', users)
 app.use('/api/v1/likes', likes)
 
-const HTML_FILE = path.join(DIST_DIR, 'index.html');
+const HTML_FILE = path.join(DIST_DIR, 'index.html')
 const mockResponse = {
   foo: 'bar',
   bar: 'foo'

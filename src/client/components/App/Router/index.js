@@ -21,7 +21,7 @@ const Router = () => (
                 <Layout>
                 {/* <Route path="/logout" component={LogOut} /> */}
                     <Switch>
-                        <ProtectedRoute path="/listings" component={Listings} />
+                        <ProtectedRoute path="/listings/:user_id" component={Listings} />
                         <ProtectedRoute path="/addlisting" component={AddListing} />
                         <ProtectedRoute path="/profile/:user_id" component={Profile} />
                         <ProtectedRoute path="/editprofile" component={EditProfile} />

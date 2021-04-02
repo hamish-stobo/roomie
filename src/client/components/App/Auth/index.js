@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const authContext = createContext()
@@ -15,6 +16,7 @@ export const useAuth = () => {
 const useProvideAuth = () => {
     const [user, setUser] = useState(null)
     const isAuthed = user?.user_id ? true : false
+    const { user_id } = useParams()
     const getProfile = async userID => {
         try {
           if(userID === 'logged in user') {
@@ -32,9 +34,9 @@ const useProvideAuth = () => {
         }
       }
     // setUser({...user, id: "12345"})
-    // useEffect(() => {
-    //     getProfile('fb534fb6-e285-4e83-a50f-ab32abed0bc6')
-    // }, [])
+    useEffect(() => {
+        getProfile(user_id)
+    }, [])
     const signin = userId => {getProfile(userId)}
     // const signin = (email, password) => {
     //   return fetch("/api/v1/login", {

@@ -31,7 +31,7 @@ const Login = () => {
         //
     }
     //if the email input required is empty, remove the email clas
-    useEffect(() => {auth.signin('fb534fb6-e285-4e83-a50f-ab32abed0bc6')}, [])
+    // useEffect(() => {auth.signin('fb534fb6-e285-4e83-a50f-ab32abed0bc6')}, [])
     return (
         <div className="Login-Container" >
             <form className="Form Login" onSubmit={submit}>
