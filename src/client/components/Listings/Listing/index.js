@@ -10,6 +10,7 @@ import ListingMenu from './ListingMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp, faComments } from "@fortawesome/free-regular-svg-icons"
+import { useAuth } from '../../App/Auth'
 
 const Listing = ({idx, uniqueKey, listing}) => {
     
@@ -18,7 +19,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
   const [imgsArr, setImgsArr] = useState(listing.listing_photos)
   const [elHeight, setElHeight] = useState('')
   const [displayMenu, setDisplayMenu] = useState(false)
-  const [currUser, setCurrUser] = useState('c1783704-a832-426a-835c-41d789d75566')
+  const [currUser, setCurrUser] = useState(useAuth()?.user)
   const element = useRef('null')
   const [listingAuthor, setListingAuthor] = useState('')
   const [createdAt, setCreatedAt] = useState(listing.created_at)

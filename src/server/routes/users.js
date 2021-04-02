@@ -2,7 +2,7 @@ require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
 const { validateUUID, validateEmail } = require('../validation/dataValidator')
-const { createTokens, validateToken } = require('../middleware/JWT')
+const { createTokens, validateToken, getUserIdFromToken } = require('../middleware/JWT')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
  
@@ -37,11 +37,10 @@ router.post('/', async (req, res) => {
         }
 })
 
-router.get('/fromcookie', async (req, res) => {
+router.get('/fromcookie', validateToken, async (req, res) => {
     try {
     const { accessToken } = req.cookies
-    const tokenObj = jwt.decode(accessToken)
-    const { user_id } = tokenObj
+    const user_id = getUserIdFromToken(accessToken)
     const profile = await getUser(user_id)
     if(!profile || JSON.stringify(profile) === "{}") {
         throw '404/Profile not found :('

@@ -84,10 +84,9 @@ const createListing = async (user_id, listing, photos, db = conn) => {
         }, ['listing_id'])
         
         if(!listingInsert || JSON.stringify(listingInsert) === '{}') {
-            throw Error('Insert of listing failed')
+            throw 'Insert of listing failed'
         }
         else {
-            console.log(JSON.stringify(`Insert of listing succeeded: ${JSON.stringify(listingInsert)}`))
             const imagesToInsert = Array.isArray(photos)
                 ? photos.map(photo => {
                     return {
@@ -107,7 +106,7 @@ const createListing = async (user_id, listing, photos, db = conn) => {
         }
     } catch (e) {
         console.error({msg: 'Error from createListing DB function'}, e)
-        throw Error(e)
+        throw e
     }
 }
 

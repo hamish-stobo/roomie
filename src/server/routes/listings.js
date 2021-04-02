@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { updateListing, getListingsLiked, getAllListings, getListing, createListing, deleteListing } = require('../db/dbfunctions/listings')
+const { validateToken, getUserIdFromToken, compareIDs } = require('../middleware/JWT')
 
 router.get('/', async (req, res) => {
     try {
@@ -31,7 +32,7 @@ try {
 })
 
 
-router.post('/:user_id', async (req, res) => {
+router.post('/:user_id', validateToken, async (req, res) => {
   try {
       const { listing_image } = req.files
       const { user_id } = req.params
@@ -43,7 +44,7 @@ router.post('/:user_id', async (req, res) => {
           res.status(400).send('Request data malformed')
       } else {
           const insertListingResponse = await createListing(user_id, body, data)
-              res.status(200).send(insertListingResponse)
+          res.status(200).send(insertListingResponse)
       }
   }
       catch (e) {
@@ -51,15 +52,18 @@ router.post('/:user_id', async (req, res) => {
       }
 })
 
-router.put('/:listing_id', async (req, res) => {
+router.put('/:listing_id', validateToken, async (req, res) => {
   try {
       const { body } = req
       const { listing_id } = req.params
       const { images } = req.files
+      const { accessToken } = req.cookies
+      const user_id = getUserIdFromToken(accessToken)
+      const { listings_user_id } = body
+      compareIDs(user_id, listings_user_id)
       const data = Array.isArray(images) 
         ? images.map(photo => photo.data)
         : images.data
-      console.log(req)
       if(JSON.stringify(body) === "{}" || data.length <= 0) throw 'Request data malformed'
       const updateListingResponse = await updateListing(listing_id, body, data)
       res.status(200).send(updateListingResponse)
@@ -67,6 +71,8 @@ router.put('/:listing_id', async (req, res) => {
       catch (e) {
           if(e === 'Request data malformed') {
             res.status(400).send(e)
+          } else if(e === 'Not Authorized') {
+            res.status(403).send(e)
           } else {
             res.status(500).send(e)
           }
@@ -86,7 +92,6 @@ router.delete('/:listing_id', async (req, res) => {
 router.get('/likes/:user_id', async (req, res) => {
   try {
     const { user_id } = req.params
-    console.log(user_id)
     const likedListings = await getListingsLiked(user_id)
     if(!likedListings || !Array.isArray(likedListings) || likedListings.length == 0) throw 'No listings liked yet'
     res.status(200).send(JSON.stringify(likedListings))

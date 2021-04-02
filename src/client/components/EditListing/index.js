@@ -10,7 +10,8 @@ const EditListing = () => {
         listing_location: '',
         rent: 0,
         bedrooms: 0,
-        bathrooms: 0
+        bathrooms: 0,
+        listings_user_id: ''
     }) 
     const [images, setImages] = useState([])
     const { listing_id } = useParams()
@@ -31,9 +32,6 @@ const EditListing = () => {
                 formData.append(prop, listingDetails[prop])
             }
             images.forEach(image => formData.append('images', image))
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]);
-             }
             const updateListingResponse = await axios.put(`/api/v1/listings/${listing_id}`, formData, {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -59,7 +57,8 @@ const EditListing = () => {
                 listing_location: data.listing_location,
                 rent: data.rent,
                 bedrooms: data.bedrooms,
-                bathrooms: data.bathrooms
+                bathrooms: data.bathrooms,
+                listings_user_id: data.listings_user_id
             })
         } catch (e) {
             alert(e)

@@ -16,7 +16,7 @@ const Profile = () => {
   const [left, setLeft] = useState(true)
   const [displayMenu, setDisplayMenu] = useState(false)
   const { user_id } = useParams()
-  const { user } = useAuth() 
+  const { user } = useAuth()
 
   const toggleProfileMenu = input => {
     setDisplayMenu(input)
@@ -38,19 +38,24 @@ const Profile = () => {
     }
   }
 
-  useEffect(() => {
-    //if user is viewing own profile, load profile from context, else get profile from server
+  const populateProfilePage = () => {
     if(user_id === user?.user_id) {
       setProfile(user)
     } else {
       getProfile(user_id)
     }
+  }
+
+  useEffect(() => {
+    //if user is viewing own profile, load profile from context, else get profile from server
+    populateProfilePage()
   }, [])
   return (
     <>
+    {user_id !== profile.user_id && populateProfilePage()}
     <div className="profileWrapper">
       <div className="profileContainer">
-      <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />
+      {user_id === user?.user_id && <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />}
         {!!profile.profile_picture 
           ? <img className="profileImg" src={profile.profile_picture} />
           : <FontAwesomeIcon className="profileImg iconImg" icon={faCamera} />
@@ -61,7 +66,7 @@ const Profile = () => {
           <span><strong>Location:</strong> {profile.user_location}</span>
           <span><strong>Member since:</strong> {profile.created_at}</span>
         </div>
-        <div className="lg-element profileButtonsContainer">
+        {user_id === user?.user_id && <div className="lg-element profileButtonsContainer">
           <Link to="/editprofile" className="button editButton">
             <FontAwesomeIcon icon={faEdit} />
             <span> Update</span>
@@ -70,10 +75,10 @@ const Profile = () => {
             <FontAwesomeIcon icon={faTrashAlt} />
             <span> Delete</span>
           </Link>
-        </div>
+        </div>}
       </div>
     </div>
-    {displayMenu && <ProfileMenu toggleProfileMenu={toggleProfileMenu} />}
+    {displayMenu && user_id === user?.user_id && <ProfileMenu toggleProfileMenu={toggleProfileMenu} />}
     <div className="LikesListingsButtons">
       <div onClick={() => setLeft(true)} className={left ? 'selected' : ''}>Your Listings</div>
       <div onClick={() => setLeft(false)} className={!left ? 'selected' : ''}>Likes</div>
