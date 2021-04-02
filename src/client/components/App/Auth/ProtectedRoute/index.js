@@ -4,19 +4,13 @@ import { useAuth } from "../../Auth";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const { isAuthed } = useAuth()
-  const [auth, setAuth] = useState(true)
-  setAuth(isAuthed)
   // console.log(`isAuthed in protectedroute: ${JSON.stringify(auth)}`)
   return (
     <Route
       {...rest}
-      render={(props) => {
-        if (auth) {
-          return <Component {...rest} {...props} />;
-        } else {
-          console.log(`isAuthed ${auth}`)
-          return (
-            <Redirect
+      render={props => isAuthed 
+          ? <Component {...rest} {...props} />
+          : <Redirect
               to={{
                 pathname: "/",
                 state: {
@@ -24,11 +18,9 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
                 },
               }}
             />
-          );
-        }
-      }}
+      }
     />
-  );
-};
+  )
+}
 
 export default ProtectedRoute;

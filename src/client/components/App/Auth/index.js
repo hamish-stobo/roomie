@@ -15,10 +15,8 @@ export const useAuth = () => {
 
 const useProvideAuth = () => {
     const [user, setUser] = useState(null)
-    console.log(`Cookies.get() ${JSON.stringify(Cookies.get())}`)
-    console.log(document.cookie)
-    const isAuthed = user?.user_id ? true : false
-    const signin = async userID => {
+    const isAuthed = !!Cookies.get('accessToken')
+    const signin = async user => {
       try {
           const profileRes = await axios.get(`/api/v1/users/${userID}`)
           const { data } = profileRes

@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
                 const accessToken = createTokens(profile)
                 res.cookie("accessToken", accessToken, {
                     maxAge: 28800000, //cookie valid for 8 hours
-                    httpOnly: true,
+                    httpOnly: false,
                   }).status(200).send(JSON.stringify(profile))
         }
     }

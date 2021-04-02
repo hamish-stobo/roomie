@@ -9,7 +9,7 @@ const Register = ({toggle}) => {
     const [userDetails, setUserDetails] = useState(new Map()) 
     const [profile_picture, setProfilePicture] = useState([])
     const [redirect, setRedirect] = useState(false)
-    const { signin } = useAuth()
+    const { setUser } = useAuth()
     const onChange = e => {
         const { name, value } = e.target
         //create a COPY of the existing map in state
@@ -34,14 +34,14 @@ const Register = ({toggle}) => {
          }
         //once auth ready:
         //
-            const response = await axios.post('/api/v1/users/ ', formData, {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            })
-            if(!response.data || response.data === '{}') throw response.message
-            signin(response.data)
-            setRedirect(true)
+        const response = await axios.post('/api/v1/users/', formData, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+        if(!response.data || response.data === '{}') throw response.message
+        setUser(response.data)
+        setRedirect(true)
         } catch (err) {
             alert(err)
         }

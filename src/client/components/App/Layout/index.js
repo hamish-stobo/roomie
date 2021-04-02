@@ -21,7 +21,9 @@ const Layout = ({children}) =>
       useEffect(() => {
         //we only want to put the user profile from server into context if it hasn't
         //already been put there in login/signup.
-          if(!user) getProfile()
+          if(user == null)  {
+              getProfile()
+          }
       }, [])
     return (
         <>
