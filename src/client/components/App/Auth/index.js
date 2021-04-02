@@ -15,7 +15,7 @@ const useProvideAuth = () => {
     const [user, setUser] = useState({id: "12345"})
     const isAuthed = user?.id ? true : false
     // setUser({...user, id: "12345"})
-    // useEffect(() => {
+    // useEffect(() => {+
     // //   setTimeout(2000, setUser({...user, }))
     // }, []);
     const signin = () => {console.log('hello')}
