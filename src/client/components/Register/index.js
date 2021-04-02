@@ -9,8 +9,7 @@ const Register = ({toggle}) => {
     const [userDetails, setUserDetails] = useState(new Map()) 
     const [profile_picture, setProfilePicture] = useState([])
     const [redirect, setRedirect] = useState(false)
-    const [userID, setUserID] = useState('')
-    const { setUser } = useAuth()
+    const { signin } = useAuth()
     const onChange = e => {
         const { name, value } = e.target
         //create a COPY of the existing map in state
@@ -18,7 +17,7 @@ const Register = ({toggle}) => {
         setUserDetails(new Map(userDetails.set(name, value)))
     }
     const addImage = e => {
-        console.log(e.target.files[0])
+        // console.log(e.target.files[0])
         setProfilePicture([...profile_picture, e.target.files[0]])
     }
 
@@ -29,8 +28,10 @@ const Register = ({toggle}) => {
         userDetails.forEach((val, key) => {
             formData.append(key, val)
         })
-        formData.append('profile_picture', profile_picture)
-
+        formData.append('profile_picture', profile_picture[0])
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]);
+         }
         //once auth ready:
         //
             const response = await axios.post('/api/v1/users/ ', formData, {
@@ -39,8 +40,7 @@ const Register = ({toggle}) => {
                 }
             })
             if(!response.data || response.data === '{}') throw response.message
-            setUser(response.data)
-            setUserID(response.data.user_id)
+            signin(response.data)
             setRedirect(true)
         } catch (err) {
             alert(err)
@@ -49,7 +49,7 @@ const Register = ({toggle}) => {
 
     return (
         <div className="pageWrapper">
-            {redirect && <Redirect to={`/listings/${userID}`}/>}
+            {redirect && <Redirect to='/listings'/>}
             <div className="Register-container">
                 <div className="registerTop">                
                     <Link className="exitBtn registerExitBtn" to="/">x</Link>
@@ -59,7 +59,7 @@ const Register = ({toggle}) => {
                     <input required className={`text-input required ${!userDetails.get('first_name') ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails.get('first_name')} onChange={onChange} />
                     <input required className={`text-input required ${!userDetails.get('last_name') ? '' : 'lowercase'}`} type="text" name="last_name" placeholder="Last Name" value={userDetails.get('last_name')} onChange={onChange} />
                     <input required className={`text-input required ${!userDetails.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userDetails.get('email')} onChange={onChange} />
-                    <input required className={`text-input required ${!userDetails.get('password') ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password" minlength="6" value={userDetails.get('password')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('password') ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password" minLength="6" value={userDetails.get('password')} onChange={onChange} />
                     <input required className={`text-input required ${!userDetails.get('user_location') ? '' : 'lowercase'}`} type="text" name="user_location" placeholder="Location" value={userDetails.get('user_location')} onChange={onChange} />
                     <div className="text-input profileFileContainer">
                         <label htmlFor="profile-file-upload">Upload a profile image</label>

@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { sign, verify } = require("jsonwebtoken");
+const { sign, verify } = require("jsonwebtoken")
 
 const createTokens = user => {
   const accessToken = sign(
@@ -10,7 +10,7 @@ const createTokens = user => {
 };
 
 const validateToken = (req, res, next) => {
-  const accessToken = req.cookies["access-token"]
+  const { accessToken } = req.cookies
 
   if (!accessToken)
     return res.status(400).json({ error: "User not Authenticated!" })
@@ -18,12 +18,12 @@ const validateToken = (req, res, next) => {
   try {
     const validToken = verify(accessToken, "jwtsecretplschange")
     if (validToken) {
-      req.authenticated = true;
-      return next();
+      req.authenticated = true
+      return next()
     }
   } catch (err) {
     return res.status(400).json({ error: err })
   }
-};
+}
 
 module.exports = { createTokens, validateToken }
