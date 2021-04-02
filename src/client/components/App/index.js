@@ -6,11 +6,9 @@ import '../../styles/styles'
 
 const App = () => {
   return (
-    <>
       <HashRouter basename="/">
         <Router />
       </HashRouter>
-    </>
   )
 }
 
