@@ -2,7 +2,7 @@
   "name": "roomie",
   "version": "1.0.0",
   "description": "## User stories # As a user(Renter): - I want to be able to create an account - I want to be able to login to an account that I have created - I want to be able to see a list of available rooms for rent - I want to be able to show i am interested in a listing Register interest --- # As a Lister - I want to be able to list an advert - I want to be able to see users interested in advert - I want to be able to remove an advert - i want to be able to contact users",
-  "main": "client/index.js",
+  "main": "src/server/index.js",
   "scripts": {
     "run": "webpack --mode development",
     "build": "webpack --mode production",
@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jared-James/roomie.git"
+    "url": "git+https://github.com/hamish-stobo/roomie.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Jared-James/roomie/issues"
+    "url": "https://github.com/hamish-stobo/roomie/issues"
   },
-  "homepage": "https://github.com/Jared-James/roomie#readme",
+  "homepage": "https://github.com/hamish-stobo/roomie#readme",
   "dependencies": {
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.12.10",
@@ -57,6 +57,7 @@
     "pg": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hot-loader": "^4.13.0",
     "react-router-dom": "^5.2.0",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
