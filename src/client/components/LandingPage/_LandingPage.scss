@@ -1,0 +1,23 @@
+@import '../../styles/_RootSettings';
+.pageWrapper {
+    .Header {
+        font-size: 4em;
+        margin: 0 auto 10vh auto;
+    }
+}
+
+@media screen and (min-width: 648px) {
+    .pageWrapper {
+        .Header {
+            font-size: 6em;
+        }
+    }
+}
+
+// .pageHalf {
+//     display: flex;
+//     flex-flow: column;
+//     align-items: flex-start;
+//     justify-content: space-evenly;
+//     min-height: 120px;
+// }

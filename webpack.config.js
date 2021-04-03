@@ -2,7 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require('path');
 module.exports = {
    context: __dirname,
-   entry: './src/index.js',
+   entry: './src/client/index.js',
    output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'main.js',
@@ -25,11 +25,21 @@ module.exports = {
        {
           test: /\.(png|j?g|svg|gif)?$/,
           use: 'file-loader'
+       },
+       {
+         test: /\.(png|jpe?g|gif)$/i,
+         use: [
+           {
+             loader: 'file-loader',
+           },
+         ],
        }
     ]
  },
 
-   resolve: { extensions: ["*", ".js", ".jsx", '.scss'] },
+   resolve: {
+      extensions: ["*", ".js", ".jsx", '.scss'] 
+   },
    plugins: [
       new HtmlWebPackPlugin({
          inject: true,

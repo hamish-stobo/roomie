@@ -1,0 +1,17 @@
+@import '../../styles/_RootSettings';
+
+.editListingWrapper {
+    .addListingForm {
+        label {
+            box-shadow: none;
+            padding: 8px 0 3px 0;
+        }
+        .fileContainer {
+            padding: 5px;
+            height: 40px;
+        }
+        #file-upload {
+            font-size: 0.9em;
+        }
+    }
+}

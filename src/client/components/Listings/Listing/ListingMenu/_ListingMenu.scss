@@ -1,0 +1,35 @@
+@import '../../../../styles/_RootSettings';
+
+.ListingMenuWrapper {
+    position: absolute;
+    right: 30px;
+    background: $MoreWhite;
+    padding: 8px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    border-radius: 6px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+    .linky {
+        text-decoration: none;
+        color: $GunMetal;
+        padding: 5px;
+        margin: 0;
+        .edit-icon, .trash-icon {
+            margin-right: 5px;
+        }
+        .edit-icon {
+            font-size: 1.1em;
+        }
+        .trash-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+    }
+}
+
+@media screen and (min-width: 648px) {
+    .ListingMenuWrapper {
+        right: calc(50vw - 290px);
+    }
+}

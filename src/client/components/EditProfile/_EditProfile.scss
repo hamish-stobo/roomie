@@ -1,0 +1,18 @@
+@import '../../styles/_RootSettings';
+
+.edit-profile-container {
+    .registerTop {
+        grid-template-rows: 30px 20px;
+        grid-template-columns: auto 16px;
+    }
+    .Register {
+        grid-template-rows: repeat(4, 1fr) 1.8fr 1fr;
+        grid-template-areas: 
+        "first_name"
+        "last_name"
+        "email"
+        "location"
+        "profilePic"
+        "SignUp";
+    }
+}

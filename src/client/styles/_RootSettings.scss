@@ -1,0 +1,130 @@
+$PalePurpScurp: rgba(219, 0, 255, 0.76);
+$PurpScurp: #DB00FF;
+$PaleBanana: rgba(255, 245, 0, 0.5);
+$Banana: #FFF500;
+$CurlyFont: 'Pattaya', sans-serif;
+$WhiteIsh: rgba(255,255,255,0.59);
+$MoreWhite: rgba(255,255,255,0.95);
+$GunMetal: rgb(63, 63, 63);
+
+*, html, body {
+    margin: 0 auto;
+	padding: 0;
+	border: 0;
+	text-align: center;
+	font-family: 'Raleway', sans-serif;
+    font-variant: small-caps;
+    box-sizing: border-box;
+}
+
+body {
+    background: $PaleBanana;
+}
+
+* {
+    background: none;
+}
+
+.pageWrapper {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: $PurpScurp;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.button {
+	text-decoration: none;
+    background: $PurpScurp;
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: $Banana;
+	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+	font-weight: 400;
+	font-size: 1.05em;
+}
+
+.button:hover {
+	cursor: pointer;
+}
+
+.Form > * {
+    font-size: 1.1em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    width: 100%;
+    border-radius: 5px;
+}
+
+.text-input {
+    color: black;
+    background: rgba(255,255,255,0.69);
+}
+
+
+.Logo {
+    text-decoration: none;
+    font-family: $CurlyFont;
+    color: $PalePurpScurp;
+}
+
+.Logo:visited {
+    text-decoration: none;
+}
+
+.lowercase {
+    font-variant: normal;
+}
+
+.small-caps-purple {
+    text-decoration: none;
+    color: $PurpScurp;
+	font-size: 1.2em;
+}
+
+.copyright {
+	font-size: 0.9em;
+    // left: 5vw;
+    // right: 5vw;
+    z-index: 1;
+    padding: 15px 0 15px 0;
+    margin: 15px auto;
+    position: absolute;
+    left: calc(50vw - 93px);
+}
+
+// .pageWrapper {
+//     .copyright {
+//     }
+// }
+
+.exitBtn {
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    background: none;
+    color: $PalePurpScurp;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: color 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.exitBtn:hover,
+.exitBtn:focus {
+    color: $PurpScurp;
+}
+

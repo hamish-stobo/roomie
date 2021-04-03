@@ -1,0 +1,137 @@
+@import '../../../../styles/_RootSettings';
+
+.NavBar {
+    display: flex;
+    height: 50px;
+    top: 0;
+    color: $PurpScurp;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Logo {
+    font-family: $CurlyFont;
+    font-size: 1.9em;
+    margin-left: 25px;
+}
+
+.Hamburger {
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.Hamburger:hover {
+    cursor: pointer;
+}
+
+.menu-container {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: rgba(233, 233, 42, 0.781);
+    width: 100vw;
+    padding: 10px;
+    .menu-ul-sm {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+        .menu-li {
+            width: 100%;
+        }
+    }
+}
+
+.NavBar > .sm {
+    background: $MoreWhite;
+//     clip-path: polygon(
+//     0 0, /* left top */
+//     100% 0, /* right top */ 
+//     calc(100vw - 8vw) 100%, /* right bottom */
+//     0 100% /* left bottom */
+//   );
+}
+
+.NavBar > .Hamburger {
+    background: none;
+    clip-path: none;
+}
+
+.menu-li {
+    padding: 10px 0;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.sm > a {
+    margin: 0 auto;
+}
+
+.menu-li:hover {
+    cursor: pointer;
+}
+
+.lg {
+    display: none;
+    visibility: hidden;
+    position: static;
+}
+
+.navProfileLnk {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    .navbar-profileImage {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 7px 0 0;
+    }
+}
+
+@media screen and (min-width: 648px) {
+    .NavBar {
+        .Logo {
+            margin-left: 60px;
+            font-size: 1.9em;
+        }
+    }
+    .sm {
+        display: none;
+        visibility:hidden;
+        position: static;
+    }
+
+    .lg {
+        display: block;
+        visibility: visible;
+    }
+
+    .navProfileLnk {
+        display: flex;
+    }
+
+    .menu-container {
+        margin-right: 0;
+        padding: 0 15px 0 0;
+        background: none;
+        width: auto;
+    }
+
+    .menu-ul {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-top: 0;
+    }
+
+    .menu-li {
+        padding: 0 10px;
+        text-align: center;
+    }
+}
