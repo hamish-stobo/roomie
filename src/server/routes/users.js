@@ -5,32 +5,6 @@ const { validateUUID, validateEmail } = require('../validation/dataValidator')
 const { createTokens, validateToken, getUserIdFromToken, compareIDs } = require('../middleware/JWT')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-
-router.post('/login', async (req, res) => {
-    try {
-        const { email, password: reqPassword } = req.body
-        //get user from email
-        const userRes = await getUserFromEmail(email)
-        const { user_id, password } = userRes
-        console.log(JSON.stringify(userRes))
-        //check if no user found or if password incorrect
-        if(!userRes || JSON.stringify(userRes) === '{}' || !bcrypt.compare(reqPassword, password)) throw 'Username or password incorrect'
-        //get user from ID
-        const user = await getUser(user_id)
-        //create JWT cookie and send to client
-        const accessToken = createTokens(user)
-        res.cookie("accessToken", accessToken, {
-            maxAge: 28800000, //cookie valid for 8 hours
-            httpOnly: false,
-            }).status(200).send(JSON.stringify(user))
-    } catch (err) {
-        if(err === 'Username or password incorrect') {
-            res.status(400).send(err)
-        } else {
-            res.status(500).send(err)
-        }
-    }
-})
  
 //insert a new user
 router.post('/', async (req, res) => {

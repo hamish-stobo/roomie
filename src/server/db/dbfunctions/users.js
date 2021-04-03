@@ -108,11 +108,11 @@ const deleteUser = async (user_id, db = conn) => {
 
 const getUserFromEmail = async (email, db = conn) => {
     try {
-        const getUser = db('users')
+        const getUser = await db('users')
             .select('user_id', 'password')
             .where('email', email)
             .first()
-        return getUser[0]
+        return getUser
     } catch (err) {
         console.error(err)
         throw err
