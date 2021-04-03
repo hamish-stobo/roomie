@@ -19,7 +19,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
   const [imgsArr, setImgsArr] = useState(listing.listing_photos)
   const [elHeight, setElHeight] = useState('')
   const [displayMenu, setDisplayMenu] = useState(false)
-  const [currUser, setCurrUser] = useState(useAuth()?.user)
+  const [currUser, setCurrUser] = useState(useAuth()?.user?.user_id)
   const element = useRef('null')
   const [listingAuthor, setListingAuthor] = useState('')
   const [createdAt, setCreatedAt] = useState(listing.created_at)
@@ -30,6 +30,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
 
   const addLike = async userID => {
     try {
+      console.log(userID)
       const addLike = await axios.post('api/v1/likes', 
         {
           likes_listing_id: listing.listing_id,
@@ -86,18 +87,18 @@ const Listing = ({idx, uniqueKey, listing}) => {
   return (
     <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
       {listingAuthor && <Redirect to={`profile/${listingAuthor}`} />}
-      <div className="cardTop">
+      <div className="cardTop" style={{justifyContent: currUser === listing.listings_user_id ? 'center' : 'flex-start'}}>
         <img onClick={() => redirectToAuthor(listing.listings_user_id)} className="profileImage" src={listing.author.profile_picture}/>
         <div onClick={() => redirectToAuthor(listing.listings_user_id)} className="nameDate">
           <span className="userName">{listing.author.first_name} {listing.author.last_name}</span>
           <span className="postedDate">Listed on {createdAt}</span>
         </div>
-        <div className="listingMenuDots" onClick={() => toggleListingMenu(!displayMenu)} >
+        {currUser === listing.listings_user_id && <div className="listingMenuDots" onClick={() => toggleListingMenu(!displayMenu)} >
             <div className="dot">{' '}</div>
             <div className="dot">{' '}</div>
             <div className="dot">{' '}</div>
-        </div>
-        {displayMenu && <ListingMenu elHeight={elHeight} toggleListingMenu={toggleListingMenu} listing_id={listing.listing_id}/>}
+        </div>}
+        {displayMenu && currUser === listing.listings_user_id && <ListingMenu elHeight={elHeight} toggleListingMenu={toggleListingMenu} listing_id={listing.listing_id}/>}
       </div>
       <div className="imageCarousel">
         <img className="bedroomImage" src={imgsArr[selected]} />

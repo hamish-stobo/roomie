@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const { addLike, removeLike } = require('../db/dbfunctions/likes')
+const { validateToken } = require('../middleware/JWT')
 
-router.post('/', async (req, res) => {
+router.post('/', validateToken, async (req, res) => {
     try {
-        console.log(req.body)
         const { likes_user_id, likes_listing_id } = req.body
         const likeInsert = await addLike(likes_user_id, likes_listing_id)
         if(JSON.stringify(likeInsert) !== "{}") {
@@ -15,9 +15,8 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:likes_listing_id/:likes_user_id', async (req, res) => {
+router.delete('/:likes_listing_id/:likes_user_id', validateToken, async (req, res) => {
     try {
-        console.log(req.params)
         const { likes_user_id, likes_listing_id } = req.params
         const deleteLike = await removeLike(likes_user_id, likes_listing_id)
         res.status(200).send(deleteLike)

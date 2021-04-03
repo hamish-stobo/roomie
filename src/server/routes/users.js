@@ -2,7 +2,7 @@ require('dotenv').config()
 const router = require('express').Router()
 const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
 const { validateUUID, validateEmail } = require('../validation/dataValidator')
-const { createTokens, validateToken, getUserIdFromToken } = require('../middleware/JWT')
+const { createTokens, validateToken, getUserIdFromToken, compareIDs } = require('../middleware/JWT')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
  
@@ -61,7 +61,7 @@ router.get('/fromcookie', validateToken, async (req, res) => {
     }
 })
 
-router.get('/:user_id', async (req, res) => {
+router.get('/:user_id', validateToken, async (req, res) => {
     try {
     const { user_id } = req.params
     if(!validateUUID(user_id)) {
@@ -71,7 +71,6 @@ router.get('/:user_id', async (req, res) => {
         if(!profile || JSON.stringify(profile) === "{}") {
             res.status(404).send('Profile not found :(')
         } else {
-        //if update is successful
             res.status(200).send(profile)
         }
     }
@@ -82,10 +81,14 @@ router.get('/:user_id', async (req, res) => {
   })
 
 
-router.put('/:user_id', async (req, res) => {
+router.put('/:user_id', validateToken, async (req, res) => {
     try {
-        const { user_id} = req.params
+        const { user_id } = req.params
         const { body } = req
+        body.profile_picture = req.files.profile_picture.data
+        const { accessToken } = req.cookies
+        const idFromJWT = getUserIdFromToken(accessToken)
+        compareIDs(user_id, idFromJWT)
         if(!validateUUID(user_id) || JSON.stringify(body) === "{}" || !validateEmail(body.email)) {
             res.status(400).send('Request data malformed')
         }
@@ -93,15 +96,19 @@ router.put('/:user_id', async (req, res) => {
             const profile = await updateUser(user_id, body)
             //extra layer of error handling
             if(JSON.stringify(profile) == "{}" || !profile) {
-                throw Error('Update to profile failed')
+                throw 'Update to profile failed'
             } else {
                 //if update is successful
-                res.status(200).send(JSON.stringify(profile))
+                res.status(200).send(profile)
             }
         }
       } catch (e) {
             console.error({msg: 'Error from update profile'}, e)
-            res.status(500).send('Could not update at /profile')
+            if(e === 'Not Authorized') {
+                res.status(403).send(e)
+            } else {
+                res.status(500).send('Could not update at /profile')
+            }
       }
 })
 

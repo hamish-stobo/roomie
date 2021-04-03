@@ -12,16 +12,16 @@ const Layout = ({children}) =>
           const profileRes = await axios.get('/api/v1/users/fromcookie')
             const { data } = profileRes
             if(!data || data == '{}') throw 'No profile found'
-            data.created_at = data.created_at.split('T')[0]
+            data.created_at = data?.created_at.split('T')[0]
             setUser(data)
         } catch (err) {
-          alert(err)
+          alert(`layout: ${err}`)
         }
       }
       useEffect(() => {
         //we only want to put the user profile from server into context if it hasn't
         //already been put there in login/signup.
-          if(user == null)  {
+          if(user == null || !user)  {
               getProfile()
           }
       }, [])

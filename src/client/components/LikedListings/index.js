@@ -24,6 +24,8 @@ const LikedListings = ({user_id}) => {
                     const uniqueKey = listing_id + idx.toString
                     return <Listing idx={idx} key={uniqueKey} uniqueKey={idx} listing={listing} />
                 }) 
+                : listings.length == 0
+                ? <div>No listings liked yet</div>
                 : <div>Loading...</div>}
         </div>
     )

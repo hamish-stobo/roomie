@@ -81,7 +81,7 @@ const createListing = async (user_id, listing, photos, db = conn) => {
             listing_id,
             listings_user_id: user_id,
             ...listing,
-        }, ['listing_id'])
+        })
         
         if(!listingInsert || JSON.stringify(listingInsert) === '{}') {
             throw 'Insert of listing failed'

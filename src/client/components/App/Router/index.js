@@ -28,6 +28,7 @@ const Router = () => (
                         <ProtectedRoute path="/editlisting/:listing_id" component={EditListing} />
                         <ProtectedRoute path="/deleteprofile" component={DeleteProfile} />
                         <ProtectedRoute path="/deletelisting/:listing_id" component={DeleteListing} />
+                        <Route component={NotFound} />
                     </Switch>
                 </Layout>
             <Route component={NotFound} />

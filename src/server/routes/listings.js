@@ -79,13 +79,22 @@ router.put('/:listing_id', validateToken, async (req, res) => {
       }
 })
 
-router.delete('/:listing_id', async (req, res) => {
+router.delete('/:listing_id', validateToken, async (req, res) => {
   try {
     const { listing_id } = req.params
+    const listing = await getListing(listing_id)
+    const { accessToken } = req.cookies
+    const user_id = getUserIdFromToken(accessToken)
+    const { listings_user_id } = listing
+    compareIDs(user_id, listings_user_id)
     const deleteListingRes = await deleteListing(listing_id)
     res.status(200).send(`yay we deleted it ${deleteListingRes}`)
   } catch (e) {
-    res.send(e)
+    if(e === 'Not Authorized') {
+      res.status(403).send(e)
+    } else {
+      res.status(500).send(e)
+    }
   }
 })
 
@@ -93,7 +102,7 @@ router.get('/likes/:user_id', async (req, res) => {
   try {
     const { user_id } = req.params
     const likedListings = await getListingsLiked(user_id)
-    if(!likedListings || !Array.isArray(likedListings) || likedListings.length == 0) throw 'No listings liked yet'
+    if(!likedListings || !Array.isArray(likedListings)) throw 'Couldn\'t find that'
     res.status(200).send(JSON.stringify(likedListings))
   } catch (e) {
     e === 'No listings liked yet' 

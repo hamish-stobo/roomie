@@ -31,7 +31,7 @@ const createUser = async (userToInsert, db = conn) => {
 const getUser = async (userID, db = conn) => {
     try {
         const profile = await db('users')
-            .select()
+            .select('user_id', 'email', 'first_name', 'last_name', 'user_location', 'profile_picture', 'created_at')
             .where('user_id', userID)
             .first()
         
@@ -54,11 +54,11 @@ const updateUser = async (userID, user, db = conn) => {
         const updateUser = await db('users')
             .where('user_id', userID)
             .update({...user}, ['email', 'first_name', 'last_name', 'user_location', 'profile_picture'])
-        console.log(JSON.stringify(updateUser))
         if(updateUser.length == 0 || JSON.stringify(updateUser[0]) == "{}") {
             console.error('Update user failed')
             return false
         }
+        updateUser[0].profile_picture = await convertToBase64(updateUser[0].profile_picture) 
         return updateUser[0]
     } catch (e) {
         console.error({msg: "error in updateUser"}, e)
