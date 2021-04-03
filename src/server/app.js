@@ -8,11 +8,14 @@ const cookieParser = require('cookie-parser')
 const app = express()
 app.use(cors())
 const DIST_DIR = path.join(__dirname, '../', '../dist')
-app.use(express.static(DIST_DIR))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(fileUpload())
 app.use(cookieParser())
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(DIST_DIR))
+}
 
 //route modules
 const listings = require('./routes/listings')

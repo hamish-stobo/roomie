@@ -6,12 +6,16 @@
   "scripts": {
     "run": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack && node src/server/index.js",
+    "start": "node src/server/index.js",
     "nodemon": "nodemon src/server/index.js",
     "dev": "webpack --mode development && nodemon src/server/index.js",
     "wss-dev": "run-p dev:**",
     "dev:client": "webpack --watch",
-    "dev:server": "nodemon src/server"
+    "dev:server": "nodemon src/server",
+    "heroku-postbuild": "npm install && npm run build && npm start"
+  },
+  "engines": {
+    "node": "15.x"
   },
   "repository": {
     "type": "git",
@@ -24,6 +28,13 @@
   },
   "homepage": "https://github.com/Jared-James/roomie#readme",
   "dependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@webpack-cli/serve": "^1.2.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
@@ -35,15 +46,24 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "css-loader": "^5.0.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
+    "html-webpack-plugin": "^5.0.0-alpha.9",
+    "knex": "^0.21.17",
     "npm-run-all": "^4.1.5",
+    "pg": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "style-loader": "^2.0.0"
+    "sass": "^1.32.5",
+    "sass-loader": "^10.1.1",
+    "style-loader": "^2.0.0",
+    "uuid": "^3.4.0",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
