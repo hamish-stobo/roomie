@@ -1,5 +1,5 @@
 const app = require('./app')
-const port = process.env.PORT || 8000
+const port = process.env.PORT
 
 app.listen(port, async function () {
  console.log(`🚀🚀🚀 App listening on port: ${port} 🚀🚀🚀`);
