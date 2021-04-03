@@ -75,7 +75,6 @@ const getAllListings = async (db = conn) => {
 
 const createListing = async (user_id, listing, photos, db = conn) => {
     try {
-        console.log(user_id, JSON.stringify(listing), photos)
         const listing_id = uuidv4()
         const listingInsert = await db('listings').insert({
             listing_id,
@@ -101,7 +100,6 @@ const createListing = async (user_id, listing, photos, db = conn) => {
                     listing_image: photos
                 }
             const imagesInsert = await db('images').insert(imagesToInsert, ['image_id', 'images_listing_id', 'listing_image'])
-            console.log(JSON.stringify(`Insert of photos succeeded: ${imagesInsert}`))
             return 'Listing inserted successfully'
         }
     } catch (e) {

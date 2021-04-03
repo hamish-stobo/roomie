@@ -11,6 +11,7 @@ import EditListing from '../../EditListing'
 import DeleteProfile from '../../DeleteProfile'
 import DeleteListing from '../../DeleteListing'
 import ProtectedRoute from '../Auth/ProtectedRoute'
+import Logout from '../../Logout'
 import { ProvideAuth } from '../Auth'
 
 const Router = () => (
@@ -19,7 +20,7 @@ const Router = () => (
             <Route exact path="/" component={LandingPage} />
             <Route path="/register" component={Register} />
                 <Layout>
-                {/* <Route path="/logout" component={LogOut} /> */}
+                
                     <Switch>
                         <ProtectedRoute path="/listings" component={Listings} />
                         <ProtectedRoute path="/addlisting" component={AddListing} />
@@ -28,6 +29,7 @@ const Router = () => (
                         <ProtectedRoute path="/editlisting/:listing_id" component={EditListing} />
                         <ProtectedRoute path="/deleteprofile" component={DeleteProfile} />
                         <ProtectedRoute path="/deletelisting/:listing_id" component={DeleteListing} />
+                        <ProtectedRoute path="/logout" component={Logout} />
                         <Route component={NotFound} />
                     </Switch>
                 </Layout>

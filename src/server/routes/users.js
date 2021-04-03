@@ -1,6 +1,6 @@
 require('dotenv').config()
 const router = require('express').Router()
-const {createUser, getUser, updateUser} = require('../db/dbfunctions/users')
+const {createUser, getUser, updateUser, deleteUser} = require('../db/dbfunctions/users')
 const { validateUUID, validateEmail } = require('../validation/dataValidator')
 const { createTokens, validateToken, getUserIdFromToken, compareIDs } = require('../middleware/JWT')
 const bcrypt = require('bcrypt')
@@ -110,6 +110,16 @@ router.put('/:user_id', validateToken, async (req, res) => {
                 res.status(500).send('Could not update at /profile')
             }
       }
+})
+
+router.delete('/', validateToken, async (req, res) => {
+    try {
+        const user_id = getUserIdFromToken(req.cookies.accessToken)
+        const deleteUser = await deleteUser(user_id)
+        res.status(200).send(deleteUser)
+    } catch (e) {
+        res.status(500).send(e)
+    }
 })
 
 module.exports = router

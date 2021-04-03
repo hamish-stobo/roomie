@@ -42,7 +42,7 @@ const Profile = () => {
     if(user_id === user?.user_id) {
       setProfile(user)
     } else {
-      getProfile(user_id)
+      getProfile(!!user?.user_id ? user?.user_id : user_id)
     }
   }
 
@@ -55,7 +55,7 @@ const Profile = () => {
     {user_id !== profile.user_id && populateProfilePage()}
     <div className="profileWrapper">
       <div className="profileContainer">
-      {user_id === user?.user_id && <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />}
+      {user_id === profile?.user_id && <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />}
         {!!profile.profile_picture 
           ? <img className="profileImg" src={profile.profile_picture} />
           : <FontAwesomeIcon className="profileImg iconImg" icon={faCamera} />
@@ -66,7 +66,7 @@ const Profile = () => {
           <span><strong>Location:</strong> {profile.user_location}</span>
           <span><strong>Member since:</strong> {profile.created_at}</span>
         </div>
-        {user_id === user?.user_id && <div className="lg-element profileButtonsContainer">
+        {user_id === profile?.user_id && <div className="lg-element profileButtonsContainer">
           <Link to="/editprofile" className="button editButton">
             <FontAwesomeIcon icon={faEdit} />
             <span> Update</span>

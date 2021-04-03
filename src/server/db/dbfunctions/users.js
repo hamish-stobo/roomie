@@ -76,9 +76,40 @@ const getAllUsers = async (db = conn) => {
     }
 }
 
+const deleteUser = async (user_id, db = conn) => {
+    try {
+        //we only update users table if it is provided to us:
+        const likesDeleted = await db('likes')
+            .del()
+            .where('likes_user_id', user_id)
+        let getListings = await db('listings')
+            .where('listings_user_id', user_id)
+            .select('listing_id')
+        getListings = getListings.map(id => {
+            const { listings_user_id } = id
+            return listings_user_id
+        })
+        const images = getListings.forEach(async listing => 
+            await db('images')
+                .del()
+                .where('images_listing_id', listing)
+        )
+        const delListings = await db('listings')
+            .del()
+            .where('listings_user_id', user_id)
+        const users = await db('users')
+            .del()
+            .where('user_id', user_id)
+        return `${users} users were deleted, along with ${delListings} listings, ${images} listing photos and ${likesDeleted} likes`
+    } catch (e) {
+        throw `Error from getAllUsers db function: ${JSON.stringify(e)}`
+    }
+}
+
 module.exports = {
     createUser,
     getUser,
     updateUser,
-    getAllUsers
+    getAllUsers,
+    deleteUser
 }
