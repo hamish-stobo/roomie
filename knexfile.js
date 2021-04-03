@@ -1,11 +1,11 @@
 require('dotenv').config()
-const { Client } = require('pg')
+const parse = require('pg-connection-string').parse
+const pgconfig = parse(process.env.DATABASE_URL)
+pgconfig.ssl = { rejectUnauthorized: false }
 
-const PGclient = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+const knex = Knex({
+  client: 'pg',
+  connection: pgconfig,
 })
 
 module.exports = {
@@ -25,8 +25,8 @@ module.exports = {
   },
 
   production: {
-    client,
-    connection: PGclient,
+    client: 'pg',
+    connection: pgconfig,
     pool: {
       min: 2,
       max: 10
