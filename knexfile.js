@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { Client } = require('pg')
 
-const client = new Client({
+const PGclient = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
@@ -26,7 +26,7 @@ module.exports = {
 
   production: {
     client,
-    connection: `${process.env.DATABASE_URL}?ssl=true`,
+    connection: PGclient,
     pool: {
       min: 2,
       max: 10
