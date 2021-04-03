@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import '../../../styles/styles'
 import { useAuth } from '../../App/Auth'
+import axios from 'axios'
 
 const Login = () => {
     const [userInfo, setUserInfo] = useState(new Map())
-    const auth = useAuth()
+    const [redirect, setRedirect] = useState(false)
+    const { setUser } = useAuth()
     const onChange = e => {
         const { name, value } = e.target
         setUserInfo(new Map(userInfo.set(name, value)))
     }
     
-    const submit = e => {
-        e.preventDefault()
-        const userDetails = Object.fromEntries(userInfo)
-        console.log(userDetails)
-        //when auth/login functionality is ready:
-        // try {
-        //     const response = await axios.post('/api/v1/login', {
-        //     data: {...userDetails})
-        //     //if response is truthy
-        //     if(!!reponse && response !== '{}') {
-        //         console.log(`all good, response: ${response}`)
-        //     } else {
-        //         throw Error('Attempt to login failed')
-        //     }
-        // } catch (e) {
-        //     console.log(e)
-        // }
-        //
+    const submit = async e => {
+        try {
+            e.preventDefault()
+            const userDetails = Object.fromEntries(userInfo)
+            const loginResponse = await axios.post('/api/v1/users/login', userDetails)
+            if(!loginResponse || !loginResponse.data) throw 'Login was not successful'
+            alert(JSON.stringify(loginResponse.data))
+            setUser(loginResponse.data)
+            setRedirect(true)
+        } catch (err) {
+            alert(err)
+        }
     }
-    //if the email input required is empty, remove the email clas
-    // useEffect(() => {auth.signin('fb534fb6-e285-4e83-a50f-ab32abed0bc6')}, [])
     return (
         <div className="Login-Container" >
+            {redirect && <Redirect to="/listings" />}
             <form className="Form Login" onSubmit={submit}>
                 <input required className={`text-input required ${!userInfo.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userInfo.email} onChange={onChange} />
                 <input required className={`text-input required ${!userInfo.get('password') ? '' : 'lowercase'}`} type="password" placeholder="Password" name="password" value={userInfo.password} onChange={onChange} />

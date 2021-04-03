@@ -106,10 +106,24 @@ const deleteUser = async (user_id, db = conn) => {
     }
 }
 
+const getUserFromEmail = async (email, db = conn) => {
+    try {
+        const getUser = db('users')
+            .select('user_id', 'password')
+            .where('email', email)
+            .first()
+        return getUser[0]
+    } catch (err) {
+        console.error(err)
+        throw err
+    }
+}
+
 module.exports = {
     createUser,
     getUser,
     updateUser,
     getAllUsers,
-    deleteUser
+    deleteUser,
+    getUserFromEmail
 }
