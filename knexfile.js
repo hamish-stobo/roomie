@@ -1,8 +1,11 @@
 require('dotenv').config()
+const parse = require('pg-connection-string').parse
+const pgconfig = parse(process.env.DATABASE_URL)
+pgconfig.ssl = { rejectUnauthorized: false }
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: process.env.DEV_DB_URL,
     pool: {
       min: 2,
@@ -17,8 +20,8 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
-    connection: process.env.DATABASE_URL,
+    client: 'pg',
+    connection: pgconfig,
     pool: {
       min: 2,
       max: 10

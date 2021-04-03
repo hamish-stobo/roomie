@@ -12,7 +12,7 @@
     "wss-dev": "run-p dev:**",
     "dev:client": "webpack --watch",
     "dev:server": "nodemon src/server",
-    "heroku-postbuild": "npm install && npm run build && npm run start"
+    "heroku-postbuild": "npm install && npm run build"
   },
   "engines": {
     "node": "15.x"
@@ -34,12 +34,12 @@
     "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
-    "@webpack-cli/serve": "^1.2.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@webpack-cli/serve": "^1.2.2",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "bcrypt": "^5.0.1",
@@ -49,12 +49,13 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "html-webpack-plugin": "^5.0.0-alpha.9",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
-    "html-webpack-plugin": "^5.0.0-alpha.9",
     "knex": "^0.21.17",
     "npm-run-all": "^4.1.5",
     "pg": "^8.5.1",
+    "pg-connection-string": "^2.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
