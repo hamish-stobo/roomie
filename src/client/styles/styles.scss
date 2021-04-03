@@ -1,0 +1,21 @@
+@use './RootSettings';
+@use '../components/App/_App';
+@use '../components/LandingPage/LandingPage';
+@use '../components/LandingPage/Login/Login';
+@use '../components/Register/Register';
+@use '../components/App/Layout/NavBar/NavBar';
+@use '../components/Listings/Listings';
+@use '../components/Listings/Listing/Listing';
+@use '../components/App/Layout/Layout';
+@use '../components/Footer/Footer';
+@use '../components/Profile/Profile';
+@use '../components/Profile/ProfileMenu/ProfileMenu';
+@use '../components/Listings/Listing/ListingMenu/ListingMenu';
+@use '../components/AddListing/AddListing';
+@use '../components/EditListing/EditListing';
+@use '../components/EditProfile/EditProfile';
+@use '../components/DeleteProfile/DeleteProfile';
+
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');

@@ -1,0 +1,53 @@
+@import '../../styles/_RootSettings';
+
+.AddListingContainer {
+    background: rgba(255, 255, 255, 0.4);
+    width: 95vw;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    .addListingTop {
+        .small-caps-purple {
+            font-size: 1.3em;
+            padding: 30px 0 15px 0;
+        }
+    }
+    .addListingForm {
+        display: flex;
+        // width: calc(100% - 60px);
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+        // margin: 30px;
+        padding-bottom: 30px;
+        font-size: 1.1em;
+            .text-input {
+                margin-bottom: 5px;
+                width: 94%;
+            }
+            input[type="text"], input[type="number"]{
+                height: 45px;
+            }
+            .fileContainer {
+                height: 55px;
+                margin-bottom: 15px;
+            }
+            .fileUpload {
+                text-decoration: none;
+            }
+            .button {
+                width: 94%;
+                height: 35px;
+            }
+        }
+}
+
+@media screen and (min-width: 400px) {
+    .AddListingContainer {
+        margin-top: 5vh;
+        .addListingForm {
+            width: calc(100% - 60px);
+            margin: 30px;
+        }
+    }
+}
