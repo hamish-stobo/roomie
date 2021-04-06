@@ -15,7 +15,6 @@ router.post('/', async (req, res) => {
         //get user from email
         if(!validateEmail(email)) throw 'Please enter details correctly'
         const userRes = await getUserFromEmail(email)
-        console.log(JSON.stringify(userRes))
         //check if no user found or if password incorrect
         if(!userRes || JSON.stringify(userRes) === '{}' || !bcrypt.compare(reqPassword, userRes?.password)) throw 'Username or password incorrect'
         //get user from ID
@@ -30,7 +29,6 @@ router.post('/', async (req, res) => {
         if(err === 'Username or password incorrect' || 'Please enter details correctly') {
             res.status(400).send(err)
         } else {
-            console.log(err)
             res.status(500).send(err)
         }
     }

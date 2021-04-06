@@ -37,15 +37,15 @@ module.exports = {
     ]
  },
    resolve: {
-      extensions: ["*", ".js", ".jsx", '.scss'] 
-   },
-   plugins: [
-      new HtmlWebPackPlugin({
-         inject: true,
-         template: path.resolve(__dirname, 'public/index.html'),
-         filename: 'index.html'
-      }),
-   ]
+      extensions: ["*", ".js", ".jsx", '.scss']
+   }
+   // plugins: [
+   //    new HtmlWebPackPlugin({
+   //       inject: true,
+   //       template: path.resolve(__dirname, 'public/index.html'),
+   //       filename: 'index.html'
+   //    }),
+   // ]
 };
 
 

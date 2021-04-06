@@ -15,6 +15,7 @@ export const useAuth = () => {
 
 const useProvideAuth = () => {
     const [user, setUser] = useState(null)
+    const [popup, setPopup] = useState(null)
     const isAuthed = !!Cookies.get('accessToken')
     const signin = async user => {
       try {
@@ -27,6 +28,6 @@ const useProvideAuth = () => {
         alert(e)
       }
     }
-  
-    return { user, setUser, isAuthed, signin }
+    console.log(`popup in auth: ${JSON.stringify(popup)}`)
+    return { user, setUser, isAuthed, signin, popup, setPopup }
   }
