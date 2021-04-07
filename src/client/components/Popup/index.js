@@ -9,7 +9,7 @@ const Popup = () => {
     const closePopup = () => {
         setPopup(null)
     }
-
+        
     //types dictacte styling
     if(!!popup) {
         const { type } = popup

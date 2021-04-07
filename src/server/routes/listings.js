@@ -5,8 +5,10 @@ const { validateToken, getUserIdFromToken, compareIDs } = require('../middleware
 router.get('/', async (req, res) => {
     try {
       const listings = await getAllListings()
-      if(listings.length == 0 || !listings) {
-        res.status(404).send('Our database is an empty desert. No listings were found.')
+      if(listings.length == 0) {
+        res.status(200).send(listings)
+      } else if (!listings || !Array.isArray(listings)) {
+        res.status(404).send('No listings were found.')
       } else {
         res.status(200).send(JSON.stringify(listings))
       }

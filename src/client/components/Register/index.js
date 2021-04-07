@@ -58,9 +58,9 @@ const Register = ({toggle}) => {
                 <form className="Form Register" onSubmit={submit}>
                     <input required className={`text-input required ${!userDetails.get('first_name') ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails.get('first_name')} onChange={onChange} />
                     <input required className={`text-input required ${!userDetails.get('last_name') ? '' : 'lowercase'}`} type="text" name="last_name" placeholder="Last Name" value={userDetails.get('last_name')} onChange={onChange} />
-                    <input required className={`text-input required ${!userDetails.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userDetails.get('email')} onChange={onChange} />
-                    <input required className={`text-input required ${!userDetails.get('password') ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password" minLength="6" value={userDetails.get('password')} onChange={onChange} />
-                    <input required className={`text-input required ${!userDetails.get('user_location') ? '' : 'lowercase'}`} type="text" name="user_location" placeholder="Location" value={userDetails.get('user_location')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('email') ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email?" value={userDetails.get('email')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('password') ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password (Min. 6 characters)" minLength="6" value={userDetails.get('password')} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails.get('user_location') ? '' : 'lowercase'}`} type="text" name="user_location" placeholder="Where are you based?" value={userDetails.get('user_location')} onChange={onChange} />
                     <div className="text-input profileFileContainer">
                         <label htmlFor="profile-file-upload">Upload a profile image</label>
                         <input required id="profile-file-upload" className="profile-fileUpload" type="file" accept="image/png, image/jpeg" name="profile_picture" onChange={addImage}/>

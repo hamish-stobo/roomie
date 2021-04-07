@@ -24,7 +24,6 @@ const Login = () => {
             setRedirect(true)
         } catch (err) {
             alert(err.response.data)
-            console.log('hi')
         }
     }
     return (
