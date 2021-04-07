@@ -1,0 +1,19 @@
+@import '../../styles/_RootSettings';
+
+.PopupWrapper {
+    position: absolute;
+    z-index: 5000;
+    top: 50px;
+}
+
+.Success {
+    background: rgba(111, 211, 86, 0.897);
+}
+
+.Info {
+    background: $MoreWhite;
+}
+
+.Error {
+    background: rgba(192, 89, 89, 0.8);
+}

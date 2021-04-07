@@ -7,7 +7,7 @@ import axios from 'axios'
 const Login = () => {
     const [userInfo, setUserInfo] = useState(new Map())
     const [redirect, setRedirect] = useState(false)
-    const { setUser } = useAuth()
+    const { setUser, setPopup } = useAuth()
     const onChange = e => {
         const { name, value } = e.target
         setUserInfo(new Map(userInfo.set(name, value)))
@@ -17,14 +17,13 @@ const Login = () => {
         try {
             e.preventDefault()
             const userDetails = Object.fromEntries(userInfo)
-            // console.log(JSON.stringify(userDetails))
             const loginResponse = await axios.post('/api/v1/login', userDetails)
             if(!loginResponse || !loginResponse.data) throw 'Login was not successful'
-            alert('Success!')
+            setPopup({type: 'success', message: loginResponse.statusText})
             setUser(loginResponse.data)
             setRedirect(true)
         } catch (err) {
-            alert(err)
+            alert(err.response.data)
         }
     }
     return (

@@ -3,7 +3,6 @@ import axios from 'axios'
 import '../../styles/styles'
 import Listing from './Listing'
 
-
 const Listings = ({user_id}) => {
     const [listings, setListings] = useState([])
     // This will need to be changed to /getListings when it's ready
@@ -12,7 +11,7 @@ const Listings = ({user_id}) => {
             const { data } = await axios.get('/api/v1/listings/')
             setListings([...listings, ...data])
         } catch (e) {
-            alert(e)
+            alert(e.response.data)
         }
     }
     useEffect(() => {
@@ -35,6 +34,8 @@ const Listings = ({user_id}) => {
                         const uniqueKey = listing_id + idx.toString
                         return <Listing idx={idx} key={uniqueKey} uniqueKey={idx} listing={listing} />
                     }) 
+                : listings.length == 0
+                ? <div>No listings found</div>
                 : <div>Loading...</div>}
             </div>
         </>

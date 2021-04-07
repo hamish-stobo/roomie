@@ -93,6 +93,7 @@ router.put('/:user_id', validateToken, async (req, res) => {
             res.status(400).send('Request data malformed')
         }
         else {
+            console.log(`user_id: ${user_id}, body: ${JSON.stringify(body)}`)
             const profile = await updateUser(user_id, body)
             //extra layer of error handling
             if(JSON.stringify(profile) == "{}" || !profile) {

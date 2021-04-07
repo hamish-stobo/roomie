@@ -53,7 +53,7 @@ const updateUser = async (userID, user, db = conn) => {
         //we only update users table if it is provided to us:
         const updateUser = await db('users')
             .where('user_id', userID)
-            .update({...user}, ['email', 'first_name', 'last_name', 'user_location', 'profile_picture'])
+            .update({...user}, ['user_id', 'email', 'first_name', 'last_name', 'user_location', 'profile_picture', 'created_at'])
         if(updateUser.length == 0 || JSON.stringify(updateUser[0]) == "{}") {
             console.error('Update user failed')
             return false

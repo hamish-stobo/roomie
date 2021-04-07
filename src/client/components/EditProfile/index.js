@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 import '../../styles/_RootSettings'
 import { useAuth } from '../App/Auth'
@@ -7,11 +7,11 @@ const axios = require('axios')
 const EditProfile = () => {
     const { goBack } = useHistory()
     const { user, setUser } = useAuth()
-    const { user_id, first_name, last_name, email, password, user_location } = user
+    // const { user_id, first_name, last_name, email, password, user_location } = user
     const [userDetails, setUserDetails] = useState({
-        user_id, first_name, last_name, email, password, user_location
+        user_id: '', first_name: '', last_name: '', email: '', password: '', user_location: ''
     }) 
-    const [profile_picture, setImage] = useState([])
+    const [profile_picture, setProfilePicture] = useState([])
     const [redirect, setRedirect] = useState(false)
     const onChange = e => {
         const { name, value } = e.target
@@ -20,8 +20,10 @@ const EditProfile = () => {
         setUserDetails({...userDetails, [name]: value})
     }
     const addImage = e => {
-        setImage([...profile_picture, e.target.files[0]])
+        setProfilePicture([...profile_picture, e.target.files[0]])
     }
+
+    const checkState = (value) => userDetails[value] !== ''
 
     const submit = async e => {
         try {
@@ -34,36 +36,42 @@ const EditProfile = () => {
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]);
              }
-            const response = await axios.put(`/api/v1/users/${userDetails?.user_id}`, formData, {
+            const user_id = userDetails.user_id
+            const response = await axios.put(`/api/v1/users/${user_id}`, formData, {
                 headers: {
                     'content-type': 'multipart/form-data'
                 }
             })
             if(!response.data || response.data === '{}') throw response.message
-            setUser(response.data)
+            setUser({...response.data, created_at: response.data.created_at.split('T')[0]})
             setRedirect(true)
             } catch (err) {
-                alert(err)
+                alert(err.response.data)
             }
     }
+
+    useEffect(() => {
+        setUserDetails({...userDetails, ...user})
+        console.log(JSON.stringify(userDetails))
+    }, [user])
+
     return (
         <div className="Register-container edit-profile-container">
-            {redirect && <Redirect to={`/profile/${userDetails?.user_id}`}/>}
+            {redirect && <Redirect to={`/profile/${userDetails.user_id !== '' ? userDetails.user_id : user?.user_id}`}/>}
                 <div className="registerTop">                
                     <p className="exitBtn registerExitBtn" onClick={() => goBack()}>x</p>
                     <p className="small-caps-purple editProfileTitle">Edit your Profile</p>
                 </div>
                 <form className="Form Register" onSubmit={submit}>
-                    <input required className={`text-input required ${!userDetails?.first_name ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails?.first_name} onChange={onChange} />
-                    <input required className={`text-input required ${!userDetails?.last_name ? '' : 'lowercase'}`} type="text" name="last_name" placeholder="Last Name" value={userDetails?.last_name} onChange={onChange} />
-                    <input required className={`text-input required ${!userDetails?.email ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userDetails?.email} onChange={onChange} />
-                    {/* <input required className={`text-input required ${!userDetails?.password ? '' : 'lowercase'}`} type="password" name="password" placeholder="Password" minLength="6" value={userDetails?.password} onChange={onChange} /> */}
-                    <input required className={`text-input required ${!userDetails?.user_location ? '' : 'lowercase'}`} type="text" name="user_location" placeholder="Location" value={userDetails?.user_location} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails?.first_name ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails.first_name} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails?.last_name ? '' : 'lowercase'}`} type="text" name="last_name" placeholder="Last Name" value={userDetails.last_name} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails?.email ? '' : 'lowercase'}`} type="email" name="email" placeholder="Email" value={userDetails.email} onChange={onChange} />
+                    <input required className={`text-input required ${!userDetails?.user_location ? '' : 'lowercase'}`} type="text" name="user_location" placeholder="Location" value={userDetails.user_location} onChange={onChange} />
                     <div className="text-input profileFileContainer">
                         <label htmlFor="profile-file-upload">Upload a new profile image</label>
                         <input required id="profile-file-upload" className="profile-fileUpload" type="file" accept="image/png, image/jpeg" name="profile_picture" onChange={addImage}/>
                     </div>
-                    <input className="button" value="Sign Up" type="submit" name="submit" />
+                    <input className="button" value="Update" type="submit" name="submit" />
                 </form>
             </div>
     )

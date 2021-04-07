@@ -12,10 +12,12 @@ import DeleteProfile from '../../DeleteProfile'
 import DeleteListing from '../../DeleteListing'
 import ProtectedRoute from '../Auth/ProtectedRoute'
 import Logout from '../../Logout'
+import Popup from '../../Popup'
 import { ProvideAuth } from '../Auth'
 
 const Router = () => (
     <ProvideAuth>
+        <Popup />
         <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/register" component={Register} />
