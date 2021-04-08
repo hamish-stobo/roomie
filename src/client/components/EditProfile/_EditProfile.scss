@@ -3,7 +3,10 @@
 .edit-profile-container {
     .registerTop {
         grid-template-rows: 30px 20px;
-        grid-template-columns: auto 16px;
+        grid-template-columns: minmax(215px, auto) 65px;
+        .exitBtn {
+            margin-right: 25px;
+        }
     }
     .Register {
         grid-template-rows: repeat(4, 1fr) 1.8fr 1fr;

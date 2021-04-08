@@ -53,7 +53,7 @@ const Register = ({toggle}) => {
             <div className="Register-container">
                 <div className="registerTop">                
                     <Link className="exitBtn registerExitBtn" to="/">x</Link>
-                    <p className="small-caps-purple">Sign Up to Find a Flat or List a Room</p>
+                    <p className="small-caps-purple">Sign Up to Find a Flat or<br/> List a Room</p>
                 </div>
                 <form className="Form Register" onSubmit={submit}>
                     <input required className={`text-input required ${!userDetails.get('first_name') ? '' : 'lowercase'}`} type="text" name="first_name" placeholder="First Name" value={userDetails.get('first_name')} onChange={onChange} />

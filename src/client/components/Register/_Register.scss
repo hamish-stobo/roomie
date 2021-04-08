@@ -1,9 +1,10 @@
 @import '../../styles/_RootSettings';
 
 .Register-container {
-    max-width: 300px;
+    width: 95vw;
+    max-width: 500px;
     display: grid;
-    grid-template-columns: 280px;
+    grid-template-columns: minmax(280px, 500px);
     grid-template-rows: 1fr auto;
     grid-row-gap: 40px;
     grid-template-areas: 
@@ -16,24 +17,26 @@
     .registerTop {
         grid-area: top;
         display: grid;
-        grid-template-columns: auto 30px;
+        grid-template-columns: minmax(245px, auto) 35px;
         grid-template-rows: 30px 50px;
         grid-template-areas: 
         "blank exitbtn"
         "description description";
+        margin: 0;
         .registerExitBtn {
             grid-area: exitbtn;
             font-size: 2em;
+            margin-right: 5px;
         }
         p {
             grid-area: description;
-            margin: 0 30px;
+            margin: 0 50px;
         }
     }
     .Register {
         grid-area: register;
         display: grid;
-        grid-template-columns: 260px;
+        grid-template-columns: minmax(260px, 400px);
         grid-template-rows: repeat(5, 1fr) 1.8fr 1fr;
         grid-row-gap: 10px;
         grid-template-areas: 
