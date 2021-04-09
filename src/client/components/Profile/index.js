@@ -35,20 +35,15 @@ const Profile = () => {
   }
 
   const populateProfilePage = () => {
-    if(user_id === user?.user_id) {
-      setProfile(user)
-    } else {
-      getProfile(!!user?.user_id ? user?.user_id : user_id)
-    }
+      getProfile(user_id)
   }
 
   useEffect(() => {
     //if user is viewing own profile, load profile from context, else get profile from server
     populateProfilePage()
-  }, [])
+  }, [user_id])
   return (
     <>
-    {user_id !== profile.user_id && populateProfilePage()}
     <div className="profileWrapper">
       <div className="profileContainer">
       {user_id === profile?.user_id && <FontAwesomeIcon onClick={() => toggleProfileMenu(!displayMenu)} className="faCog sm-element" icon={faCog} />}
@@ -76,7 +71,7 @@ const Profile = () => {
     </div>
     {displayMenu && user_id === user?.user_id && <ProfileMenu toggleProfileMenu={toggleProfileMenu} />}
     <div className="LikesListingsButtons">
-      <div onClick={() => setLeft(true)} className={left ? 'selected' : ''}>Your Listings</div>
+      <div onClick={() => setLeft(true)} className={left ? 'selected' : ''}>{user_id === user?.user_id ? 'Your' : `${profile.first_name}'s`} Listings</div>
       <div onClick={() => setLeft(false)} className={!left ? 'selected' : ''}>Likes</div>
     </div>
       {left 

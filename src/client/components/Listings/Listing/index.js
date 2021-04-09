@@ -86,7 +86,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
   }, [])
   return (
     <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
-      {listingAuthor && <Redirect to={`profile/${listingAuthor}`} />}
+      {listingAuthor && <Redirect to={`/profile/${listingAuthor}`} />}
       <div className="cardTop" style={{justifyContent: currUser === listing.listings_user_id ? 'center' : 'flex-start'}}>
         <img onClick={() => redirectToAuthor(listing.listings_user_id)} className="profileImage" src={listing.author.profile_picture}/>
         <div onClick={() => redirectToAuthor(listing.listings_user_id)} className="nameDate">
