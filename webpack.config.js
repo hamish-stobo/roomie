@@ -9,6 +9,7 @@ module.exports = {
       publicPath: '/',
    },
    devServer: {
+      contentBase: path.join(__dirname, 'dist'),
       historyApiFallback: true,
       inline: true
    },
@@ -38,14 +39,15 @@ module.exports = {
  },
    resolve: {
       extensions: ["*", ".js", ".jsx", '.scss']
-   }
-   // plugins: [
-   //    new HtmlWebPackPlugin({
-   //       inject: true,
-   //       template: path.resolve(__dirname, 'public/index.html'),
-   //       filename: 'index.html'
-   //    }),
-   // ]
+   
+   },
+   plugins: [
+      new HtmlWebPackPlugin({
+         inject: true,
+         template: path.resolve(__dirname, 'public/index.html'),
+         filename: 'index.html'
+      }),
+   ]
 };
 
 

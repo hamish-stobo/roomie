@@ -17,7 +17,7 @@ const useProvideAuth = () => {
     const [user, setUser] = useState(null)
     const [popup, setPopup] = useState(null)
     const isAuthed = !!Cookies.get('accessToken')
-    const signin = async user => {
+    const signin = async () => {
       try {
           const profileRes = await axios.get(`/api/v1/users/${userID}`)
           const { data } = profileRes
@@ -28,6 +28,5 @@ const useProvideAuth = () => {
         alert(e)
       }
     }
-    console.log(`popup in auth: ${JSON.stringify(popup)}`)
     return { user, setUser, isAuthed, signin, popup, setPopup }
   }

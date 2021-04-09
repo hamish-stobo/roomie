@@ -29,7 +29,6 @@ app.use('/api/v1/likes', likes)
 const HTML_FILE = path.join(DIST_DIR, 'index.html')
 
 app.get('/', (req, res) => {
-  // res.send('hello')
   res.sendFile(HTML_FILE)
 });
 
@@ -39,10 +38,10 @@ app.get('/teapot', async (req, res) => {
     res.status(418).send(JSON.stringify({
       isTeapot: 'true',
       teaType: 'Earl Grey',
-      message: 'I\'m a little teapot, short and stout. You found the easter egg! Celebrate! Shout!'
+      message: 'I\'m a little teapot, short and stout. You found the easter egg, was there ever any doubt?'
     }))
   } catch (e) {
-    console.error({msg: 'Error from the teapot route hahaha'}, e)
+    console.error({msg: 'Error from the teapot route'}, e)
     res.status(404).send('You tried to find the teapot. You failed.')
   }
 })
