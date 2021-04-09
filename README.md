@@ -32,7 +32,7 @@ Auth is handled using JWT cookies, using the 'jsonwebtoken' package from NPM.
 
 ### Running Roomie in Development
 
-1. In the project's root directory, create a file called `.env` and paste the following. Be sure to change the credentials to you Postgres credentials.
+1. In the project's root directory, create a file called `.env` and paste the following. Be sure to change the credentials to your Postgres credentials.
 
    ```javascript
     DEV_DB_URL=[YOUR_DATABASE_URL];
@@ -52,7 +52,8 @@ Auth is handled using JWT cookies, using the 'jsonwebtoken' package from NPM.
    $ npm run dev
    ```
    
-   And navigate to localhost:8000 in your browser. You will be presented with a page to login: (todo: make PR with image of landing page)
+   And navigate to localhost:8000 in your browser. You will be presented with a page to login: 
+   ![roomieLandingPage](https://user-images.githubusercontent.com/51815749/114248835-e4822c80-99ec-11eb-8157-59dd55596594.png)
 
    **Note:** To start the server or client independently: `$ npm run nodemon` or `$ npm run wp-server` respectively. However, the front end is dependent on the API and will not fully function without it.
 
