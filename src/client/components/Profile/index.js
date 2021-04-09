@@ -24,15 +24,11 @@ const Profile = () => {
 
   const getProfile = async userID => {
     try {
-      if(userID === 'logged in user') {
-        //setProfile(authedUser)
-      }  else {
         const profileRes = await axios.get(`/api/v1/users/${userID}`)
         const { data } = profileRes
         if(!data || data == '{}') throw 'No profile found'
         data.created_at = data.created_at.split('T')[0]
         setProfile(data)
-      }
     } catch (e) {
       alert(e)
     }
