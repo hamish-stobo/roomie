@@ -1,5 +1,7 @@
 # rOOmie
 
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/51815749/114259876-62622a00-9a25-11eb-9e6c-9fa956e0cf27.gif)
+
 This is the project repo for Roomie, an app build on the PERN stack. 
 The app is live at [r00mie.herokuapp.com](http://r00mie.herokuapp.com)
 
