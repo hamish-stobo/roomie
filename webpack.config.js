@@ -45,7 +45,8 @@ module.exports = {
       new HtmlWebPackPlugin({
          inject: true,
          template: path.resolve(__dirname, 'public/index.html'),
-         filename: 'index.html'
+         filename: 'index.html',
+         favicon: "./src/client/android-chrome-256x256.png"
       }),
    ]
 };
