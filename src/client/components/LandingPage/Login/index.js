@@ -18,7 +18,7 @@ const Login = () => {
             e.preventDefault()
             const userDetails = Object.fromEntries(userInfo)
             const loginResponse = await axios.post('/api/v1/login', userDetails)
-            if(!loginResponse || !loginResponse.data) throw 'Login was not successful'
+            if(!loginResponse || !loginResponse?.data) throw 'Login was not successful'
             setPopup({type: 'success', message: loginResponse.statusText})
             setUser(loginResponse.data)
             setRedirect(true)

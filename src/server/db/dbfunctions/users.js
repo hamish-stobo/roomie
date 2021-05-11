@@ -1,10 +1,7 @@
 const environment = process.env.NODE_ENV || 'development'
 const config = require('../../../../knexfile')[environment]
 const conn = require('knex')(config)
-const fileUpload = require('express-fileupload')
-const getAllLikesForOne = require('./likes').getAllLikesForOne
 const { v4: uuidv4 } = require('uuid')
-const { formatObject } = require('../../validation/dataValidator')
 const convertToBase64 = require('./binaryToBase64')
 
 const createUser = async (userToInsert, db = conn) => {
@@ -78,29 +75,35 @@ const getAllUsers = async (db = conn) => {
 
 const deleteUser = async (user_id, db = conn) => {
     try {
-        //we only update users table if it is provided to us:
         const likesDeleted = await db('likes')
             .del()
             .where('likes_user_id', user_id)
+        console.log('likesDeleted: ' + likesDeleted)
         let getListings = await db('listings')
             .where('listings_user_id', user_id)
             .select('listing_id')
-        getListings = getListings.map(id => {
-            const { listings_user_id } = id
-            return listings_user_id
-        })
-        const images = getListings.forEach(async listing => 
-            await db('images')
+        let images = 0
+        let delListings = 0
+        if(getListings.length > 0) {
+            getListings = getListings.map(id => {
+                const { listing_id } = id
+                return listing_id
+            })
+            console.log(getListings)
+            images = getListings.forEach(async listing => 
+                await db('images')
+                    .del()
+                    .where('images_listing_id', listing)
+            )
+            delListings = await db('listings')
                 .del()
-                .where('images_listing_id', listing)
-        )
-        const delListings = await db('listings')
-            .del()
-            .where('listings_user_id', user_id)
+                .where('listings_user_id', user_id)
+        }
         const users = await db('users')
             .del()
             .where('user_id', user_id)
-        return `${users} users were deleted, along with ${delListings} listings, ${images} listing photos and ${likesDeleted} likes`
+        console.log(`${users} users were deleted, along with ${delListings} listings, ${images} listing photos and ${likesDeleted} likes`)
+        return 'Success!'
     } catch (e) {
         throw `Error from getAllUsers db function: ${JSON.stringify(e)}`
     }

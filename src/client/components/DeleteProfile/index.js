@@ -10,8 +10,6 @@ const DeleteProfile = () => {
     const deleteProfile = async input => {
         try {
             const deleteProfile = await axios.delete('/api/v1/users/')
-            if(!deleteProfile || deleteProfile.data) throw 'Delete account failed'
-            alert(deleteProfile?.data)
             setRedirect(input)
         } catch (err) {
             alert(err)

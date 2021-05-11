@@ -69,7 +69,7 @@ const getAllListings = async (db = conn) => {
     return Promise.all(listings)
     } catch (e) {
         console.error({msg: 'Error from get all listings DB function'}, e)
-        return false
+        throw e
     }
 }
 
@@ -152,7 +152,8 @@ const deleteListing = async (listing_id, db = conn) => {
             .del()
             .where('listing_id', listing_id)
         if(listingDeletion == 0) throw `${listingDeletion} listings were deleted`
-        return `Success! ${listingDeletion} listings were removed, it had ${listingImagesDeletion} photos and ${likesDeletion} likes`
+        console.log(`Success! ${listingDeletion} listings were removed, it had ${listingImagesDeletion} photos and ${likesDeletion} likes`)
+        return 'Success!'
     } catch (e) {
         console.error(e)
         throw e

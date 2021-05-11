@@ -61,10 +61,6 @@ const Listing = ({idx, uniqueKey, listing}) => {
       : addLike(userID)
   }
 
-  const changeSelected = idx => {
-    setSelected(idx)
-  }
-
   const counter = difference => {
     const current = selected + difference
     setSelected(current)

@@ -29,11 +29,6 @@ const Register = ({toggle}) => {
             formData.append(key, val)
         })
         formData.append('profile_picture', profile_picture[0])
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]);
-         }
-        //once auth ready:
-        //
         const response = await axios.post('/api/v1/users/', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
