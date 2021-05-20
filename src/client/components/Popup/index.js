@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../../styles/styles'
 import { useAuth } from '../App/Auth/index'
 
-const Popup = () => {
+    const Popup = () => {
     const { popup, setPopup } = useAuth()
     const [showPopup, setShowPopup] = useState(popup)
 

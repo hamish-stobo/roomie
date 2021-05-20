@@ -3,10 +3,12 @@ import { Link, Redirect } from 'react-router-dom'
 import '../../../styles/styles'
 import { useAuth } from '../../App/Auth'
 import axios from 'axios'
+import Popup from '../../Popup'
 
 const Login = () => {
     const [userInfo, setUserInfo] = useState(new Map())
     const [redirect, setRedirect] = useState(false)
+    const [showPopup, setShowPopup] = useState(false)
     const { setUser, setPopup } = useAuth()
     const onChange = e => {
         const { name, value } = e.target
@@ -23,6 +25,8 @@ const Login = () => {
             setUser(loginResponse.data)
             setRedirect(true)
         } catch (err) {
+            console.log(`Err: ${JSON.stringify(err.response.data)}`)
+
             alert(err.response.data)
         }
     }

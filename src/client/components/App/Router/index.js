@@ -22,7 +22,6 @@ const Router = () => (
             <Route exact path="/" component={LandingPage} />
             <Route path="/register" component={Register} />
                 <Layout>
-                
                     <Switch>
                         <ProtectedRoute path="/listings" component={Listings} />
                         <ProtectedRoute path="/addlisting" component={AddListing} />
