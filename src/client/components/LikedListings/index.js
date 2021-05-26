@@ -8,6 +8,7 @@ const LikedListings = ({user_id}) => {
     const [responseReceived, setResponseReceived] = useState(false)
     const getLikedListings = async () => {
         try {
+        console.log(`geLikedListings called, userID: ${user_id}`)
         const { data } = await axios.get(`/api/v1/listings/likes/${user_id}`)
         setListings([...listings, ...data])
         } catch (e) {
@@ -16,7 +17,7 @@ const LikedListings = ({user_id}) => {
             setResponseReceived(true)
         }
     }
-    useEffect( () => {
+    useEffect(() => {
         getLikedListings()
     }, [])
     return (
@@ -24,12 +25,12 @@ const LikedListings = ({user_id}) => {
             {!!user_id && listings.length > 0 
                 ? listings.map((listing, idx) => {
                     const { listing_id } = listing
-                    const uniqueKey = listing_id + idx.toString
-                    return <Listing idx={idx} key={uniqueKey} uniqueKey={idx} listing={listing} />
+                    const uniqueKey = listing_id + idx.toString()
+                    return <Listing key={uniqueKey} uniqueKey={idx} listing={listing} currentPage={'likedListings'} getLikedListings={getLikedListings} />
                 }) 
-                : listings.length == 0 && responseReceived === false
+                : listings.length == 0 && responseReceived == false
                 ? <div>Loading...</div>
-                : responseReceived === true && <div>No listings liked yet</div>}
+                : responseReceived == true && <div>No listings liked yet</div>}
         </div>
     )
 }

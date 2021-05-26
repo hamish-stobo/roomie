@@ -9,10 +9,10 @@ import BedroomIcon from './BedroomIcon'
 import ListingMenu from './ListingMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
-import { faThumbsUp, faComments } from "@fortawesome/free-regular-svg-icons"
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons"
 import { useAuth } from '../../App/Auth'
 
-const Listing = ({idx, uniqueKey, listing}) => {
+const Listing = ({uniqueKey, listing, currentPage, getLikedListings}) => {
     
   const [selected, setSelected] = useState(0)
   const [likes, setLikes] = useState(listing.userLikes)
@@ -48,6 +48,9 @@ const Listing = ({idx, uniqueKey, listing}) => {
       const deleteLike = await axios.delete(`api/v1/likes/${listing.listing_id}/${userID}`)
       if(!deleteLike || deleteLike == 0) throw Error('Delete like failed in the server')
       setLikes(likes.filter(item => item !== userID))
+      if(currentPage == 'likedListings') {
+        getLikedListings()
+      }
     } catch (e) {
         alert(e)
     }
@@ -55,9 +58,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
   
   const toggleLike = userID => {
     likes.includes(userID)
-    //this will eventually be set up to call a delete on the likes table.
       ? removeLike(userID)
-    //this will eventually be set up to call a post on the likes table.
       : addLike(userID)
   }
 
