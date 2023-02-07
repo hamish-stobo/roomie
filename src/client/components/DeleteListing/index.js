@@ -14,7 +14,7 @@ const DeleteListing = () => {
         const deleteResponse = await axios.delete(`/api/v1/listings/${listing_id}`)
         if(!deleteResponse || !deleteResponse?.data) throw 'Failed to delete listing'
         const { data } = deleteResponse
-        alert(`${JSON.stringify(data)} Listing was deleted.`)
+        alert(`${JSON.stringify(data)} Listing was deleted`)
         setRedirect(true)
         } catch (e) {
             alert(e)
