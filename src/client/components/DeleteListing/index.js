@@ -11,7 +11,7 @@ const DeleteListing = () => {
 
     const DeleteListing = async input => {
         try {
-        const deleteResponse = await axios.delete(`/api/v1/listings/${listing_id}`)
+        const deleteResponse = await axios.delete(`/api/v1/listings/${input}`)
         if(!deleteResponse || !deleteResponse.data) throw 'Failed to delete listing'
         const { data } = deleteResponse
         alert(JSON.stringify(data))

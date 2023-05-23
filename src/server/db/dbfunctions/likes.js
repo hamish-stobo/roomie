@@ -91,10 +91,10 @@ const addLike = async (likes_user_id, likes_listing_id, db = conn) => {
 
 const removeLike = async (likes_user_id, likes_listing_id, db = conn) => {
     try {
-        console.log('likes to remove: ' + JSON.stringify({
-            likes_user_id,
-            likes_listing_id
-        }))
+        // console.log('likes to remove: ' + JSON.stringify({
+        //     likes_user_id,
+        //     likes_listing_id
+        // }))
         const likeDeletion = await db('likes')
             .del()
             .where({

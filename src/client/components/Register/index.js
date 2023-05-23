@@ -30,7 +30,7 @@ const Register = ({toggle}) => {
         })
         formData.append('profile_picture', profile_picture[0])
         for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]);
+            // console.log(pair[0]+ ', '+ pair[1]);
          }
         //once auth ready:
         //
@@ -43,6 +43,7 @@ const Register = ({toggle}) => {
         setUser(response.data)
         setRedirect(true)
         } catch (err) {
+            // console.log({err})
             alert(err)
         }
     }

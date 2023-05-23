@@ -30,7 +30,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
 
   const addLike = async userID => {
     try {
-      console.log(userID)
+      // console.log(userID)
       const addLike = await axios.post('api/v1/likes', 
         {
           likes_listing_id: listing.listing_id,

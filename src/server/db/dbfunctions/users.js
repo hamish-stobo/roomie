@@ -19,7 +19,7 @@ const createUser = async (userToInsert, db = conn) => {
         }, ['user_id', 'email', 'first_name', 'last_name', 'user_location', 'profile_picture'])
         
         if(!userInsert[0] || JSON.stringify(userInsert[0]) === '{}') throw 'Insert of user failed'
-        console.log(userInsert[0])
+        // console.log(userInsert[0])
         userInsert[0].profile_picture = await convertToBase64(userInsert[0].profile_picture) 
         return userInsert[0]
     } catch (e) {
