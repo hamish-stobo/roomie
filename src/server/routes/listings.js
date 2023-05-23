@@ -23,7 +23,7 @@ router.get('/:listing_id', async (req, res) => {
 try {
     const { listing_id } = req.params
     const listing = await getListing(listing_id)
-    if(!listing || listing == {}) throw "There's no listing by that name around these parts. Now, be on your way."
+    if(!listing || JSON.stringify(listing) == "{}") throw "There's no listing by that name around these parts. Now, be on your way."
     res.status(200).send(JSON.stringify(listing))
 } catch (e) {
     e === "There's no listing by that name around these parts. Now, be on your way."
@@ -90,7 +90,7 @@ router.delete('/:listing_id', validateToken, async (req, res) => {
     const { listings_user_id } = listing
     compareIDs(user_id, listings_user_id)
     const deleteListingRes = await deleteListing(listing_id)
-    res.status(200).send(`yay we deleted it ${deleteListingRes}`)
+    res.status(200).send(deleteListingRes)
   } catch (e) {
     if(e === 'Not Authorized') {
       res.status(403).send(e)

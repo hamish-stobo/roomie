@@ -1,6 +1,6 @@
 require('dotenv').config()
 const router = require('express').Router()
-const {createUser, getUser, updateUser, deleteUser, getUserFromEmail} = require('../db/dbfunctions/users')
+const { createUser, getUser, updateUser, deleteUser } = require('../db/dbfunctions/users')
 const { validateUUID, validateEmail } = require('../validation/dataValidator')
 const { createTokens, validateToken, getUserIdFromToken, compareIDs } = require('../middleware/JWT')
 const bcrypt = require('bcrypt')
@@ -116,8 +116,9 @@ router.put('/:user_id', validateToken, async (req, res) => {
 router.delete('/', validateToken, async (req, res) => {
     try {
         const user_id = getUserIdFromToken(req.cookies.accessToken)
-        const deleteUser = await deleteUser(user_id)
-        res.status(200).send(deleteUser)
+        console.log('user_ID: ' + user_id)
+        const deleteUserRes = await deleteUser(user_id)
+        res.status(200).send(deleteUserRes)
     } catch (e) {
         res.status(500).send(e)
     }

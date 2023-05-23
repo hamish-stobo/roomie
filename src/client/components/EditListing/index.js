@@ -39,7 +39,6 @@ const EditListing = () => {
             })
             const { data } = updateListingResponse
             if(data !== 'Listing successfully updated') throw 'Update unsuccessful'
-            alert(data)
             setRedirect(true)
         } catch(e) {
             alert(e)

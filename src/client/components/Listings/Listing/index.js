@@ -61,10 +61,6 @@ const Listing = ({idx, uniqueKey, listing}) => {
       : addLike(userID)
   }
 
-  const changeSelected = idx => {
-    setSelected(idx)
-  }
-
   const counter = difference => {
     const current = selected + difference
     setSelected(current)
@@ -115,11 +111,7 @@ const Listing = ({idx, uniqueKey, listing}) => {
             }
         </div> 
         <div className="tagline">{listing.tagline}</div>
-        {/* <FontAwesomeIcon className="message Icon" icon={faComments} title="Contact Seller" /> */}
       </div>
-        {/* <div className="dots" style={{width: `${25*imgsArr.length}px`}}>
-          {imgsArr.map((item, idx) => <div onClick={(() => changeSelected(idx))} className={`dot ${idx == selected ? 'selected' : ''}`} key={idx} > </div>)}
-        </div> */}
       <div className="detailsContainer">
           <div className="location-rent-col">
             <span className="location">{listing.listing_location}</span>
