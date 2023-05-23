@@ -32,7 +32,7 @@ const Popup = () => {
         <>
         {showPopup &&
         <div className={`PopupWrapper ${styling}`}>
-            {console.log(`popup: ${popup?.message}; showPopup: ${showPopup?.message}`)}
+            {/* {console.log(`popup: ${popup?.message}; showPopup: ${showPopup?.message}`)} */}
             <p>popup?.message</p>
             <button className="button" onClick={closePopup}>OK</button>
         </div>}

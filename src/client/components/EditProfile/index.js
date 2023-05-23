@@ -34,7 +34,7 @@ const EditProfile = () => {
             }
             formData.append('profile_picture', profile_picture[0])
             for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]);
+                // console.log(pair[0]+ ', '+ pair[1]);
              }
             const user_id = userDetails.user_id
             const response = await axios.put(`/api/v1/users/${user_id}`, formData, {
@@ -52,7 +52,7 @@ const EditProfile = () => {
 
     useEffect(() => {
         setUserDetails({...userDetails, ...user})
-        console.log(JSON.stringify(userDetails))
+        // console.log(JSON.stringify(userDetails))
     }, [user])
 
     return (

@@ -140,7 +140,7 @@ const updateListing = async (listing_id, body, photos, db = conn) => {
 
 const deleteListing = async (listing_id, db = conn) => {
     try {
-        console.log(`listing to remove: ${listing_id}`)
+        // console.log(`listing to remove: ${listing_id}`)
         const likesDeletion = await db('likes')
             .del()
             .where('likes_listing_id', listing_id)
