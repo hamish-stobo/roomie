@@ -3,7 +3,7 @@
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/51815749/114259876-62622a00-9a25-11eb-9e6c-9fa956e0cf27.gif)
 
 This is the project repo for Roomie, an app build on the PERN stack. 
-The app is live at [r00mie.herokuapp.com](http://r00mie.herokuapp.com)
+The app is live at [https://roomie-production.up.railway.app/](https://roomie-production.up.railway.app/)
 
 ## MVP User Stories
 
@@ -28,7 +28,7 @@ The app would provide an instagram-like experience for users to see listed adver
 
 ### The Technology
 
-The app is built on an Express API (connecting to a PostgreSQL database) with React on the Frontend. Heroku was used for deployment, along with their Postgres database add-on.
+The app is built on an Express API (connecting to a PostgreSQL database) with React on the Frontend. [Railway](https://railway.app/) was used for deployment, along with their Postgres database add-on.
 Auth is handled using JWT cookies, using the 'jsonwebtoken' package from NPM.
 
 
