@@ -1,4 +1,3 @@
-import React from 'react'
 import '../../styles/styles'
 import Login from './Login'
 import Footer from '../Footer'

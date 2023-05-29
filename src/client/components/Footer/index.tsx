@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import '../../styles/styles'
 
 const Footer = () => {
@@ -6,18 +6,17 @@ const Footer = () => {
     const [windowHeight, setWindowHeight] = useState(0)
     const setFooterHeight = () => {
         setWindowHeight(window.innerHeight)
-        setDocHeight((document.height !== undefined) ? document.height : document.body.offsetHeight)
+        setDocHeight(document.documentElement.scrollHeight)
     }
     useEffect(() => {
+        setFooterHeight();
+        const resizeObserver = new ResizeObserver(() => {
+            setFooterHeight()
+        })
         resizeObserver.observe(document.body)
-    })
-    const resizeObserver = new ResizeObserver(entries => 
-        // setDocHeight(entries[0].target.clientHeight)
-        setFooterHeight()
-    )
+        return () => resizeObserver.disconnect()
+    }, [])
       
-      // start observing a DOM node
-    
     const topPos = {
         top: `calc(${docHeight > windowHeight ? docHeight : windowHeight}px - 20px)`
     }
@@ -27,6 +26,5 @@ const Footer = () => {
         </div> 
     )
 }
-
 
 export default Footer
