@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
-import { Link, useHistory, Redirect } from 'react-router-dom'
+import { useState } from 'react'
+import { useHistory, Redirect } from 'react-router-dom'
 import '../../styles/styles'
 import axios from 'axios'
 
 const DeleteProfile = () => {
-    const [redirect, setRedirect] = useState(false) 
+    const [redirect, setRedirect] = useState<Boolean>(false) 
     const { goBack } = useHistory()
 
-    const deleteProfile = async input => {
+    const deleteProfile = async (input: Boolean):Promise<void> => {
         try {
-            const deleteProfile = await axios.delete('/api/v1/users/')
+            await axios.delete('/api/v1/users/')
             setRedirect(input)
         } catch (err) {
             alert(err)
         }
     }
+
     return (
         <div className="deleteProfileWrapper">
             <p>Are you sure you want to delete your account? You will lose all your data and be signed out.</p>
@@ -25,6 +26,7 @@ const DeleteProfile = () => {
             {redirect && <Redirect to="/logout" />}
         </div>
     )
+    
 }
 
 export default DeleteProfile

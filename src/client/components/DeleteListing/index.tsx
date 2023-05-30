@@ -1,21 +1,26 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useParams, useHistory, Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import '../../styles/styles'
 
+type ListingParams = {
+    listing_id: string;
+  };
+
 const DeleteListing = () => {
     const [redirect, setRedirect] = useState(false) 
     const { goBack } = useHistory()
-    const { listing_id } = useParams()
-
-    const DeleteListing = async input => {
+    const { listing_id } = useParams<ListingParams>()
+    
+    const DeleteListing = async (input:ListingParams) => {
         try {
-        const deleteResponse = await axios.delete(`/api/v1/listings/${input}`)
-        if(!deleteResponse || !deleteResponse.data) throw 'Failed to delete listing'
-        const { data } = deleteResponse
-        alert(`${JSON.stringify(data)} Listing was deleted`)
-        setRedirect(true)
+            const listing_id = input
+            const deleteResponse = await axios.delete(`/api/v1/listings/${listing_id}`)
+            if(!deleteResponse || !deleteResponse.data) throw 'Failed to delete listing'
+            const { data } = deleteResponse
+            alert(`${JSON.stringify(data)} Listing was deleted`)
+            setRedirect(true)
         } catch (e) {
             alert(e)
         }

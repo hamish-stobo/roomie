@@ -1,9 +1,13 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 
 type User = {
   user_id: String;
+  first_name: String;
+  last_name: String;
+  email: String;
+  user_location: String;
+  profile_picture: String;
 };
 
 type Popup = {

@@ -1,18 +1,20 @@
-import React, { useState, useContext } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../../../../styles/styles'
 import { useAuth } from '../../Auth'
-import Hamburger from './Hamburger'
-import X from './X'
+import Hamburger from "./Hamburger/index"
+import X from "./X/index"
 
 const NavBar = () => {
     const auth = useAuth()
-    const [show, setShow] = useState(false)
     const image = auth?.user?.profile_picture
     const userID = auth?.user?.user_id
-    const toggleShow = input => {
+    const [show, setShow] = useState<boolean>(input);
+
+
+    const toggleShow = (input: boolean): void => {
         setShow(input)
-    }
+      };
     return (
         <>
             <div className="NavBar">
