@@ -12,7 +12,7 @@ const EditListing = () => {
         listings_user_id: '',
     })
     const [images, setImages] = useState([])
-    const { listing_id } = useParams() as ListingParams
+    const { listing_id } = useParams() as Listing
     const [redirect, setRedirect] = useState(false)
     // const onChange = e => {
     //     const { name, value } = e.target
