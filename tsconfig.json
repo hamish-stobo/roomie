@@ -9,10 +9,13 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "noImplicitReturns": true,
         "noImplicitThis": true,
         "alwaysStrict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "esModuleInterop": true
-    }
+        "esModuleInterop": true,
+        "typeRoots": ["./node_modules/@types", "./src/client/@types"]
+    },
+    "include": ["src/client/**/*"]
 }

@@ -1,18 +1,10 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { FormEvent, ChangeEvent, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import '../../styles/styles'
 import { useAuth } from '../App/Auth'
 
-type Listing = {
-    tagline: string
-    listing_location: string
-    rent: number
-    bedrooms: number
-    bathrooms: number
-}
-
-const AddListing = () => {
+const AddListing = (): JSX.Element => {
     const [listingDetails, setListingDetails] = useState<Listing>({
         tagline: '',
         listing_location: '',
@@ -23,21 +15,21 @@ const AddListing = () => {
     const [listing_images, setListingImages] = useState<File[]>([])
     const [redirect, setRedirect] = useState(false)
     const { user } = useAuth()
-    const onChange = (e: Event) => {
-        const { name, value }: any = e.currentTarget
+    const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        const { name, value }: any = e.target
         //create a COPY of the existing map in state
         //react will compare the two maps in useState and setState with Object.is, and trigger re-render
         if (name in listingDetails) {
             setListingDetails({ ...listingDetails, [name]: value })
         }
     }
-    const addImages = (e: Event) => {
-        const target = e.currentTarget as HTMLInputElement
-        const files = target.files as FileList
+    const addImages = (e: ChangeEvent<HTMLInputElement>): void => {
+        const files = e.target.files as FileList
         const fileList = [...files]
         setListingImages([...listing_images, ...fileList])
     }
-    const submit = async (e) => {
+    // React.DOMAttributes<HTMLFormElement>.onSubmit?: React.FormEventHandler<HTMLFormElement> | undefined
+    const submit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         try {
             e.preventDefault()
             const formData = new FormData() as any
@@ -75,7 +67,7 @@ const AddListing = () => {
             <form className="Form addListingForm" onSubmit={submit}>
                 <input
                     required
-                    maxLength="35"
+                    maxLength={35}
                     className={`text-input ${
                         !listingDetails?.tagline ? '' : 'lowercase'
                     }`}

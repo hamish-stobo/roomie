@@ -4,20 +4,19 @@ import axios from 'axios'
 
 import '../../styles/styles'
 
-type ListingParams = {
-    listing_id: string;
-  };
-
-const DeleteListing = () => {
-    const [redirect, setRedirect] = useState(false) 
+const DeleteListing = (): JSX.Element => {
+    const [redirect, setRedirect] = useState(false)
     const { goBack } = useHistory()
     const { listing_id } = useParams<ListingParams>()
-    
-    const DeleteListing = async (input:ListingParams) => {
+
+    const DeleteListing = async (input: ListingParams) => {
         try {
             const listing_id = input
-            const deleteResponse = await axios.delete(`/api/v1/listings/${listing_id}`)
-            if(!deleteResponse || !deleteResponse.data) throw 'Failed to delete listing'
+            const deleteResponse = await axios.delete(
+                `/api/v1/listings/${listing_id}`
+            )
+            if (!deleteResponse || !deleteResponse.data)
+                throw 'Failed to delete listing'
             const { data } = deleteResponse
             alert(`${JSON.stringify(data)} Listing was deleted`)
             setRedirect(true)
@@ -29,8 +28,15 @@ const DeleteListing = () => {
         <div className="deleteProfileWrapper">
             <p>Are you sure you want to delete this listing?</p>
             <div className="buttonsWrapper">
-                <button className="button" onClick={() => goBack()}>Back</button>
-                <button className="button delBtn" onClick={() => DeleteListing(listing_id)}>Delete</button>
+                <button className="button" onClick={() => goBack()}>
+                    Back
+                </button>
+                <button
+                    className="button delBtn"
+                    onClick={() => DeleteListing(listing_id)}
+                >
+                    Delete
+                </button>
             </div>
             {redirect && <Redirect to="/listings" />}
         </div>
