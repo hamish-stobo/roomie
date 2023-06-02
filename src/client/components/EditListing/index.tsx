@@ -1,37 +1,47 @@
+import { useState, useEffect } from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import '../../styles/styles'
 
-const EditListing = () => {
-    const [listingDetails, setListingDetails] = useState({
+const EditListing = (): JSX.Element => {
+    const [listingDetails, setListingDetails] = useState<Listing>({
+        listing_id: '',
+        listings_user_id: '',
         tagline: '',
         listing_location: '',
         rent: 0,
         bedrooms: 0,
         bathrooms: 0,
-        listings_user_id: '',
     })
-    const [images, setImages] = useState([])
-    const { listing_id } = useParams() as Listing
+    const [listing_images, setListingImages] = useState<File[]>([])
+    const { listing_id } = useParams() as ListingParams
     const [redirect, setRedirect] = useState(false)
     // const onChange = e => {
     //     const { name, value } = e.target
     //     setListingDetails({...listingDetails, [name]: value})
     //     console.log(`name ${name}, value ${value}`)
     // }
-    const addImages = (e) => {
-        setImages([...images, ...e.target.files])
+    const addImages = (e: ChangeEvent<HTMLInputElement>): void => {
+        const files = e.target.files as FileList
+        const fileList = [...files]
+        setListingImages([...listing_images, ...fileList])
     }
-    const submit = async (e) => {
+    // React.DOMAttributes<HTMLFormElement>.onSubmit?: React.FormEventHandler<HTMLFormElement> | undefined
+    const submit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         try {
             e.preventDefault()
-            const formData = new FormData()
+            const formData = new FormData() as any
             for (const prop in listingDetails) {
-                formData.append(prop, listingDetails[prop])
+                formData.append(
+                    prop,
+                    listingDetails[prop as keyof typeof listingDetails]
+                )
             }
-            images.forEach((image) => formData.append('images', image))
+            listing_images.forEach((image) =>
+                formData.append('listing_image', image)
+            )
             const updateListingResponse = await axios.put(
-                `/api/v1/listings/${listing_id}`,
+                `api/v1/listings/${listing_id}`,
                 formData,
                 {
                     headers: {
@@ -43,12 +53,12 @@ const EditListing = () => {
             if (data !== 'Listing successfully updated')
                 throw 'Update unsuccessful'
             setRedirect(true)
-        } catch (e) {
-            alert(e)
+        } catch (err) {
+            alert(err)
         }
     }
 
-    const getListing = async (listing_id) => {
+    const getListing = async (listing_id: string): Promise<void> => {
         try {
             const listing = await axios.get(`/api/v1/listings/${listing_id}`)
             if (!listing || !listing.data) throw 'No listing found'
@@ -80,7 +90,7 @@ const EditListing = () => {
                 <label htmlFor="tagline-input">New Tagline</label>
                 <input
                     id="tagline-input"
-                    maxLength="35"
+                    maxLength={35}
                     required
                     className={`text-input ${
                         !listingDetails.tagline ? '' : 'lowercase'
@@ -127,7 +137,7 @@ const EditListing = () => {
                     onChange={(e) =>
                         setListingDetails({
                             ...listingDetails,
-                            rent: e.target.value,
+                            rent: parseInt(e.target.value),
                         })
                     }
                 />
@@ -142,7 +152,7 @@ const EditListing = () => {
                     onChange={(e) =>
                         setListingDetails({
                             ...listingDetails,
-                            bedrooms: e.target.value,
+                            bedrooms: parseInt(e.target.value),
                         })
                     }
                 />
@@ -157,7 +167,7 @@ const EditListing = () => {
                     onChange={(e) =>
                         setListingDetails({
                             ...listingDetails,
-                            bathrooms: e.target.value,
+                            bathrooms: parseInt(e.target.value),
                         })
                     }
                 />

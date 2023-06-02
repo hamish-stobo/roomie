@@ -9,9 +9,8 @@ const DeleteListing = (): JSX.Element => {
     const { goBack } = useHistory()
     const { listing_id } = useParams<ListingParams>()
 
-    const DeleteListing = async (input: ListingParams) => {
+    const DeleteListing = async (listing_id: string) => {
         try {
-            const listing_id = input
             const deleteResponse = await axios.delete(
                 `/api/v1/listings/${listing_id}`
             )
