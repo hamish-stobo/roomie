@@ -1,6 +1,6 @@
 import '../../styles/styles'
-import Login from './Login'
 import Footer from '../Footer'
+import Login from './Login'
 
 const LandingPage = (): JSX.Element => (
     <div className="pageWrapper">

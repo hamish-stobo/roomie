@@ -45,7 +45,6 @@ const Listings = ({ user_id }: User): JSX.Element => {
                         const uniqueKey = listing_id + idx.toString()
                         return (
                             <Listing
-                                idx={idx}
                                 key={uniqueKey}
                                 uniqueKey={idx}
                                 listing={listing}

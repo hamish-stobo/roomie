@@ -1,4 +1,5 @@
 type Listing = {
+    created_at: String,
     listing_id: String
     listings_user_id: String
     tagline: string

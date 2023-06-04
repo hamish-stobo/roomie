@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import { useParams, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { Redirect, useParams } from 'react-router-dom'
 import '../../styles/styles'
 
 const EditListing = (): JSX.Element => {

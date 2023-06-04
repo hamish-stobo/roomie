@@ -1,5 +1,4 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import { useAuth } from '..'
 
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {

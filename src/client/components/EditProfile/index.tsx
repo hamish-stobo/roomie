@@ -9,6 +9,7 @@ const EditProfile = (): JSX.Element => {
     const { user, setUser } = useAuth()
     // const { user_id, first_name, last_name, email, password, user_location } = user
     const [userDetails, setUserDetails] = useState<User>({
+        created_at: '',
         user_id: '',
         first_name: '',
         last_name: '',
