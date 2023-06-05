@@ -14,9 +14,9 @@ const Listings = ({ user_id }: ListingsProps): JSX.Element => {
         try {
             const { data } = await axios.get('/api/v1/listings/')
             setListings([...listings, ...data])
+            setResponseReceived(true)
         } catch (err: any) {
-            alert(err.response.data)
-        } finally {
+            console.error(err.response.data)
             setResponseReceived(true)
         }
     }

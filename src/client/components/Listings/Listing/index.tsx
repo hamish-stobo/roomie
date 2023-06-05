@@ -20,14 +20,13 @@ type ListingProps = {
 const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
     const [selected, setSelected] = useState<number>(0)
     const [likes, setLikes] = useState<string[]>(listing.userLikes)
-    const [imgsArr, setImgsArr] = useState<string[]>(listing.listing_photos)
+    const [imgsArr] = useState<string[]>(listing.listing_photos)
     const [elHeight, setElHeight] = useState<number>(0)
     const [displayMenu, setDisplayMenu] = useState<Boolean>(false)
-    const [currUser, setCurrUser] = useState<string | number | undefined>(
+    const [currUser] = useState<string | number | undefined>(
         useAuth()?.user?.user_id
     )
     const [listingAuthor, setListingAuthor] = useState<string>('')
-    const [createdAt, setCreatedAt] = useState<string>('')
 
     const elementRef = useRef<HTMLElement | null>(null)
 
@@ -36,7 +35,6 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
             const yPosition =
                 window.pageYOffset + el.getBoundingClientRect().top
             setElHeight(yPosition)
-            setCreatedAt(createdAt.split('T')[0])
         }
     }
 
@@ -76,6 +74,7 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
     }
 
     const toggleLike = (userID: string | number | undefined): void => {
+        console.log({ userID })
         if (!!userID) {
             likes.includes(userID as string)
                 ? //this will eventually be set up to call a delete on the likes table.
@@ -117,7 +116,9 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
                     <span className="userName">
                         {listing.author.first_name} {listing.author.last_name}
                     </span>
-                    <span className="postedDate">Listed on {createdAt}</span>
+                    <span className="postedDate">
+                        Listed on {listing.created_at.split('T')[0]}
+                    </span>
                 </div>
                 {currUser === listing.listings_user_id && (
                     <div

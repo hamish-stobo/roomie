@@ -10,7 +10,7 @@ type LikedListingsComponentProps = {
 const LikedListings = ({
     user_id,
 }: LikedListingsComponentProps): JSX.Element => {
-    const [listings, setListings] = useState<Listing[]>([])
+    const [listings, setListings] = useState<FullListing[]>([])
     const [responseReceived, setResponseReceived] = useState(false)
     const getLikedListings = async () => {
         try {
@@ -35,7 +35,6 @@ const LikedListings = ({
                     const uniqueKey = listing_id + idx.toString()
                     return (
                         <Listing
-                            idx={idx}
                             key={uniqueKey}
                             uniqueKey={idx}
                             listing={listing}

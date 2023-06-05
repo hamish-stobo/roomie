@@ -41,7 +41,7 @@ const NavBar = () => {
                             >
                                 <img
                                     className="navbar-profileImage"
-                                    src={image}
+                                    src={image as string}
                                 />
                                 Profile
                             </Link>
@@ -77,7 +77,10 @@ const NavBar = () => {
                             to={`/profile/${userID}`}
                             style={{ textDecoration: 'none', color: '#DB00FF' }}
                         >
-                            <img className="navbar-profileImage" src={image} />
+                            <img
+                                className="navbar-profileImage"
+                                src={image as string}
+                            />
                             Profile
                         </Link>
                         <Link

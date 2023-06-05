@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 import '../../../../styles/styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 
 type ListingMenuProps = {
     elHeight: number
