@@ -5,6 +5,7 @@ import '../../styles/styles'
 
 const EditListing = (): JSX.Element => {
     const [listingDetails, setListingDetails] = useState<Listing>({
+        created_at: '',
         listing_id: '',
         listings_user_id: '',
         tagline: '',

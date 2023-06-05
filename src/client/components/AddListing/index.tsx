@@ -6,6 +6,7 @@ import { useAuth } from '../App/Auth'
 
 const AddListing = (): JSX.Element => {
     const [listingDetails, setListingDetails] = useState<Listing>({
+        created_at: '',
         listing_id: '',
         listings_user_id: '',
         tagline: '',

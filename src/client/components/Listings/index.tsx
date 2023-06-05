@@ -3,8 +3,12 @@ import { useEffect, useState } from 'react'
 import '../../styles/styles'
 import Listing from './Listing'
 
-const Listings = ({ user_id }: User): JSX.Element => {
-    const [listings, setListings] = useState<Listing[]>([])
+type ListingsProps = {
+    user_id: string | number
+}
+
+const Listings = ({ user_id }: ListingsProps): JSX.Element => {
+    const [listings, setListings] = useState<FullListing[]>([])
     const [responseReceived, setResponseReceived] = useState<Boolean>(false)
     const getListings = async (): Promise<void> => {
         try {
@@ -32,7 +36,6 @@ const Listings = ({ user_id }: User): JSX.Element => {
                             const uniqueKey = listing_id + idx.toString()
                             return (
                                 <Listing
-                                    idx={idx}
                                     key={uniqueKey}
                                     uniqueKey={idx}
                                     listing={listing}

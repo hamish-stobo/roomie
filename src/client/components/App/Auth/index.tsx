@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
 import Cookies from 'js-cookie'
+import { ReactNode, createContext, useContext, useState } from 'react'
 interface AuthContextData {
     user: User | null
     setUser: React.Dispatch<React.SetStateAction<User | null>>

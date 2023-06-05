@@ -1,120 +1,100 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons'
+import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
+import { useEffect, useRef, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-const axios = require('axios')
 import '../../../styles/styles'
-import ChevronRight from './ChevronRight'
-import ChevronLeft from './ChevronLeft'
+import { useAuth } from '../../App/Auth'
 import BathroomIcon from './BathroomIcon'
 import BedroomIcon from './BedroomIcon'
+import ChevronLeft from './ChevronLeft'
+import ChevronRight from './ChevronRight'
 import ListingMenu from './ListingMenu'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp as faLikeBold } from '@fortawesome/free-solid-svg-icons'
-import { faThumbsUp, faComments } from '@fortawesome/free-regular-svg-icons'
-import { useAuth } from '../../App/Auth'
 
 type ListingProps = {
     uniqueKey: number
-    listing: Listing
+    listing: FullListing
 }
 
 const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
-    const [selected, setSelected] = useState(0)
-    const [likes, setLikes] = useState(listing.userLikes)
-    const [imgsArr, setImgsArr] = useState(listing.listing_photos)
-    const [elHeight, setElHeight] = useState<Number>(0)
-    const [displayMenu, setDisplayMenu] = useState(false)
-    const [currUser, setCurrUser] = useState(useAuth()?.user?.user_id)
-    const [listingAuthor, setListingAuthor] = useState('')
-    const [createdAt, setCreatedAt] = useState<String>(null)
+    const [selected, setSelected] = useState<number>(0)
+    const [likes, setLikes] = useState<string[]>(listing.userLikes)
+    const [imgsArr, setImgsArr] = useState<string[]>(listing.listing_photos)
+    const [elHeight, setElHeight] = useState<number>(0)
+    const [displayMenu, setDisplayMenu] = useState<Boolean>(false)
+    const [currUser, setCurrUser] = useState<string | number | undefined>(
+        useAuth()?.user?.user_id
+    )
+    const [listingAuthor, setListingAuthor] = useState<string>('')
+    const [createdAt, setCreatedAt] = useState<string>('')
 
-    const elementRef = useRef<HTMLDivElement | null>(null)
-    const [elementPosition, setElementPosition] = useState({ top: 0, left: 0 })
+    const elementRef = useRef<HTMLElement | null>(null)
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (elementRef.current) {
-                const { top, left } = elementRef.current.getBoundingClientRect()
-                setElementPosition({ top, left })
-            }
+    const getElHeight = (el: HTMLElement | null): void => {
+        if (!!el) {
+            const yPosition =
+                window.pageYOffset + el.getBoundingClientRect().top
+            setElHeight(yPosition)
+            setCreatedAt(createdAt.split('T')[0])
         }
-
-        window.addEventListener('scroll', handleScroll)
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-    }, [])
-
-    const getElHeight = (element: HTMLElement): void => {
-        const yPosition =
-            window.pageYOffset + element.getBoundingClientRect().top
-        setElHeight(yPosition)
-        setCreatedAt(createdAt.split('T')[0])
     }
 
-    //compon
     useEffect(() => {
-        element.current = document.querySelector(
-            `#listingMenu${uniqueKey}`
-        ) as HTMLElement
-        getElHeight(element.current)
-        setCreatedAt(listing.created_at)
+        elementRef.current = document.querySelector(`#listingMenu${uniqueKey}`)
+        getElHeight(elementRef.current)
     }, [])
 
-    const redirectToAuthor = (user_id) => {
+    const redirectToAuthor = (user_id: string): void => {
         setListingAuthor(user_id)
     }
 
-    const addLike = async (userID) => {
+    const addLike = async (userID: string): Promise<void> => {
         try {
             // console.log(userID)
             const addLike = await axios.post('api/v1/likes', {
                 likes_listing_id: listing.listing_id,
                 likes_user_id: userID,
             })
-            if (!addLike || addLike == '{}')
-                throw Error('Add like failed in the server')
+            if (!addLike) throw Error('Add like failed in the server')
             setLikes([...likes, userID])
         } catch (e) {
             alert(e)
         }
     }
 
-    const removeLike = async (userID) => {
+    const removeLike = async (userID: string): Promise<void> => {
         try {
             const deleteLike = await axios.delete(
                 `api/v1/likes/${listing.listing_id}/${userID}`
             )
-            if (!deleteLike || deleteLike == 0)
-                throw Error('Delete like failed in the server')
+            if (!deleteLike) throw Error('Delete like failed in the server')
             setLikes(likes.filter((item) => item !== userID))
         } catch (e) {
             alert(e)
         }
     }
 
-    const toggleLike = (userID) => {
-        likes.includes(userID)
-            ? //this will eventually be set up to call a delete on the likes table.
-              removeLike(userID)
-            : //this will eventually be set up to call a post on the likes table.
-              addLike(userID)
+    const toggleLike = (userID: string | number | undefined): void => {
+        if (!!userID) {
+            likes.includes(userID as string)
+                ? //this will eventually be set up to call a delete on the likes table.
+                  removeLike(userID as string)
+                : //this will eventually be set up to call a post on the likes table.
+                  addLike(userID as string)
+        }
     }
 
-    const counter = (difference) => {
+    const counter = (difference: number): void => {
         const current = selected + difference
         setSelected(current)
     }
 
-    const toggleListingMenu = (input) => {
+    const toggleListingMenu = (input: Boolean): void => {
         setDisplayMenu(input)
     }
     return (
-        <div
-            className="ListingContainer"
-            // id={`listingMenu${uniqueKey}`}
-            ref={elementRef}
-            style="position: relative;"
-        >
+        <div className="ListingContainer" id={`listingMenu${uniqueKey}`}>
             {listingAuthor && <Redirect to={`/profile/${listingAuthor}`} />}
             <div
                 className="cardTop"
@@ -128,7 +108,7 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
                 <img
                     onClick={() => redirectToAuthor(listing.listings_user_id)}
                     className="profileImage"
-                    src={listing.author.profile_picture}
+                    src={listing.author.profile_picture as string}
                 />
                 <div
                     onClick={() => redirectToAuthor(listing.listings_user_id)}
@@ -175,7 +155,7 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
             <div className="socialContainer">
                 <div className="Likes" onClick={() => toggleLike(currUser)}>
                     <span>{likes.length}</span>
-                    {likes.includes(currUser) ? (
+                    {likes.includes(currUser as string) ? (
                         <FontAwesomeIcon
                             className="likeIcon Icon"
                             icon={faLikeBold}

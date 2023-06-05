@@ -12,17 +12,26 @@ import LikedListings from '../LikedListings'
 import Listings from '../Listings'
 
 const Profile = () => {
-    const [profile, setProfile] = useState<User>({})
-    const [left, setLeft] = useState(true)
-    const [displayMenu, setDisplayMenu] = useState(false)
+    const [profile, setProfile] = useState<User>({
+        created_at: '',
+        user_id: '',
+        first_name: '',
+        last_name: '',
+        password: '',
+        email: '',
+        user_location: '',
+        profile_picture: '',
+    })
+    const [left, setLeft] = useState<boolean>(true)
+    const [displayMenu, setDisplayMenu] = useState<boolean>(false)
     const { user_id } = useParams() as User
     const { user } = useAuth()
 
-    const toggleProfileMenu = (input) => {
+    const toggleProfileMenu = (input: boolean): void => {
         setDisplayMenu(input)
     }
 
-    const getProfile = async (userID) => {
+    const getProfile = async (userID: string | number): Promise<void> => {
         try {
             const profileRes = await axios.get(`/api/v1/users/${userID}`)
             const { data } = profileRes
@@ -56,7 +65,7 @@ const Profile = () => {
                     {!!profile.profile_picture ? (
                         <img
                             className="profileImg"
-                            src={profile.profile_picture}
+                            src={profile.profile_picture as string}
                         />
                     ) : (
                         <FontAwesomeIcon

@@ -33,7 +33,7 @@ const EditProfile = (): JSX.Element => {
         setProfilePicture([...profile_picture, fileList[0]])
     }
 
-    const submit = async (e: FormEvent<HTMLInputElement>): Promise<void> => {
+    const submit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         try {
             e.preventDefault()
             const formData = new FormData() as any
@@ -67,7 +67,6 @@ const EditProfile = (): JSX.Element => {
 
     useEffect(() => {
         setUserDetails({ ...userDetails, ...user })
-        // console.log(JSON.stringify(userDetails))
     }, [user])
 
     return (

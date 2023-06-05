@@ -4,7 +4,7 @@ import '../../styles/styles'
 import Listing from '../Listings/Listing'
 
 type LikedListingsComponentProps = {
-    user_id: string
+    user_id: string | number
 }
 
 const LikedListings = ({
