@@ -16,6 +16,7 @@ const authContext = createContext<AuthContextData | undefined>(undefined)
 
 export const ProvideAuth = ({ children }: ProvideAuthProps): JSX.Element => {
     const auth = useProvideAuth()
+
     return <authContext.Provider value={auth}>{children}</authContext.Provider>
 }
 
@@ -24,6 +25,7 @@ export const useAuth = (): AuthContextData => {
     if (context === undefined) {
         throw new Error('useAuth must be used within a ProvideAuth')
     }
+
     return context
 }
 

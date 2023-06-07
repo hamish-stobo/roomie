@@ -41,6 +41,7 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
     useEffect(() => {
         elementRef.current = document.querySelector(`#listingMenu${uniqueKey}`)
         getElHeight(elementRef.current)
+        // setCurrUser(useAuth()?.user?.user_id)
     }, [])
 
     const redirectToAuthor = (user_id: string): void => {
@@ -49,7 +50,6 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
 
     const addLike = async (userID: string): Promise<void> => {
         try {
-            // console.log(userID)
             const addLike = await axios.post('api/v1/likes', {
                 likes_listing_id: listing.listing_id,
                 likes_user_id: userID,
@@ -74,7 +74,6 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
     }
 
     const toggleLike = (userID: string | number | undefined): void => {
-        console.log({ userID })
         if (!!userID) {
             likes.includes(userID as string)
                 ? //this will eventually be set up to call a delete on the likes table.

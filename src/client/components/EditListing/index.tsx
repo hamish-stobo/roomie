@@ -17,11 +17,6 @@ const EditListing = (): JSX.Element => {
     const [listing_images, setListingImages] = useState<File[]>([])
     const { listing_id } = useParams() as ListingParams
     const [redirect, setRedirect] = useState(false)
-    // const onChange = e => {
-    //     const { name, value } = e.target
-    //     setListingDetails({...listingDetails, [name]: value})
-    //     console.log(`name ${name}, value ${value}`)
-    // }
     const addImages = (e: ChangeEvent<HTMLInputElement>): void => {
         const files = e.target.files as FileList
         const fileList = [...files]

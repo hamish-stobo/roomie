@@ -46,3 +46,9 @@ type Popup = {
 type ChevronProps = {
     counter: (difference: number) => void
 }
+
+interface ToastMessageProps {
+    message: string
+    type: 'success' | 'info' | 'warning' | 'error'
+    onClose: () => void
+}

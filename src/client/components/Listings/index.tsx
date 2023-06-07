@@ -16,7 +16,7 @@ const Listings = ({ user_id }: ListingsProps): JSX.Element => {
             setListings([...listings, ...data])
             setResponseReceived(true)
         } catch (err: any) {
-            console.error(err.response.data)
+            console.error({ err })
             setResponseReceived(true)
         }
     }

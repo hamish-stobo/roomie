@@ -1,13 +1,21 @@
-import { useState } from 'react'
+// import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import '../../styles/styles'
 import { useAuth } from '../App/Auth/index'
 
 const Popup = (): JSX.Element => {
     const { popup, setPopup } = useAuth()
-    const [showPopup] = useState<Popup | null>(popup)
+    const [localPopup, setLocalPopup] = useState<Popup | null>(null)
+
+    useEffect(() => {
+        setLocalPopup(popup)
+    }, [popup])
+
+    useEffect(() => {}, [localPopup])
 
     const closePopup = () => {
         setPopup(null)
+        setLocalPopup(null)
     }
 
     let styling = ''
@@ -29,10 +37,9 @@ const Popup = (): JSX.Element => {
 
     return (
         <>
-            {showPopup && (
+            {localPopup && (
                 <div className={`PopupWrapper ${styling}`}>
-                    {/* {console.log(`popup: ${popup?.message}; showPopup: ${showPopup?.message}`)} */}
-                    <p>popup?.message</p>
+                    <p>{localPopup?.message}</p>
                     <button className="button" onClick={closePopup}>
                         OK
                     </button>
