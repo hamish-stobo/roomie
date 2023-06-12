@@ -15,9 +15,14 @@ import ListingMenu from './ListingMenu'
 type ListingProps = {
     uniqueKey: number
     listing: FullListing
+    deleteListing: (value: string) => void
 }
 
-const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
+const Listing = ({
+    uniqueKey,
+    listing,
+    deleteListing,
+}: ListingProps): JSX.Element => {
     const [selected, setSelected] = useState<number>(0)
     const [likes, setLikes] = useState<string[]>(listing.userLikes)
     const [imgsArr] = useState<string[]>(listing.listing_photos)
@@ -134,6 +139,7 @@ const Listing = ({ uniqueKey, listing }: ListingProps): JSX.Element => {
                         elHeight={elHeight}
                         toggleListingMenu={toggleListingMenu}
                         listing_id={listing.listing_id}
+                        deleteListing={(id: string) => deleteListing(id)}
                     />
                 )}
             </div>

@@ -15,7 +15,7 @@ const Login = () => {
         password: '',
     })
     const [redirect, setRedirect] = useState(false)
-    const { setUser, setPopup } = useAuth()
+    const { setUser } = useAuth()
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setUserInfo({ ...userInfo, [name]: value })
@@ -27,7 +27,6 @@ const Login = () => {
             const loginResponse = await axios.post('/api/v1/login', userInfo)
             if (!loginResponse || !loginResponse?.data)
                 throw 'Login was not successful'
-            setPopup({ type: 'success', message: loginResponse.statusText })
             setUser(loginResponse.data)
             setRedirect(true)
         } catch (err: any) {

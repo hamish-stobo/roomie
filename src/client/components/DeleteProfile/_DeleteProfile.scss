@@ -4,11 +4,13 @@
     background: $MoreWhite;
     margin: 10vh auto 0;
     height: 150px;
-    width: 95vw;
-    max-width: 380px;
+    width: 300px;
     border-radius: 15px;
-    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     padding: 10px;
+    position: fixed;
+    top: 15vh;
+    left: calc(50vw - 150px);
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
@@ -24,7 +26,7 @@
             margin: 10px;
             background: $WhiteIsh;
             color: $GunMetal;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
         .delBtn {
             background: $PurpScurp;
