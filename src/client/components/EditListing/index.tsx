@@ -61,6 +61,8 @@ const EditListing = (): JSX.Element => {
             const { data } = listing
             setListingDetails({
                 ...listingDetails,
+                created_at: data.created_at,
+                listing_id: data.listing_id,
                 tagline: data.tagline,
                 listing_location: data.listing_location,
                 rent: data.rent,
