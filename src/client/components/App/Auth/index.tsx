@@ -1,5 +1,12 @@
 import Cookies from 'js-cookie'
-import { ReactNode, createContext, useContext, useState } from 'react'
+import axios from 'axios'
+import {
+    ReactNode,
+    createContext,
+    useContext,
+    useState,
+    useEffect,
+} from 'react'
 interface AuthContextData {
     user: User | null
     setUser: React.Dispatch<React.SetStateAction<User | null>>
@@ -33,6 +40,21 @@ const useProvideAuth = (): AuthContextData => {
     const [user, setUser] = useState<User | null>(null)
     const [popup, setPopup] = useState<Popup | null>(null)
     const isAuthed = !!Cookies.get('accessToken')
+
+    const getCurrentUser = async (): Promise<void> => {
+        try {
+            const { data } = await axios.get('/api/v1/users/fromcookie')
+            setUser(data)
+        } catch (err: any) {
+            console.error({ err })
+        }
+    }
+
+    useEffect(() => {
+        getCurrentUser()
+            .then()
+            .catch((err): any => console.error(err))
+    }, [])
 
     return { user, setUser, isAuthed, popup, setPopup }
 }

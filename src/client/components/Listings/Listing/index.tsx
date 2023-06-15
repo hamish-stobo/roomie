@@ -23,13 +23,14 @@ const Listing = ({
     listing,
     deleteListing,
 }: ListingProps): JSX.Element => {
+    const auth = useAuth()
     const [selected, setSelected] = useState<number>(0)
     const [likes, setLikes] = useState<string[]>(listing.userLikes)
     const [imgsArr] = useState<string[]>(listing.listing_photos)
     const [elHeight, setElHeight] = useState<number>(0)
     const [displayMenu, setDisplayMenu] = useState<Boolean>(false)
-    const [currUser] = useState<string | number | undefined>(
-        useAuth()?.user?.user_id
+    const [currUser, setCurrUser] = useState<string | number | undefined>(
+        auth?.user?.user_id
     )
     const [listingAuthor, setListingAuthor] = useState<string>('')
 
@@ -46,8 +47,11 @@ const Listing = ({
     useEffect(() => {
         elementRef.current = document.querySelector(`#listingMenu${uniqueKey}`)
         getElHeight(elementRef.current)
-        // setCurrUser(useAuth()?.user?.user_id)
     }, [])
+
+    useEffect(() => {
+        setCurrUser(auth?.user?.user_id)
+    }, [auth?.user?.user_id])
 
     const redirectToAuthor = (user_id: string): void => {
         setListingAuthor(user_id)
