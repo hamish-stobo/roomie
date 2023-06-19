@@ -18,9 +18,7 @@ const Footer = (): JSX.Element => {
     }, [])
 
     const topPos = {
-        top: `calc(${
-            docHeight > windowHeight ? docHeight : windowHeight
-        }px - 20px)`,
+        top: `calc(max${docHeight}px, ${windowHeight}px - 20px)`,
     }
     return (
         <div style={topPos} className="small-caps-purple copyright">

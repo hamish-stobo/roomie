@@ -10,12 +10,13 @@ type LoginDetails = {
 }
 
 const Login = () => {
+    const auth = useAuth()
     const [userInfo, setUserInfo] = useState<LoginDetails>({
         email: '',
         password: '',
     })
     const [redirect, setRedirect] = useState(false)
-    const { setUser } = useAuth()
+    const { setUser, setPopup } = auth
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setUserInfo({ ...userInfo, [name]: value })
@@ -30,7 +31,8 @@ const Login = () => {
             setUser(loginResponse.data)
             setRedirect(true)
         } catch (err: any) {
-            alert(err.response.data)
+            console.error(err)
+            setPopup({ type: 'error', message: 'Something went wrong' })
         }
     }
     return (

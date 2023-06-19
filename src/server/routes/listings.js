@@ -69,19 +69,16 @@ router.post('/:user_id', validateToken, async (req, res) => {
 
 router.put('/:listing_id', validateToken, async (req, res) => {
     try {
-        console.log('updating listing')
-        console.log({ req })
         const { body } = req
         const { listing_id } = req.params
-        const { images } = req.files
-        console.log({ images })
+        const { listing_image } = req.files
         const { accessToken } = req.cookies
         const user_id = getUserIdFromToken(accessToken)
         const { listings_user_id } = body
         compareIDs(user_id, listings_user_id)
-        const data = Array.isArray(images)
-            ? images.map((photo) => photo.data)
-            : images.data
+        const data = Array.isArray(listing_image)
+            ? listing_image.map((photo) => photo.data)
+            : listing_image.data
         if (JSON.stringify(body) === '{}' || data.length <= 0)
             throw 'Request data malformed'
         const updateListingResponse = await updateListing(
