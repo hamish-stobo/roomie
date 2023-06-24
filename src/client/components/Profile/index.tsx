@@ -51,7 +51,6 @@ const Profile = () => {
         //if user is viewing own profile, load profile from context, else get profile from server
         populateProfilePage()
     }, [user_id])
-
     return (
         <>
             <div className="profileWrapper">
