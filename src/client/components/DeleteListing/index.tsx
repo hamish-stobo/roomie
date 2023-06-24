@@ -1,13 +1,18 @@
 import { useState } from 'react'
-import { useParams, useHistory, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import '../../styles/styles'
 
-const DeleteListing = (): JSX.Element => {
+type DeleteListingProps = {
+    listing_id: string
+    hideDeleteListing: () => void
+}
+
+const DeleteListing = (props: DeleteListingProps): JSX.Element => {
+    const { listing_id, hideDeleteListing } = props
     const [redirect, setRedirect] = useState(false)
-    const { goBack } = useHistory()
-    const { listing_id } = useParams<ListingParams>()
+    // const { listing_id } = useParams<ListingParams>()
 
     const DeleteListing = async (listing_id: string) => {
         try {
@@ -27,7 +32,7 @@ const DeleteListing = (): JSX.Element => {
         <div className="deleteProfileWrapper">
             <p>Are you sure you want to delete this listing?</p>
             <div className="buttonsWrapper">
-                <button className="button" onClick={() => goBack()}>
+                <button className="button" onClick={() => hideDeleteListing()}>
                     Back
                 </button>
                 <button

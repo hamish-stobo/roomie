@@ -142,14 +142,17 @@ const updateListing = async (listing_id, body, photos, db = conn) => {
                   images_listing_id: listing_id,
                   listing_image: photos,
               }
-        const imagesInsert = await db('images').insert(imagesToInsert, [
+        await db('images').insert(imagesToInsert, [
             'image_id',
             'images_listing_id',
             'listing_image',
         ])
-        const listingUpdate = await db('listings')
+
+        const { tagline, listing_location, rent, bedrooms, bathrooms } = body
+
+        await db('listings')
             .where('listing_id', listing_id)
-            .update({ ...body })
+            .update({ tagline, listing_location, rent, bedrooms, bathrooms })
         return 'Listing successfully updated'
     } catch (e) {
         console.error(e)

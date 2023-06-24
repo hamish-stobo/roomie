@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import NavBar from './NavBar'
-import Footer from '../../Footer'
 import { useAuth } from '../Auth'
 import axios from 'axios'
 
@@ -32,7 +31,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
         <>
             <NavBar />
             {children}
-            <Footer />
         </>
     )
 }

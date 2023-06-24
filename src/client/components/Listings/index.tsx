@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import '../../styles/styles'
 import Listing from './Listing'
+import DeleteListing from '../DeleteListing'
 
 type ListingsProps = {
     user_id: string | number
@@ -10,6 +11,7 @@ type ListingsProps = {
 const Listings = ({ user_id }: ListingsProps): JSX.Element => {
     const [listings, setListings] = useState<FullListing[]>([])
     const [responseReceived, setResponseReceived] = useState<Boolean>(false)
+    const [listingToDelete, setListingToDelete] = useState<string>('')
     const getListings = async (): Promise<void> => {
         try {
             const { data } = await axios.get('/api/v1/listings/')
@@ -20,11 +22,19 @@ const Listings = ({ user_id }: ListingsProps): JSX.Element => {
             setResponseReceived(true)
         }
     }
+
     useEffect(() => {
         getListings()
     }, [])
+
     return (
         <>
+            {listingToDelete && (
+                <DeleteListing
+                    listing_id={listingToDelete}
+                    hideDeleteListing={() => setListingToDelete('')}
+                />
+            )}
             <div className="Listings">
                 {!!user_id && listings.length > 0 ? (
                     listings
@@ -39,6 +49,9 @@ const Listings = ({ user_id }: ListingsProps): JSX.Element => {
                                     key={uniqueKey}
                                     uniqueKey={idx}
                                     listing={listing}
+                                    deleteListing={(id) =>
+                                        setListingToDelete(id)
+                                    }
                                 />
                             )
                         })
@@ -51,6 +64,7 @@ const Listings = ({ user_id }: ListingsProps): JSX.Element => {
                                 key={uniqueKey}
                                 uniqueKey={idx}
                                 listing={listing}
+                                deleteListing={(id) => setListingToDelete(id)}
                             />
                         )
                     })
