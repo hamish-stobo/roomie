@@ -79,13 +79,7 @@ const Profile = () => {
                             {profile.first_name} {profile.last_name}
                         </span>
                         <span>
-                            <strong>Email:</strong>{' '}
-                            <a
-                                style={{ textDecoration: 'none' }}
-                                href={`mailto:${profile.email}`}
-                            >
-                                {profile.email}
-                            </a>
+                            <strong>Email:</strong> {profile.email}
                         </span>
                         <span>
                             <strong>Location:</strong> {profile.user_location}
@@ -94,7 +88,7 @@ const Profile = () => {
                             <strong>Member since:</strong> {profile.created_at}
                         </span>
                     </div>
-                    {user_id === profile?.user_id && (
+                    {user?.user_id === profile?.user_id && (
                         <div className="lg-element profileButtonsContainer">
                             <Link
                                 to="/editprofile"
