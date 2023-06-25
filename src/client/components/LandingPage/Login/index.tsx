@@ -1,5 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import '../../../styles/styles'
 import { useAuth } from '../../App/Auth'
 import axios from 'axios'
@@ -31,15 +31,15 @@ const Login = () => {
         }
     }
     return (
-        <div className="w-11/12 max-w-xs">
+        <div>
             {redirect && <Redirect to="/listings" />}
             <form
-                className="flex flex-col justify-start items-stretch gap-y-2 w-full"
+                className="flex flex-col justify-between items-stretch gap-y-3 w-full"
                 onSubmit={runSubmit}
             >
                 <input
                     required
-                    className="bg-white shadow "
+                    className="bg-white shadow p-3 rounded font-sans focus:ring-2 focus:ring-purpScurp"
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -48,9 +48,7 @@ const Login = () => {
                 />
                 <input
                     required
-                    className={`text-input required ${
-                        !userInfo.password ? '' : 'lowercase'
-                    }`}
+                    className="bg-white shadow p-3 rounded font-sans focus:ring-2 focus:ring-purpScurp"
                     type="password"
                     placeholder="Password"
                     name="password"
@@ -58,15 +56,12 @@ const Login = () => {
                     onChange={onChange}
                 />
                 <input
-                    className="button"
+                    className="bg-purpScurp text-veryLightGray shadow p-3 rounded cursor-pointer hover:bg-darkerPurpScurp"
                     type="submit"
                     name="submit"
                     value="Login"
                 />
             </form>
-            <Link className="small-caps-purple" to="/register">
-                Sign Up for Roomie
-            </Link>
         </div>
     )
 }

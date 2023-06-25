@@ -3,7 +3,7 @@ import '../../styles/styles'
 
 const Footer = (): JSX.Element => {
     return (
-        <div className="small-caps-purple copyright">
+        <div className="text-sm text-veryLightGray absolute bottom-4 w-full">
             <p>© 2021 All Rights Reserved</p>
         </div>
     )
