@@ -9,7 +9,7 @@ module.exports = {
                 darkerPurpScurp: '#C000DF',
                 bonano: '#fff500',
                 paleBonano: '#FFF505',
-                gunMetalGrey: '3F3F3F',
+                gunMetalGray: '#3F3F3F',
                 goldie: '#FFD700',
                 d33pPurple: '#6A0DAD',
                 lightPurp: '#D8BFD8',

@@ -39,7 +39,7 @@ const Login = () => {
             >
                 <input
                     required
-                    className="bg-white shadow p-3 rounded font-sans focus:ring-2 focus:ring-purpScurp"
+                    className="bg-white shadow p-3 rounded border border-veryLightGray focus:border-purpScurp"
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -48,19 +48,19 @@ const Login = () => {
                 />
                 <input
                     required
-                    className="bg-white shadow p-3 rounded font-sans focus:ring-2 focus:ring-purpScurp"
+                    className="bg-white shadow p-3 rounded border border-veryLightGray focus:border-purpScurp"
                     type="password"
                     placeholder="Password"
                     name="password"
                     value={userInfo.password}
                     onChange={onChange}
                 />
-                <input
-                    className="bg-purpScurp text-veryLightGray shadow p-3 rounded cursor-pointer hover:bg-darkerPurpScurp"
+                <button
+                    className="focus:outline-none text-white bg-purpScurp hover:bg-darkerPurpScurp focus:ring-4 focus:ring-purple-300 font-medium rounded shadow p-3 cursor-pointer"
                     type="submit"
-                    name="submit"
-                    value="Login"
-                />
+                >
+                    Login
+                </button>
             </form>
         </div>
     )
