@@ -27,14 +27,14 @@ const ListingMenu = ({
                     className="linky"
                 >
                     <FontAwesomeIcon className="edit-icon" icon={faEdit} />
-                    <span className="menuSpan">Edit Listing</span>
+                    <span>Edit Listing</span>
                 </Link>
                 <div
                     onClick={() => actionDeleteListing(listing_id)}
                     className="linky"
                 >
                     <FontAwesomeIcon className="trash-icon" icon={faTrashAlt} />
-                    <span className="menuSpan">Delete Listing</span>
+                    <span>Delete Listing</span>
                 </div>
             </ul>
         </>

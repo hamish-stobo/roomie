@@ -5,7 +5,7 @@ import { useAuth } from '../App/Auth'
 import '../../styles/styles'
 
 const EditListing = (): JSX.Element => {
-    const auth = useAuth()
+    const { popup, setPopup } = useAuth()
     const [listingDetails, setListingDetails] = useState<Listing>({
         created_at: '',
         listing_id: '',
@@ -24,6 +24,7 @@ const EditListing = (): JSX.Element => {
         const fileList = [...files]
         setListingImages([...listing_images, ...fileList])
     }
+    const [listingWasUpdated, setListingWasUpdated] = useState(false)
     // React.DOMAttributes<HTMLFormElement>.onSubmit?: React.FormEventHandler<HTMLFormElement> | undefined
     const submit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         try {
@@ -50,12 +51,22 @@ const EditListing = (): JSX.Element => {
             const { data } = updateListingResponse
             if (data !== 'Listing successfully updated')
                 throw 'Update unsuccessful'
-            setRedirect(true)
+            setPopup({
+                type: 'success',
+                message: 'Listing was successfully updated',
+            })
+            setListingWasUpdated(true)
         } catch (err: any) {
             console.error(err)
-            auth.setPopup({ type: 'error', message: 'Something went wrong' })
+            setPopup({ type: 'error', message: 'Something went wrong' })
         }
     }
+
+    useEffect(() => {
+        if (listingWasUpdated) {
+            setRedirect(true)
+        }
+    }, [popup])
 
     useEffect(() => {
         const getListing = async (listing_id: string): Promise<void> => {
@@ -76,7 +87,7 @@ const EditListing = (): JSX.Element => {
                 })
             } catch (err: any) {
                 console.error(err)
-                auth.setPopup({
+                setPopup({
                     type: 'error',
                     message: 'Something went wrong',
                 })

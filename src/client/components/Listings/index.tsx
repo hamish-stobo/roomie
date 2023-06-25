@@ -8,19 +8,24 @@ const Listings = ({ user_id }: ListingsProps): JSX.Element => {
     const [listings, setListings] = useState<FullListing[]>([])
     const [responseReceived, setResponseReceived] = useState<Boolean>(false)
     const [listingToDelete, setListingToDelete] = useState<string>('')
+    const [initialPageLoad, setInitialPageLoad] = useState(true)
     const getListings = async (): Promise<void> => {
         try {
             const { data } = await axios.get('/api/v1/listings/')
-            setListings([...listings, ...data])
+            setListings([...data])
             setResponseReceived(true)
+            setInitialPageLoad(false)
         } catch (err: any) {
             console.error({ err })
             setResponseReceived(true)
+            setInitialPageLoad(false)
         }
     }
 
     useEffect(() => {
-        getListings()
+        if (initialPageLoad) {
+            getListings()
+        }
     }, [])
 
     return (
@@ -29,6 +34,7 @@ const Listings = ({ user_id }: ListingsProps): JSX.Element => {
                 <DeleteListing
                     listing_id={listingToDelete}
                     hideDeleteListing={() => setListingToDelete('')}
+                    refreshListings={() => getListings()}
                 />
             )}
             <div className="Listings">

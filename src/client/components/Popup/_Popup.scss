@@ -10,7 +10,7 @@
     padding: 25px;
     background: $MoreWhite;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: opacity 0.3s ease;
     display: flex;
@@ -19,6 +19,7 @@
     justify-content: center;
     gap: 25px;
     font-size: large;
+    z-index: 9999;
 }
 
 .Success {
