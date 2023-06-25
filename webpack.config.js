@@ -12,6 +12,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         historyApiFallback: true,
         inline: true,
+        hot: true,
     },
     module: {
         rules: [
@@ -24,25 +25,21 @@ module.exports = {
                 loader: 'ts-loader',
             },
             {
-                test: /\.s?css$/,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-            {
-                test: /\.(png|j?g|svg|gif)?$/,
+                test: /\.(png|jpe?g|gif|svg)$/i,
                 use: 'file-loader',
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                    },
-                ],
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader', 'postcss-loader'],
             },
         ],
     },
     resolve: {
-        extensions: ['.*', '.js', '.jsx', '.scss', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.css', '.scss', '.ts', '.tsx'],
     },
     plugins: [
         new HtmlWebPackPlugin({

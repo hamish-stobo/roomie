@@ -31,14 +31,15 @@ const Login = () => {
         }
     }
     return (
-        <div className="Login-Container">
+        <div className="w-11/12 max-w-xs">
             {redirect && <Redirect to="/listings" />}
-            <form className="Form Login" onSubmit={runSubmit}>
+            <form
+                className="flex flex-col justify-start items-stretch gap-y-2 w-full"
+                onSubmit={runSubmit}
+            >
                 <input
                     required
-                    className={`text-input required ${
-                        !userInfo.email ? '' : 'lowercase'
-                    }`}
+                    className="bg-white shadow "
                     type="email"
                     name="email"
                     placeholder="Email"

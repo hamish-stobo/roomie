@@ -15,12 +15,12 @@ body {
     border: 0;
     text-align: center;
     font-family: 'Raleway', sans-serif;
-    font-variant: small-caps;
+    // font-variant: small-caps;
     box-sizing: border-box;
 }
 
 body {
-    background: $PaleBanana;
+    background-color: #fafafa;
 }
 
 * {
@@ -78,7 +78,6 @@ ul {
 .Logo {
     text-decoration: none;
     font-family: $CurlyFont;
-    color: $PalePurpScurp;
 }
 
 .Logo:visited {
