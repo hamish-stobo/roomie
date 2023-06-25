@@ -4,11 +4,6 @@ import '../../../styles/styles'
 import { useAuth } from '../../App/Auth'
 import axios from 'axios'
 
-type LoginDetails = {
-    email: string
-    password: string
-}
-
 const Login = () => {
     const auth = useAuth()
     const [userInfo, setUserInfo] = useState<LoginDetails>({

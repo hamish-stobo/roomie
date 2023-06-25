@@ -4,10 +4,6 @@ import '../../styles/styles'
 import Listing from '../Listings/Listing'
 import DeleteListing from '../DeleteListing'
 
-type LikedListingsComponentProps = {
-    user_id: string | number
-}
-
 const LikedListings = ({
     user_id,
 }: LikedListingsComponentProps): JSX.Element => {

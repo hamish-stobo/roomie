@@ -4,10 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 import '../../../styles/styles'
 
-type ProfileMenuProps = {
-    toggleProfileMenu: (toggle: boolean) => void
-}
-
 const ProfileMenu = ({ toggleProfileMenu }: ProfileMenuProps): JSX.Element => {
     return (
         <>
