@@ -12,12 +12,6 @@ import ChevronLeft from './ChevronLeft'
 import ChevronRight from './ChevronRight'
 import ListingMenu from './ListingMenu'
 
-type ListingProps = {
-    uniqueKey: number
-    listing: FullListing
-    deleteListing: (value: string) => void
-}
-
 const Listing = ({
     uniqueKey,
     listing,

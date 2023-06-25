@@ -4,11 +4,6 @@ import axios from 'axios'
 
 import '../../styles/styles'
 
-type DeleteListingProps = {
-    listing_id: string
-    hideDeleteListing: () => void
-}
-
 const DeleteListing = (props: DeleteListingProps): JSX.Element => {
     const { listing_id, hideDeleteListing } = props
     const [redirect, setRedirect] = useState(false)

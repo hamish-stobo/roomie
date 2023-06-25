@@ -75,6 +75,7 @@ router.put('/:listing_id', validateToken, async (req, res) => {
         const { accessToken } = req.cookies
         const user_id = getUserIdFromToken(accessToken)
         const { listings_user_id } = body
+        console.log({ listings_user_id })
         compareIDs(user_id, listings_user_id)
         const data = Array.isArray(listing_image)
             ? listing_image.map((photo) => photo.data)

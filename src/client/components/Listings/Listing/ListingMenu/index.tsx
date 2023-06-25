@@ -4,13 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 import '../../../../styles/styles'
 
-type ListingMenuProps = {
-    elHeight: number
-    toggleListingMenu: (arg: boolean) => void
-    listing_id: string
-    deleteListing: (value: string) => void
-}
-
 const ListingMenu = ({
     elHeight,
     toggleListingMenu,

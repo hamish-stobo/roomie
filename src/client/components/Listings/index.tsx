@@ -4,10 +4,6 @@ import '../../styles/styles'
 import Listing from './Listing'
 import DeleteListing from '../DeleteListing'
 
-type ListingsProps = {
-    user_id: string | number
-}
-
 const Listings = ({ user_id }: ListingsProps): JSX.Element => {
     const [listings, setListings] = useState<FullListing[]>([])
     const [responseReceived, setResponseReceived] = useState<Boolean>(false)
