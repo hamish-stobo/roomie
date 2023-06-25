@@ -56,6 +56,7 @@ type ListingsProps = {
 type DeleteListingProps = {
     listing_id: string
     hideDeleteListing: () => void
+    refreshListings: () => void
 }
 
 type LikedListingsComponentProps = {

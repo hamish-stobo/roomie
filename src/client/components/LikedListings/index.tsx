@@ -10,20 +10,24 @@ const LikedListings = ({
     const [listings, setListings] = useState<FullListing[]>([])
     const [responseReceived, setResponseReceived] = useState(false)
     const [listingToDelete, setListingToDelete] = useState<string>('')
+    const [initialPageLoad, setInitialPageLoad] = useState(true)
     const getLikedListings = async () => {
         try {
             const { data }: AxiosResponse = await axios.get(
                 `/api/v1/listings/likes/${user_id}`
             )
-            setListings([...listings, ...data])
-        } catch (e) {
-            alert(e)
+            setListings([...data])
+        } catch (e: any) {
+            console.error(e)
         } finally {
             setResponseReceived(true)
+            setInitialPageLoad(false)
         }
     }
     useEffect(() => {
-        getLikedListings()
+        if (initialPageLoad) {
+            getLikedListings()
+        }
     }, [])
     return (
         <>
@@ -31,6 +35,7 @@ const LikedListings = ({
                 <DeleteListing
                     listing_id={listingToDelete}
                     hideDeleteListing={() => setListingToDelete('')}
+                    refreshListings={() => getLikedListings()}
                 />
             )}
             <div className="Listings">
