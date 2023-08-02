@@ -1,83 +1,83 @@
 @import '../../styles/_RootSettings';
 
-.Register-container {
-    width: 95vw;
-    max-width: 500px;
-    display: grid;
-    grid-template-columns: minmax(280px, 500px);
-    grid-template-rows: 1fr auto;
-    grid-row-gap: 40px;
-    grid-template-areas: 
-    "top"
-    "register";
-    background: rgba(255, 255, 255, 0.4);
-    padding: 0 10px 20px 10px;
-    border-radius: 10px;
-    z-index: 5;
-    .registerTop {
-        grid-area: top;
-        display: grid;
-        grid-template-columns: minmax(245px, auto) 35px;
-        grid-template-rows: 30px 50px;
-        grid-template-areas: 
-        "blank exitbtn"
-        "description description";
-        margin: 0;
-        .registerExitBtn {
-            grid-area: exitbtn;
-            font-size: 2em;
-            margin-right: 5px;
-        }
-        p {
-            grid-area: description;
-            margin: 0 50px;
-        }
-    }
-    .Register {
-        grid-area: register;
-        display: grid;
-        grid-template-columns: minmax(260px, 400px);
-        grid-template-rows: repeat(5, 1fr) 1.8fr 1fr;
-        grid-row-gap: 10px;
-        grid-template-areas: 
-        "first_name"
-        "last_name"
-        "email"
-        "password"
-        "location"
-        "profilePic"
-        "SignUp";
-        padding-bottom: 20px;
-        .text-input[name=first_name] {
-            grid-area: first_name;
-        }
-    
-        .text-input[name=last_name] {
-            grid-area: last_name;
-        }
-    
-        input[type=email] {
-            grid-area: email;
-        }
-    
-        input[type=password] {
-            grid-area: password;
-        }
+// .Register-container {
+//     width: 95vw;
+//     max-width: 500px;
+//     display: grid;
+//     grid-template-columns: minmax(280px, 500px);
+//     grid-template-rows: 1fr auto;
+//     grid-row-gap: 40px;
+//     grid-template-areas:
+//     "top"
+//     "register";
+//     background: rgba(255, 255, 255, 0.4);
+//     padding: 0 10px 20px 10px;
+//     border-radius: 10px;
+//     z-index: 5;
+//     .registerTop {
+//         grid-area: top;
+//         display: grid;
+//         grid-template-columns: minmax(245px, auto) 35px;
+//         grid-template-rows: 30px 50px;
+//         grid-template-areas:
+//         "blank exitbtn"
+//         "description description";
+//         margin: 0;
+//         .registerExitBtn {
+//             grid-area: exitbtn;
+//             font-size: 2em;
+//             margin-right: 5px;
+//         }
+//         p {
+//             grid-area: description;
+//             margin: 0 50px;
+//         }
+//     }
+//     .Register {
+//         grid-area: register;
+//         display: grid;
+//         grid-template-columns: minmax(260px, 400px);
+//         grid-template-rows: repeat(5, 1fr) 1.8fr 1fr;
+//         grid-row-gap: 10px;
+//         grid-template-areas:
+//         "first_name"
+//         "last_name"
+//         "email"
+//         "password"
+//         "location"
+//         "profilePic"
+//         "SignUp";
+//         padding-bottom: 20px;
+//         .text-input[name=first_name] {
+//             grid-area: first_name;
+//         }
 
-        input[name=user_location] {
-            grid-area: location;
-        }
+//         .text-input[name=last_name] {
+//             grid-area: last_name;
+//         }
 
-        .profileFileContainer {
-            grid-area: profilePic;
-            padding-top: 5px;
-            .profile-fileUpload {
-                text-decoration: none;
-            }
-        }
-    
-        input[type=submit] {
-            grid-area: SignUp;
-        }
-    }
-}
+//         input[type=email] {
+//             grid-area: email;
+//         }
+
+//         input[type=password] {
+//             grid-area: password;
+//         }
+
+//         input[name=user_location] {
+//             grid-area: location;
+//         }
+
+//         .profileFileContainer {
+//             grid-area: profilePic;
+//             padding-top: 5px;
+//             .profile-fileUpload {
+//                 text-decoration: none;
+//             }
+//         }
+
+//         input[type=submit] {
+//             grid-area: SignUp;
+//         }
+//     }
+// }

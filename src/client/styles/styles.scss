@@ -1,11 +1,11 @@
 @use './RootSettings';
 @use '../components/App/_App';
-@use '../components/LandingPage/Login/Login';
+@use '../components/Login/Login';
 @use '../components/Register/Register';
-@use '../components/App/Layout/NavBar/NavBar';
+@use '../components/App/Layouts/AuthenticatedLayout/AuthenticatedLayout';
+@use '../components/App/Layouts/AuthenticatedLayout/NavBar/NavBar';
 @use '../components/Listings/Listings';
 @use '../components/Listings/Listing/Listing';
-@use '../components/App/Layout/Layout';
 @use '../components/Footer/Footer';
 @use '../components/Profile/Profile';
 @use '../components/Profile/ProfileMenu/ProfileMenu';

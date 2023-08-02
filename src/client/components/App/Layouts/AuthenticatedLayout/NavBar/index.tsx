@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import '../../../../styles/styles'
-import { useAuth } from '../../Auth'
+import '../../../../../styles/styles'
+import { useAuth } from '../../../Auth'
 import Hamburger from './Hamburger/index'
 import X from './X/index'
 

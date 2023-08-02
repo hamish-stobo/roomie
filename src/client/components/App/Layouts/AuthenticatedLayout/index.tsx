@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import NavBar from './NavBar'
-import { useAuth } from '../Auth'
+import { useAuth } from '../../Auth'
 import axios from 'axios'
 
 interface LayoutProps {
     children: React.ReactNode
 }
 
-const Layout = ({ children }: LayoutProps): JSX.Element => {
+const AuthenticatedLayout = ({ children }: LayoutProps): JSX.Element => {
     const { user, setUser } = useAuth()
     const getProfile = async () => {
         try {
@@ -34,4 +34,4 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
         </>
     )
 }
-export default Layout
+export default AuthenticatedLayout

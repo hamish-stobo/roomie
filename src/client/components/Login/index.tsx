@@ -1,10 +1,10 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import '../../../styles/styles'
-import { useAuth } from '../../App/Auth'
+import '../../styles/styles'
+import { useAuth } from '../App/Auth'
 import axios from 'axios'
 
-const Login = () => {
+const Login = (): JSX.Element => {
     const auth = useAuth()
     const [userInfo, setUserInfo] = useState<LoginDetails>({
         email: '',
@@ -31,7 +31,7 @@ const Login = () => {
         }
     }
     return (
-        <div className="px-6 sm:px-12 py-20 rounded-lg sm:shadow-lg w-11/12 max-w-md bg-white xl:m-0 xl:ml-16">
+        <div className="px-6 sm:px-12 py-20 rounded-lg sm:shadow-lg w-11/12 max-w-md bg-veryLightGray xl:m-0 xl:ml-16">
             {redirect && <Redirect to="/listings" />}
             <form
                 className="flex flex-col justify-between items-stretch gap-y-3 w-full"
