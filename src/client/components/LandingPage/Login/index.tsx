@@ -1,5 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import '../../../styles/styles'
 import { useAuth } from '../../App/Auth'
 import axios from 'axios'
@@ -31,12 +31,13 @@ const Login = () => {
         }
     }
     return (
-        <div>
+        <div className="px-6 sm:px-12 py-20 rounded-lg sm:shadow-lg w-11/12 max-w-md bg-white xl:m-0 xl:ml-16">
             {redirect && <Redirect to="/listings" />}
             <form
                 className="flex flex-col justify-between items-stretch gap-y-3 w-full"
                 onSubmit={runSubmit}
             >
+                <h1 className="Logo text-purpScurp text-6xl mb-16">roomie</h1>
                 <input
                     required
                     className="bg-white shadow p-3 rounded border border-veryLightGray focus:border-purpScurp"
@@ -61,6 +62,12 @@ const Login = () => {
                 >
                     Login
                 </button>
+                <Link
+                    className="inline-block border-2 border-purpScurp text-purpScurp shadow p-3 rounded cursor-pointer w-full mx-0 hover:bg-purpScurp hover:text-veryLightGray mt-6"
+                    to="/register"
+                >
+                    Sign Up
+                </Link>
             </form>
         </div>
     )
